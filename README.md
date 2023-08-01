@@ -51,7 +51,21 @@ believe exists.
     - xclip (for accessing system clipboard; **not required on WSL**)
     - zip
 
-### Download `im-select.exe` (recommended for windows / wsl users)
+## Clone This Repo
+
+On Windows:
+
+```bash
+git clone https://github.com/Shaobin-Jiang/neovim "$env:LOCALAPPDATA\nvim"
+```
+
+On Linux:
+
+```bash
+git clone https://github.com/Shaobin-Jiang/neovim ~/.config/nvim
+```
+
+## Download `im-select.exe` (recommended for windows / wsl users)
 
 Download it from [https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe](https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe) and place to the `bin` repository in the configuration directory.
 
@@ -59,20 +73,6 @@ Additionally, if you are using wsl, you might have to do this:
 
 ```bash
 chmod +x ~/.config/nvim/bin/im-select.exe
-```
-
-## Clone This Repo
-
-On Windows:
-
-```bash
-git clone https://github.com/Shaobin-Jiang/neovim-config "$env:LOCALAPPDATA\nvim"
-```
-
-On Linux:
-
-```bash
-git clone https://github.com/Shaobin-Jiang/neovim-config ~/.config/nvim
 ```
 
 ## Custom Configuration

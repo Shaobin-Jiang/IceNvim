@@ -3,6 +3,7 @@ return {
     -- Color scheme
     ["gruvbox"] = "ellisonleao/gruvbox.nvim",
     ["tokyonight"] = "folke/tokyonight.nvim",
+    ["nord"] = "shaunsingh/nord.nvim",
 
     -- Editor UI
     ["bufferline"] = "akinsho/bufferline.nvim",

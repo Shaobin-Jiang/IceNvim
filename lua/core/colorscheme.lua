@@ -26,6 +26,16 @@ return {
         background = "light",
         lualine_theme = "gruvbox",
     },
+    nord = {
+        name = "nord",
+        setup = function ()
+            vim.g.nord_contrast = true
+            vim.g.nord_borders = true
+            vim.g.nord_cursorline_transparent = true
+        end,
+        background = "dark",
+        lualine_theme = "nord",
+    },
     tokyonight = {
         name = "tokyonight",
         setup = {

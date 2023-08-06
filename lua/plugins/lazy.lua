@@ -19,6 +19,10 @@ lazy["flutter-tools"] = {
     ft = "dart",
 }
 
+lazy.gitsigns = {
+    event = "VeryLazy",
+}
+
 lazy.hop = {
     event = "VeryLazy",
 }
@@ -41,6 +45,12 @@ lazy.mason = {
         "neovim/nvim-lspconfig",
     },
     event = "VeryLazy",
+}
+
+lazy.neogit = {
+    dependencies = "nvim-lua/plenary.nvim",
+    event = "VeryLazy",
+    config = true,
 }
 
 lazy.neoscroll = {

@@ -22,6 +22,16 @@ keymap.hop = {
     { "<leader>hp", ":HopWord<CR>", mode = "n" },
 }
 
+keymap.gitsigns = {
+    { "<leader>ghn", ":Gitsigns next_hunk<CR>", mode = "n" },
+    { "<leader>ghp", ":Gitsigns prev_hunk<CR>", mode = "n" },
+    { "<leader>gph", ":Gitsigns preview_hunk<CR>", mode = "n" },
+    { "<leader>gsh", ":Gitsigns stage_hunk<CR>", mode = "n" },
+    { "<leader>guh", ":Gitsigns undo_stage_hunk<CR>", mode = "n" },
+    { "<leader>grh", ":Gitsigns reset_hunk<CR>", mode = "n" },
+    { "<leader>gsb", ":Gitsigns stage_buffer<CR>", mode = "n" },
+}
+
 keymap["markdown-preview"] = {
     {
         "<leader>mdp",
@@ -32,6 +42,10 @@ keymap["markdown-preview"] = {
         end,
         mode = "n",
     },
+}
+
+keymap.neogit = {
+    { "<leader>ng", ":Neogit<CR>", mode = "n" },
 }
 
 keymap["nvim-tree"] = {

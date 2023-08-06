@@ -35,6 +35,10 @@ return {
     ["todo-comments"] = "folke/todo-comments.nvim",
     ["trouble"] = "folke/trouble.nvim",
 
+    -- Git
+    ["gitsigns"] = "lewis6991/gitsigns.nvim",
+    ["neogit"] = "NeogitOrg/neogit",
+
     -- Language specific
     ["flutter-tools"] = "akinsho/flutter-tools.nvim",
     ["markdown-preview"] = "iamcco/markdown-preview.nvim",

@@ -115,6 +115,10 @@ _config["flutter-tools"] = function()
     })
 end
 
+_config.gitsigns = function()
+    init("gitsigns", {})
+end
+
 _config.hop = function()
     init("hop", {
         hint_position = require("hop.hint").HintPosition.END,
@@ -204,6 +208,10 @@ end
 _config["markdown-preview"] = function()
     vim.g.mkdp_filetypes = { "markdown" }
     vim.g.mkdp_auto_close = 0
+end
+
+_config.neogit = function()
+    init("neogit", {})
 end
 
 _config.neoscroll = function()

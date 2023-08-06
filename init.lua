@@ -18,7 +18,11 @@ require "lsp.init"
 
 -- Define colorscheme
 local colorscheme = require("settings").colorscheme
-require(colorscheme.name).setup(colorscheme.setup)
+if type(colorscheme.setup) == "table" then
+    require(colorscheme.name).setup(colorscheme.setup)
+elseif type(colorscheme.setup) == "function" then
+    colorscheme.setup()
+end
 vim.cmd("colorscheme " .. colorscheme.name)
 vim.o.background = colorscheme.background
 

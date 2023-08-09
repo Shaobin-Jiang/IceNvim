@@ -386,11 +386,6 @@ _config["nvim-treesitter"] = function()
         indent = {
             enable = true,
         },
-        rainbow = {
-            enable = true,
-            extended_mode = true,
-            max_file_lines = nil,
-        },
     })
 
     vim.opt.foldmethod = "expr"
@@ -399,6 +394,28 @@ _config["nvim-treesitter"] = function()
     -- Unfold all upon opening a file, see:
     -- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
     vim.opt.foldlevel = 99
+
+    local rainbow_delimiters = require "rainbow-delimiters"
+
+    vim.g.rainbow_delimiters = {
+        strategy = {
+            [""] = rainbow_delimiters.strategy["global"],
+            vim = rainbow_delimiters.strategy["local"],
+        },
+        query = {
+            [""] = "rainbow-delimiters",
+            lua = "rainbow-blocks",
+        },
+        highlight = {
+            "RainbowDelimiterRed",
+            "RainbowDelimiterYellow",
+            "RainbowDelimiterBlue",
+            "RainbowDelimiterOrange",
+            "RainbowDelimiterGreen",
+            "RainbowDelimiterViolet",
+            "RainbowDelimiterCyan",
+        },
+    }
 end
 
 _config["symbols-outline"] = function()

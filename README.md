@@ -102,3 +102,28 @@ When receiving nuget-related errors when installing csharpier, you might have to
 ```shell
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
+
+### Opening Links in `norg` Files on Wsl
+
+By custom, Neorg uses `explorer.exe` to open links on Wsl. While this may work well with opening web links, it is not
+quite so with file links, such as `{file:///path/to/file}`, as this is not a recognizable link for Windows' `explorer.exe`.
+
+Until a workaround is provided by Neorg, one can define an `explorer.exe` in `/bin`:
+
+```bash
+sudo nvim /bin/explorer.exe
+```
+
+And replace the command with whatever you might prefer, such as `xdg-open`. My recommended way of opening files with
+Windows programs is [`wslview`](https://wslutiliti.es/wslu/), so in this case, you can modify the content of `/bin/explorer.exe`
+like this:
+
+```sh
+wslview "$*"
+```
+
+And do not forget to:
+
+```bash
+sudo chmod +x /bin/explorer.exe
+```

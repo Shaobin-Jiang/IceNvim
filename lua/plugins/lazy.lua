@@ -96,7 +96,7 @@ lazy["nvim-tree"] = {
 
 lazy["nvim-treesitter"] = {
     build = ":TSUpdate",
-    dependencies = { "p00f/nvim-ts-rainbow" },
+    dependencies = { "hiphish/rainbow-delimiters.nvim" },
     event = "VeryLazy",
     pin = true,
 }

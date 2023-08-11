@@ -39,7 +39,12 @@ vim.diagnostic.config {
     signs = true,
     update_in_insert = true,
 }
-local signs = { Error = symbols.Error, Warn = symbols.Warn, Hint = symbols.Hint, Info = symbols.Info }
+local signs = {
+    Error = symbols.Error,
+    Warn = symbols.Warn,
+    Hint = symbols.Hint,
+    Info = symbols.Info,
+}
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -132,7 +137,7 @@ local cmp = require "cmp"
 cmp.setup {
     snippet = {
         expand = function(args)
-            require('luasnip').lsp_expand(args.body)
+            require("luasnip").lsp_expand(args.body)
         end,
     },
     sources = cmp.config.sources({

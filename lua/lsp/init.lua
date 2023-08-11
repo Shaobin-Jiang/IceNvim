@@ -143,7 +143,6 @@ cmp.setup {
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
         { name = "luasnip" },
-        { name = "neorg" },
     }, {
         { name = "buffer" },
         { name = "path" },
@@ -156,6 +155,15 @@ cmp.setup {
         },
     },
 }
+
+cmp.setup.filetype("norg", {
+    sources = cmp.config.sources({
+        { name = "neorg" },
+    }, {
+        { name = "buffer" },
+        { name = "path" },
+    }),
+})
 
 cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),

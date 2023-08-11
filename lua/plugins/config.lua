@@ -385,6 +385,8 @@ _config["nvim-treesitter"] = function()
         },
         indent = {
             enable = true,
+            -- conflicts with flutter-tools.nvim, causing performance issues
+            disable = { "dart" },
         },
     })
 

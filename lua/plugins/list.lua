@@ -42,6 +42,7 @@ return {
     -- Language specific
     ["flutter-tools"] = "akinsho/flutter-tools.nvim",
     ["markdown-preview"] = "iamcco/markdown-preview.nvim",
+    ["neorg"] = "nvim-neorg/neorg",
 
     -- Dependencies for functionalities and which should best be enabled
     ["nui"] = "MunifTanjim/nui.nvim",

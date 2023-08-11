@@ -214,6 +214,34 @@ _config.neogit = function()
     init("neogit", {})
 end
 
+_config.neorg = function()
+    require("nvim-web-devicons").set_icon {
+        norg = {
+            icon = require("nvim-web-devicons").get_icon "file.org",
+        },
+    }
+
+    init("neorg", {
+        load = {
+            ["core.defaults"] = {},
+            ["core.completion"] = {
+                config = {
+                    engine = "nvim-cmp",
+                },
+            },
+            ["core.concealer"] = {},
+            ["core.dirman"] = {
+                config = {
+                    workspaces = {
+                        notes = "~/notes",
+                    },
+                },
+            },
+            ["core.summary"] = {},
+        },
+    })
+end
+
 _config.neoscroll = function()
     init("neoscroll", {
         mappings = { "<C-u>", "<C-d>" },
@@ -357,6 +385,8 @@ _config["nvim-treesitter"] = function()
         },
         indent = {
             enable = true,
+            -- conflicts with flutter-tools.nvim, causing performance issues
+            disable = { "dart" },
         },
     })
 

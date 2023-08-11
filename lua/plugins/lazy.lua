@@ -53,6 +53,13 @@ lazy.neogit = {
     config = true,
 }
 
+lazy.neorg = {
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    event = "VeryLazy",
+    ft = "norg",
+}
+
 lazy.neoscroll = {
     event = "VeryLazy",
 }
@@ -68,8 +75,8 @@ lazy["nvim-autopairs"] = {
 
 lazy["nvim-cmp"] = {
     dependencies = {
-        "hrsh7th/vim-vsnip",
-        "hrsh7th/cmp-vsnip",
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
         "hrsh7th/cmp-nvim-lsp",
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",

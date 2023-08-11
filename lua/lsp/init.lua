@@ -39,7 +39,12 @@ vim.diagnostic.config {
     signs = true,
     update_in_insert = true,
 }
-local signs = { Error = symbols.Error, Warn = symbols.Warn, Hint = symbols.Hint, Info = symbols.Info }
+local signs = {
+    Error = symbols.Error,
+    Warn = symbols.Warn,
+    Hint = symbols.Hint,
+    Info = symbols.Info,
+}
 for type, icon in pairs(signs) do
     local hl = "DiagnosticSign" .. type
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
@@ -132,16 +137,15 @@ local cmp = require "cmp"
 cmp.setup {
     snippet = {
         expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body)
+            require("luasnip").lsp_expand(args.body)
         end,
     },
     sources = cmp.config.sources({
         { name = "nvim_lsp" },
-        { name = "vsnip" },
+        { name = "luasnip" },
     }, {
         { name = "buffer" },
         { name = "path" },
-        { name = "neorg" },
     }),
     mapping = require("settings").lsp.keymap.cmp(cmp),
     formatting = {
@@ -151,6 +155,15 @@ cmp.setup {
         },
     },
 }
+
+cmp.setup.filetype("norg", {
+    sources = cmp.config.sources({
+        { name = "neorg" },
+    }, {
+        { name = "buffer" },
+        { name = "path" },
+    }),
+})
 
 cmp.setup.cmdline({ "/", "?" }, {
     mapping = cmp.mapping.preset.cmdline(),

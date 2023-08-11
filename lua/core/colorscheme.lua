@@ -4,7 +4,7 @@ return {
         name = "gruvbox",
         setup = {
             italic = {
-                strings = false,
+                strings = true,
                 operators = false,
                 comments = true,
             },
@@ -17,7 +17,7 @@ return {
         name = "gruvbox",
         setup = {
             italic = {
-                strings = false,
+                strings = true,
                 operators = false,
                 comments = true,
             },

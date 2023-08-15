@@ -81,6 +81,10 @@ keymap._nvimTreeOnAttach = function(bufnr)
     }
 end
 
+keymap.project = {
+    { "<leader>pro", ":Telescope projects<CR>", mode = "n" },
+}
+
 keymap["symbols-outline"] = {
     {
         "<leader>otl",

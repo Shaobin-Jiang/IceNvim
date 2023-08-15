@@ -31,6 +31,7 @@ return {
     ["null-ls"] = "jose-elias-alvarez/null-ls.nvim",
     ["nvim-cmp"] = "hrsh7th/nvim-cmp",
     ["nvim-treesitter"] = "nvim-treesitter/nvim-treesitter",
+    ["project"] = "ahmedkhalf/project.nvim",
     ["symbols-outline"] = "simrat39/symbols-outline.nvim",
     ["todo-comments"] = "folke/todo-comments.nvim",
     ["trouble"] = "folke/trouble.nvim",

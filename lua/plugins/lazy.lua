@@ -108,6 +108,10 @@ lazy["nvim-treesitter"] = {
     pin = true,
 }
 
+lazy.project = {
+    event = "VeryLazy",
+}
+
 lazy["symbols-outline"] = {
     event = "VeryLazy",
 }

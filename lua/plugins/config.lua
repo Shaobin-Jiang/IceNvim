@@ -420,6 +420,28 @@ _config["nvim-treesitter"] = function()
     }
 end
 
+_config.project = function()
+    init("project_nvim", {
+        patterns = {
+            ".git",
+            ".gitignore",
+            "_darcs",
+            ".hg",
+            ".bzr",
+            ".svn",
+            "Makefile",
+            "package.json",
+            "deno.json",
+            "deno.jsonc",
+        },
+    })
+
+    local status, telescope = pcall(require, "telescope")
+    if status then
+        telescope.load_extension "projects"
+    end
+end
+
 _config["symbols-outline"] = function()
     local symbols = require("settings").symbols
     init("symbols-outline", {

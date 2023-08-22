@@ -18,10 +18,6 @@ keymap._comment = {
     mappings = { basic = true, extra = true, extended = false },
 }
 
-keymap.hop = {
-    { "<leader>hp", ":HopWord<CR>", mode = "n" },
-}
-
 keymap.gitsigns = {
     { "<leader>ghn", ":Gitsigns next_hunk<CR>", mode = "n" },
     { "<leader>ghp", ":Gitsigns prev_hunk<CR>", mode = "n" },
@@ -30,6 +26,10 @@ keymap.gitsigns = {
     { "<leader>guh", ":Gitsigns undo_stage_hunk<CR>", mode = "n" },
     { "<leader>grh", ":Gitsigns reset_hunk<CR>", mode = "n" },
     { "<leader>gsb", ":Gitsigns stage_buffer<CR>", mode = "n" },
+}
+
+keymap.hop = {
+    { "<leader>hp", ":HopWord<CR>", mode = "n" },
 }
 
 keymap["markdown-preview"] = {

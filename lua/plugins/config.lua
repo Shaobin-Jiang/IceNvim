@@ -146,7 +146,6 @@ _config["indent-blankline"] = function()
         },
         filetype_exclude = {
             "dashboard",
-            "packer",
             "terminal",
             "help",
             "log",

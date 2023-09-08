@@ -78,4 +78,8 @@ return {
         end,
         mode = "n",
     },
+
+    -- Terminal
+    { "<C-t>", ":split term://bash<CR>", mode = "n" },
+    { "<Esc>", "<C-\\><C-n>", mode = "t" },
 }

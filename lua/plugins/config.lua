@@ -334,9 +334,6 @@ _config["nvim-tree"] = function()
             width = 30,
             side = "left",
             hide_root_folder = false,
-            mappings = {
-                custom_only = false,
-            },
             number = false,
             relativenumber = false,
             signcolumn = "yes",

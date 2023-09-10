@@ -99,6 +99,10 @@ utils.is_windows = function()
     return vim.loop.os_uname().sysname == "Windows_NT"
 end
 
+utils.is_linux = function()
+    return vim.loop.os_uname().sysname == "Linux"
+end
+
 utils.is_wsl = function()
     local out = string.match(
         vim.api.nvim_exec(

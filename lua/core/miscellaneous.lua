@@ -45,4 +45,10 @@ if utils.is_windows() or utils.is_wsl() then
         autocmd("InsertEnter", 2052)
         autocmd("VimLeavePre", 2052)
     end
+elseif utils.is_linux() then
+    vim.cmd [[
+        let fcitx5state=system("fcitx5-remote")
+        autocmd InsertLeave * :silent let fcitx5state=system("fcitx5-remote")[0] | silent !fcitx5-remote -c
+        autocmd InsertEnter * :silent if fcitx5state == 2 | call system("fcitx5-remote -o") | endif
+    ]]
 end

@@ -18,6 +18,8 @@ if utils.is_windows() or utils.is_wsl() then
         ]],
         root
     ))
+elseif utils.is_linux() then
+    vim.cmd "set clipboard+=unnamedplus"
 end
 
 -- IME switching on windows / wsl

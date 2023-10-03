@@ -127,34 +127,19 @@ _config.hop = function()
 end
 
 _config["indent-blankline"] = function()
-    init("indent_blankline", {
-        space_char_blankline = " ",
-        show_current_context = true,
-        show_current_context_start = true,
-        context_patterns = {
-            "class",
-            "function",
-            "method",
-            "element",
-            "^if",
-            "^while",
-            "^for",
-            "^object",
-            "^table",
-            "block",
-            "arguments",
+    init("ibl", {
+        exclude = {
+            filetypes = {
+                "dashboard",
+                "terminal",
+                "help",
+                "log",
+                "markdown",
+                "TelescopePrompt",
+                "lsp-installer",
+                "lspinfo",
+            },
         },
-        filetype_exclude = {
-            "dashboard",
-            "terminal",
-            "help",
-            "log",
-            "markdown",
-            "TelescopePrompt",
-            "lsp-installer",
-            "lspinfo",
-        },
-        char = "▏",
     })
 end
 

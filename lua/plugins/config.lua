@@ -318,7 +318,6 @@ _config["nvim-tree"] = function()
         view = {
             width = 30,
             side = "left",
-            hide_root_folder = false,
             number = false,
             relativenumber = false,
             signcolumn = "yes",

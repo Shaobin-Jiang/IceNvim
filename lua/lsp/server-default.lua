@@ -99,6 +99,10 @@ server.omnisharp = vim.tbl_extend("force", server.default, {
         "dotnet",
         vim.fn.stdpath "data" .. "/mason/packages/omnisharp/Omnisharp.dll",
     },
+    on_attach = function(client, bufnr)
+        server.default.on_attach(client, bufnr)
+        client.server_capabilities.semanticTokensProvider = nil
+    end,
     enable_editorconfig_support = true,
     enable_ms_build_load_projects_on_demand = false,
     enable_roslyn_analyzers = false,

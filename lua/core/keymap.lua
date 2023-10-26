@@ -26,19 +26,11 @@ return {
     { "s", "", mode = "n" }, -- Disable current mapping of s
     { "sV", ":vsp<CR>", mode = "n" }, -- Vertical split
     { "sH", ":sp<CR>", mode = "n" }, -- Horizontal split
-    { "sc", "<C-w>c", mode = "n" }, -- Close current window
-    { "so", "<C-w>o", mode = "n" }, -- Close all windows but the current
     { "sh", ":vertical resize -10<CR>", mode = "n" }, -- Decrease current vertical split width
     { "sl", ":vertical resize +10<CR>", mode = "n" }, -- Increase current vertical split width
     { "sj", ":resize -5<CR>", mode = "n" }, -- Decrease current horizontal split height
     { "sk", ":resize +5<CR>", mode = "n" }, -- Increase current horizontal split height
     { "s=", "<C-w>=", mode = "n" }, -- Equal size
-
-    -- Using Alt + h / j / k / l to move between windows
-    { "<A-h>", "<C-w>h", mode = "n" },
-    { "<A-j>", "<C-w>j", mode = "n" },
-    { "<A-k>", "<C-w>k", mode = "n" },
-    { "<A-l>", "<C-w>l", mode = "n" },
 
     -- Visual setting
     -- Indenting
@@ -52,12 +44,6 @@ return {
     -- Saving files
     { "<C-s>", ":w<CR>", mode = "n" },
     { "<C-s>", "<Esc>:w<CR>", mode = { "i", "v" } },
-
-    -- Wrap
-    { "<leader>wr", ":set wrap<CR>", mode = "n" },
-    { "<leader>uwr", ":set nowrap<CR>", mode = "n" },
-    { "<leader>lbr", ":set linebreak<CR>", mode = "n" },
-    { "<leader>ulb", ":set nolinebreak<CR>", mode = "n" },
 
     -- Open html file
     {

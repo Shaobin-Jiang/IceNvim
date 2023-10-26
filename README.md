@@ -4,10 +4,8 @@ This is my neovim configuration. I started using neovim for almost all of my dev
 has now been almost a year when I finally take some time to refactor my neovim configuration. I now use neovim for javascript /
 typescript / python / lua / c# (unity) / dart (flutter) development and also markdown writing.
 
-My neovim configuration might not look as fancy as the other popular neovim configurations, but it better suits my need
+My neovim configuration might not look as fancy as other popular neovim configurations, but it better suits my need
 than any existing configuration. That is what using neovim is all about, is it not, customizing it to one's personal needs?
-In reality, this configuration is meant to be but a reference instead of an ultimate solution, which I never for one moment
-believe exists.
 
 ## Screenshots
 
@@ -50,6 +48,8 @@ believe exists.
     - virtual environment
     - xclip (for accessing system clipboard; **not required on WSL**)
     - zip
+
+Note that some of the packages might have different names with different package managers!
 
 ## Clone This Repo
 

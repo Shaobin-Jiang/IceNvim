@@ -7,7 +7,7 @@ return {
     { "\\", '"_', mode = { "n", "v" } },
 
     -- Clearing the command line
-    { "<Esc><Esc>", ":echo<CR>", opt = { noremap = true }, mode = "n" },
+    { "<C-g>", ":echo<CR>", opt = { noremap = true }, mode = "n" },
 
     {
         "<leader>cfg",

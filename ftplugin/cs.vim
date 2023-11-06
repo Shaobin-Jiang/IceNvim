@@ -1,0 +1,1 @@
+setlocal colorcolumn=100

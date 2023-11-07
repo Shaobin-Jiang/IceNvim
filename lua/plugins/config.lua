@@ -346,6 +346,7 @@ _config["nvim-treesitter"] = function()
             "json",
             "lua",
             "python",
+            "rust",
             "typescript",
             "tsx",
             "vim",
@@ -420,6 +421,17 @@ _config.project = function()
     if status then
         telescope.load_extension "projects"
     end
+end
+
+_config["rust-tools"] = function()
+    init("rust-tools", {
+        server = {
+            capabilities = require("lsp.utils").capabilities,
+            on_attach = function(_, bufnr)
+                require("lsp.utils").keyAttach(bufnr)
+            end,
+        },
+    })
 end
 
 _config["symbols-outline"] = function()

@@ -112,6 +112,11 @@ lazy.project = {
     event = "VeryLazy",
 }
 
+lazy["rust-tools"] = {
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = "rust",
+}
+
 lazy["symbols-outline"] = {
     event = "VeryLazy",
 }

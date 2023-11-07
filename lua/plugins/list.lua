@@ -44,6 +44,7 @@ return {
     ["flutter-tools"] = "akinsho/flutter-tools.nvim",
     ["markdown-preview"] = "iamcco/markdown-preview.nvim",
     ["neorg"] = "nvim-neorg/neorg",
+    ["rust-tools"] = "simrat39/rust-tools.nvim",
 
     -- Dependencies for functionalities and which should best be enabled
     ["nui"] = "MunifTanjim/nui.nvim",

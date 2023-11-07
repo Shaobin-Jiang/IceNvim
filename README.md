@@ -42,6 +42,8 @@ than any existing configuration. That is what using neovim is all about, is it n
   - Required by null-ls (in this configuration):
     - shfmt
     - stylua
+  - Required by rust-tools:
+    - rust-analyzer (NOT the rust-analyzer provided by Mason!!!)
   - python3 and pip3
   - Additional dependencies on Linux:
     - unzip
@@ -127,3 +129,9 @@ And do not forget to:
 ```bash
 sudo chmod +x /bin/explorer.exe
 ```
+
+### Rust not Working Properly
+
+You need to check how you installed rust. I have not been able to set up rust-analyzer when installing rust only (e.g., via `scoop install rust` or `sudo zypper in rust`) either, but with the officially recommended way, i.e., by installing rustup, everything works properly.
+
+Also, you might find that completion does not work when first opening a rust project. That is because some time needs to be taken to index the code, and completion would only work after indexing is done.

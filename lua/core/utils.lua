@@ -118,6 +118,11 @@ utils.is_wsl = function()
     return out == "1"
 end
 
+utils.lsp_is_active = function(lsp)
+    local active_client = vim.lsp.get_active_clients { name = lsp }
+    return #active_client > 0
+end
+
 utils.map_group = function(group, opt)
     for _, item in pairs(group) do
         local option

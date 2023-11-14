@@ -26,5 +26,8 @@ end
 vim.cmd("colorscheme " .. colorscheme.name)
 vim.o.background = colorscheme.background
 
+-- Set this after initializing colorscheme
+vim.api.nvim_set_hl(0, "Visual", { reverse = true })
+
 -- Define keymap
 require("core.utils").map_group(require("settings").keymap)

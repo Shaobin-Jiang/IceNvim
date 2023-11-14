@@ -14,13 +14,23 @@ keymap.mapLsp = {
     {
         "<leader>fm",
         function()
-            local active_client = vim.lsp.get_active_clients { name = "denols" }
-            if #active_client > 0 then
+            local lsp_is_active = require("core.utils").lsp_is_active
+
+            if lsp_is_active("denols") then
+                vim.cmd ":w"
                 vim.cmd "!deno fmt %"
                 vim.cmd ""
-            else
-                vim.lsp.buf.format { async = true }
+                return
             end
+
+            if lsp_is_active("rust_analyzer") then
+                vim.cmd ":w"
+                vim.cmd "!cargo fmt"
+                vim.cmd ""
+                return
+            end
+
+            vim.lsp.buf.format { async = true }
         end,
         mode = "n",
     },

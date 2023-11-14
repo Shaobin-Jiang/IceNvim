@@ -7,6 +7,7 @@ return {
 
     -- Editor UI
     ["bufferline"] = "akinsho/bufferline.nvim",
+    ["colorizer"] = "NvChad/nvim-colorizer.lua",
     ["dashboard"] = "glepnir/dashboard-nvim",
     ["indent-blankline"] = "lukas-reineke/indent-blankline.nvim",
     ["lualine"] = "nvim-lualine/lualine.nvim",

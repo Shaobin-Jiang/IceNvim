@@ -11,6 +11,10 @@ lazy.comment = {
     event = "VeryLazy",
 }
 
+lazy.colorizer = {
+    event = "VeryLazy",
+}
+
 lazy["flutter-tools"] = {
     dependencies = {
         "nvim-lua/plenary.nvim",

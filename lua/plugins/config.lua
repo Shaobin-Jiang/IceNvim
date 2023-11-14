@@ -50,6 +50,16 @@ _config.bufferline = function()
     )
 end
 
+_config.colorizer = function()
+    init("colorizer", {
+        user_default_options = {
+            css = true,
+            css_fn = true,
+            always_update = true,
+        },
+    })
+end
+
 _config.comment = function()
     init("Comment", require("settings").plugin.keymap._comment)
 end

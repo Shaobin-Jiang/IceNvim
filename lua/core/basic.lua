@@ -107,6 +107,8 @@ vim.o.showtabline = 2
 -- Disable displaying of vim mode, because we have plugins doing this
 vim.o.showmode = false
 
+vim.go.nrformats = "bin,hex,alpha"
+
 -- Hide line number in terminal
 vim.cmd [[
     autocmd TermOpen * setlocal nonumber norelativenumber

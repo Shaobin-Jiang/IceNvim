@@ -95,6 +95,20 @@ utils.check_icons = function()
     vim.api.nvim_buf_set_option(p.bufnr, "readonly", true)
 end
 
+utils.colorscheme = function(colorscheme)
+    -- Only changes colorscheme without taking care of lualine
+    vim.g.user_colorscheme = colorscheme
+    if type(colorscheme.setup) == "table" then
+        require(colorscheme.name).setup(colorscheme.setup)
+    elseif type(colorscheme.setup) == "function" then
+        colorscheme.setup()
+    end
+    vim.cmd("colorscheme " .. colorscheme.name)
+    vim.o.background = colorscheme.background
+
+    vim.api.nvim_set_hl(0, "Visual", { reverse = true })
+end
+
 utils.is_windows = function()
     return vim.loop.os_uname().sysname == "Windows_NT"
 end

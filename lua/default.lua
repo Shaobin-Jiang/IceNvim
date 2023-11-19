@@ -1,6 +1,14 @@
 local default = {}
 
-default.colorscheme = require("core.colorscheme")["tokyonight"]
+local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+local f = io.open(colorscheme_cache, "r")
+if f ~= nil then
+    local colorscheme = f:read "*a"
+    f:close()
+    vim.g.user_colorscheme = require("core.colorscheme")[colorscheme]
+else
+    vim.g.user_colorscheme = require("core.colorscheme")["tokyonight"]
+end
 
 default.keymap = require "core.keymap"
 

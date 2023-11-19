@@ -168,6 +168,65 @@ utils.ordered_pair = function(t)
     end
 end
 
+utils.select_colorscheme = function()
+    local status, _ = pcall(require, "telescope")
+    if not status then
+        return
+    end
+
+    local pickers = require "telescope.pickers"
+    local finders = require "telescope.finders"
+    local conf = require("telescope.config").values
+    local actions = require "telescope.actions"
+    local action_state = require "telescope.actions.state"
+
+    local function picker(opts)
+        opts = opts or {}
+
+        local colorschemes = require "core.colorscheme"
+        local results = {}
+        for name, _ in utils.ordered_pair(colorschemes) do
+            results[#results + 1] = name
+        end
+
+        pickers
+            .new(opts, {
+                prompt_title = "Colorschemes",
+                finder = finders.new_table {
+                    entry_maker = function(entry)
+                        return {
+                            value = entry,
+                            display = entry,
+                            ordinal = entry,
+                        }
+                    end,
+                    results = results,
+                },
+                sorter = conf.generic_sorter(opts),
+                attach_mappings = function(prompt_bufnr, _)
+                    actions.select_default:replace(function()
+                        actions.close(prompt_bufnr)
+
+                        local selection = action_state.get_selected_entry()
+                        local config = colorschemes[selection.value]
+                        utils.colorscheme(config)
+                        require("plugins.config").lualine()
+
+                        local colorscheme_cache = vim.fn.stdpath "data"
+                            .. "/colorscheme"
+                        local f = io.open(colorscheme_cache, "w")
+                        f:write(selection.value)
+                        f:close()
+                    end)
+                    return true
+                end,
+            })
+            :find()
+    end
+
+    picker()
+end
+
 utils.view_configuration = function()
     local status, _ = pcall(require, "telescope")
     if not status then

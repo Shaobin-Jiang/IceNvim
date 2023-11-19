@@ -2,8 +2,9 @@
 return {
     -- Color scheme
     ["gruvbox"] = "ellisonleao/gruvbox.nvim",
-    ["tokyonight"] = "folke/tokyonight.nvim",
+    ["nightfox"] = "EdenEast/nightfox.nvim",
     ["nord"] = "shaunsingh/nord.nvim",
+    ["tokyonight"] = "folke/tokyonight.nvim",
 
     -- Editor UI
     ["bufferline"] = "akinsho/bufferline.nvim",

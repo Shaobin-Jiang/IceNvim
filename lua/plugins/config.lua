@@ -55,6 +55,7 @@ _config.colorizer = function()
         user_default_options = {
             css = true,
             css_fn = true,
+            names = false,
             always_update = true,
         },
     })

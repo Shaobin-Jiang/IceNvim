@@ -9,18 +9,37 @@ than any existing configuration. That is what using neovim is all about, is it n
 
 ## Screenshots
 
-<div style="width: 100%;">
-    <img src="./screenshots/screenshot-1.jpg" width="48%">
-    <img src="./screenshots/screenshot-2.jpg" width="48%">
-</div>
-<div style="width: 100%;">
-    <img src="./screenshots/screenshot-3.jpg" width="48%">
-    <img src="./screenshots/screenshot-4.jpg" width="48%">
-</div>
-<div style="width: 100%;">
-    <img src="./screenshots/screenshot-5.jpg" width="48%">
-    <img src="./screenshots/screenshot-6.jpg" width="48%">
-</div>
+![](./screenshots/screenshot-1.jpg)
+
+![](./screenshots/screenshot-2.jpg)
+
+![](./screenshots/screenshot-3.jpg)
+
+![](./screenshots/screenshot-4.jpg)
+
+![](./screenshots/screenshot-5.jpg)
+
+![](./screenshots/screenshot-6.jpg)
+
+![](./screenshots/screenshot-7.jpg)
+
+## Features
+
+- Ideal for development:
+  - Set up for C# / Flutter / Lua / Python / Rust / Web development and markdown writing
+  - Git integration
+- Enhanced editing experience:
+  - Plugins such as `hop.nvim`, `undotree` and `vim-surround`
+  - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#download-im-select.exe-(recommended-for-windows-%2F-wsl-users)))
+- Nice looks:
+  - Multiple colorschemes made ready
+  - A custom colorschemes picker
+- Well equiped:
+  - An icon viewer to check whether your font works well with icons
+  - A configuration file selector
+- Modern: uses `Lazy` and `Mason`
+- Customizable:
+  - Override defaults with your own [config file](#custom-configuration)
 
 ## Requirements
 

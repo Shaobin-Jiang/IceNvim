@@ -157,7 +157,7 @@ _config.lualine = function()
     local symbols = require("settings").symbols
     init("lualine", {
         options = {
-            theme = require("settings").colorscheme.lualine_theme,
+            theme = vim.g.user_colorscheme.lualine_theme,
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = { "undotree", "diff", "Outline" },

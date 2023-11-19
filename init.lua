@@ -17,17 +17,8 @@ require "plugins.init"
 require "lsp.init"
 
 -- Define colorscheme
-local colorscheme = require("settings").colorscheme
-if type(colorscheme.setup) == "table" then
-    require(colorscheme.name).setup(colorscheme.setup)
-elseif type(colorscheme.setup) == "function" then
-    colorscheme.setup()
-end
-vim.cmd("colorscheme " .. colorscheme.name)
-vim.o.background = colorscheme.background
-
--- Set this after initializing colorscheme
-vim.api.nvim_set_hl(0, "Visual", { reverse = true })
+local colorscheme = vim.g.user_colorscheme
+require("core.utils").colorscheme(colorscheme)
 
 -- Define keymap
 require("core.utils").map_group(require("settings").keymap)

@@ -206,7 +206,11 @@ _config["markdown-preview"] = function()
 end
 
 _config.neogit = function()
-    init("neogit", {})
+    init("neogit", {
+        status = {
+            recent_commit_count = 30,
+        }
+    })
 end
 
 _config.neorg = function()

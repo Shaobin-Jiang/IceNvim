@@ -52,6 +52,12 @@ end
 
 _config.colorizer = function()
     init("colorizer", {
+        filetypes = {
+            "*",
+            css = {
+                names = true,
+            },
+        },
         user_default_options = {
             css = true,
             css_fn = true,

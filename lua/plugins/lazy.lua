@@ -15,6 +15,10 @@ lazy.colorizer = {
     event = "VeryLazy",
 }
 
+lazy.copilot = {
+    event = "InsertEnter"
+}
+
 lazy["flutter-tools"] = {
     dependencies = {
         "nvim-lua/plenary.nvim",

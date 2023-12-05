@@ -71,6 +71,50 @@ _config.comment = function()
     init("Comment", require("settings").plugin.keymap._comment)
 end
 
+_config.copilot = function()
+    init("copilot", {
+        panel = {
+            enabled = true,
+            auto_refresh = false,
+            keymap = {
+                jump_prev = "<C-j>",
+                jump_next = "<C-k>",
+                accept = "<CR>",
+                refresh = "gr",
+                open = "<M-CR>",
+            },
+            layout = {
+                position = "right",
+                ratio = 0.4,
+            },
+        },
+        suggestion = {
+            enabled = true,
+            auto_trigger = false,
+            debounce = 75,
+            keymap = {
+                accept = "<M-l>",
+                accept_word = false,
+                accept_line = false,
+                next = "<M-]>",
+                prev = "<M-[>",
+                dismiss = "<C-]>",
+            },
+        },
+        filetypes = {
+            yaml = false,
+            markdown = false,
+            help = false,
+            gitcommit = false,
+            gitrebase = false,
+            hgcommit = false,
+            svn = false,
+            cvs = false,
+            ["."] = false,
+        },
+    })
+end
+
 _config.dashboard = function()
     local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
 
@@ -215,7 +259,7 @@ _config.neogit = function()
     init("neogit", {
         status = {
             recent_commit_count = 30,
-        }
+        },
     })
 end
 

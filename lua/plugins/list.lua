@@ -29,6 +29,7 @@ return {
 
     -- Dev
     ["comment"] = "numToStr/Comment.nvim",
+    ["copilot"] = "zbirenbaum/copilot.lua",
     ["mason"] = "williamboman/mason.nvim",
     ["null-ls"] = "jose-elias-alvarez/null-ls.nvim",
     ["nvim-cmp"] = "hrsh7th/nvim-cmp",

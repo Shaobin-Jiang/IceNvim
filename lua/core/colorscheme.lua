@@ -1,5 +1,49 @@
 -- Predefined colorschemes
 return {
+    ["ayu-light"] = {
+        name = "ayu",
+        setup = function()
+            vim.g.ayucolor = "light"
+        end,
+        background = "light",
+        lualine_theme = "ayu_light",
+    },
+    ["ayu-mirage"] = {
+        name = "ayu",
+        setup = function()
+            vim.g.ayucolor = "mirage"
+        end,
+        background = "dark",
+        lualine_theme = "ayu_mirage",
+    },
+    ["ayu-dark"] = {
+        name = "ayu",
+        setup = function()
+            vim.g.ayucolor = "dark"
+        end,
+        background = "dark",
+        lualine_theme = "ayu_dark",
+    },
+    ["github-dark"] = {
+        name = "github_dark",
+        background = "dark",
+    },
+    ["github-light"] = {
+        name = "github_light",
+        background = "light",
+    },
+    ["github-dark-dimmed"] = {
+        name = "github_dark_dimmed",
+        background = "dark",
+    },
+    ["github-dark-high-contrast"] = {
+        name = "github_dark_high_contrast",
+        background = "dark",
+    },
+    ["github-light-high-contrast"] = {
+        name = "github_light_high_contrast",
+        background = "light",
+    },
     ["gruvbox-dark"] = {
         name = "gruvbox",
         setup = {
@@ -29,37 +73,31 @@ return {
     nightfox = {
         name = "nightfox",
         background = "dark",
-        lualine_theme = "nightfox",
     },
     ["nightfox-carbon"] = {
         name = "carbonfox",
         background = "dark",
-        lualine_theme = "carbonfox",
     },
     ["nightfox-day"] = {
         name = "dayfox",
         background = "light",
-        lualine_theme = "dayfox",
     },
     ["nightfox-dawn"] = {
         name = "dawnfox",
         background = "light",
-        lualine_theme = "dawnfox",
     },
     ["nightfox-dusk"] = {
         name = "duskfox",
         background = "dark",
-        lualine_theme = "duskfox",
     },
     ["nightfox-nord"] = {
         name = "nordfox",
         background = "dark",
-        lualine_theme = "nordfox",
+        lualine_theme = "nord",
     },
     ["nightfox-tera"] = {
         name = "terafox",
         background = "dark",
-        lualine_theme = "terafox",
     },
     nord = {
         name = "nord",
@@ -81,6 +119,5 @@ return {
             },
         },
         background = "dark",
-        lualine_theme = "tokyonight",
     },
 }

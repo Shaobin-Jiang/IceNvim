@@ -1,6 +1,8 @@
 -- Pretty names for the installed plugins
 return {
     -- Color scheme
+    ["ayu"] = "Luxed/ayu-vim",
+    ["github"] = "projekt0n/github-nvim-theme",
     ["gruvbox"] = "ellisonleao/gruvbox.nvim",
     ["nightfox"] = "EdenEast/nightfox.nvim",
     ["nord"] = "shaunsingh/nord.nvim",

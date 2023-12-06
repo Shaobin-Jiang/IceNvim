@@ -206,9 +206,13 @@ end
 
 _config.lualine = function()
     local symbols = require("settings").symbols
+    local theme = vim.g.user_colorscheme.lualine_theme
+    if not theme then
+        theme = "auto"
+    end
     init("lualine", {
         options = {
-            theme = vim.g.user_colorscheme.lualine_theme,
+            theme = theme,
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = { "undotree", "diff", "Outline" },

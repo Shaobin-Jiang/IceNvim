@@ -1,21 +1,23 @@
 -- Configuration for each individual plugin
 ---@diagnostic disable: need-check-nil
-local _config = {}
+local config = {}
+local symbols = Ice.symbols
+local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
+local priority = {
+    LOW = 100,
+    MEDIUM = 200,
+    HIGH = 615,
+}
 
-local function init(plugin, config)
-    local status, p = pcall(require, plugin)
-    if not status then
-        vim.notify("Plugin not found: " .. plugin)
-        return nil
-    else
-        p.setup(config)
-        return p
-    end
-end
-
-_config.bufferline = function()
-    local symbols = require("settings").symbols
-    init("bufferline", {
+config.bufferline = {
+    "akinsho/bufferline.nvim",
+    lazy = false,
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+    },
+    -- Set high priority to ensure this is loaded before nvim-transparent
+    priority = priority.HIGH,
+    opts = {
         options = {
             close_command = "bdelete! %d",
             right_mouse_command = "bdelete! %d",
@@ -39,19 +41,78 @@ _config.bufferline = function()
                 return s
             end,
         },
-    })
+    },
+    config = function(_, opts)
+        require("bufferline").setup(opts)
 
-    -- disable transparency for bufferline
-    vim.g.transparent_exclude_groups = vim.list_extend(
-        vim.g.transparent_exclude_groups or {},
-        vim.tbl_map(function(v)
-            return v.hl_group
-        end, vim.tbl_values(require("bufferline.config").highlights))
-    )
-end
+        -- disable transparency for bufferline
+        vim.g.transparent_exclude_groups = vim.list_extend(
+            vim.g.transparent_exclude_groups or {},
+            vim.tbl_map(function(v)
+                return v.hl_group
+            end, vim.tbl_values(
+                require("bufferline.config").highlights
+            ))
+        )
+    end,
+    keys = {
+        {
+            "<leader>bc",
+            ":BufferLinePickClose<CR>",
+            desc = "pick close",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        -- <esc> is added in case current buffer is the last
+        {
+            "<leader>bd",
+            ":bdelete!<CR><Esc>",
+            desc = "close current buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>bh",
+            ":BufferLineCyclePrev<CR>",
+            desc = "prev buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>bl",
+            ":BufferLineCycleNext<CR>",
+            desc = "next buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>bo",
+            ":BufferLineCloseOthers<CR>",
+            desc = "close others",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>bp",
+            ":BufferLinePick<CR>",
+            desc = "pick buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config.colorizer = function()
-    init("colorizer", {
+config.colorizer = {
+    "NvChad/nvim-colorizer.lua",
+    main = "colorizer",
+    event = "BufEnter",
+    opts = {
         filetypes = {
             "*",
             css = {
@@ -64,15 +125,24 @@ _config.colorizer = function()
             names = false,
             always_update = true,
         },
-    })
-end
+    },
+}
 
-_config.comment = function()
-    init("Comment", require("settings").plugin.keymap._comment)
-end
+config.comment = {
+    "numToStr/Comment.nvim",
+    main = "Comment",
+    opts = {
+        toggler = { line = "gcc", block = "gbc" },
+        opleader = { line = "gc", block = "gb" },
+        extra = { above = "gcO", below = "gco", eol = "gcA" },
+        mappings = { basic = true, extra = true, extended = false },
+    },
+}
 
-_config.copilot = function()
-    init("copilot", {
+config.copilot = {
+    "zbirenbaum/copilot.lua",
+    main = "copilot",
+    opts = {
         panel = {
             enabled = true,
             auto_refresh = false,
@@ -112,13 +182,13 @@ _config.copilot = function()
             cvs = false,
             ["."] = false,
         },
-    })
-end
+    },
+}
 
-_config.dashboard = function()
-    local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
-
-    init("dashboard", {
+config.dashboard = {
+    "glepnir/dashboard-nvim",
+    lazy = false,
+    opts = {
         theme = "doom",
         config = {
             header = {
@@ -153,11 +223,17 @@ _config.dashboard = function()
             },
             footer = { "Work hard, and enjoy coding with vim." },
         },
-    })
-end
+    },
+    config = function(_, opts)
+        require("dashboard").setup(opts)
+    end,
+}
 
-_config["flutter-tools"] = function()
-    init("flutter-tools", {
+config["flutter-tools"] = {
+    "akinsho/flutter-tools.nvim",
+    ft = "dart",
+    main = "flutter-tools",
+    opts = {
         ui = {
             border = "rounded",
             notification_style = "nvim-notify",
@@ -173,22 +249,100 @@ _config["flutter-tools"] = function()
                 require("lsp.utils").keyAttach(bufnr)
             end,
         },
-    })
-end
+    },
+}
 
-_config.gitsigns = function()
-    init("gitsigns", {})
-end
+config.gitsigns = {
+    "lewis6991/gitsigns.nvim",
+    event = "BufEnter",
+    main = "gitsigns",
+    opts = {},
+    keys = {
+        {
+            "<leader>ghn",
+            ":Gitsigns next_hunk<CR>",
+            desc = "next hunk",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>ghp",
+            ":Gitsigns prev_hunk<CR>",
+            desc = "prev hunk",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>gph",
+            ":Gitsigns preview_hunk<CR>",
+            desc = "preview hunk",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>gsh",
+            ":Gitsigns stage_hunk<CR>",
+            desc = "stage hunk",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>guh",
+            ":Gitsigns undo_stage_hunk<CR>",
+            desc = "undo stage",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>grh",
+            ":Gitsigns reset_hunk<CR>",
+            desc = "reset hunk",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>gsb",
+            ":Gitsigns stage_buffer<CR>",
+            desc = "stage buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config.hop = function()
-    init("hop", {
-        hint_position = require("hop.hint").HintPosition.END,
+config.hop = {
+    "phaazon/hop.nvim",
+    main = "hop",
+    opts = {
+        -- This is actually equal to:
+        --   require("hop.hint").HintPosition.END
+        hint_position = 3,
         keys = "fjghdksltyrueiwoqpvbcnxmza",
-    })
-end
+    },
+    keys = {
+        {
+            "<leader>hp",
+            ":HopWord<CR>",
+            desc = "hop word",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config["indent-blankline"] = function()
-    init("ibl", {
+config["indent-blankline"] = {
+    "lukas-reineke/indent-blankline.nvim",
+    event = "BufEnter",
+    main = "ibl",
+    opts = {
         exclude = {
             filetypes = {
                 "dashboard",
@@ -201,16 +355,21 @@ _config["indent-blankline"] = function()
                 "lspinfo",
             },
         },
-    })
-end
+    },
+}
 
-_config.lualine = function()
-    local symbols = require("settings").symbols
-    local theme = vim.g.user_colorscheme.lualine_theme
-    if not theme then
-        theme = "auto"
-    end
-    init("lualine", {
+local theme = vim.g.user_colorscheme.lualine_theme
+if not theme then
+    theme = "auto"
+end
+config.lualine = {
+    "nvim-lualine/lualine.nvim",
+    dependencies = {
+        "nvim-tree/nvim-web-devicons",
+        "arkav/lualine-lsp-progress",
+    },
+    main = "lualine",
+    opts = {
         options = {
             theme = theme,
             component_separators = { left = "", right = "" },
@@ -251,30 +410,60 @@ _config.lualine = function()
                 "filetype",
             },
         },
-    })
-end
+    },
+}
 
-_config["markdown-preview"] = function()
-    vim.g.mkdp_filetypes = { "markdown" }
-    vim.g.mkdp_auto_close = 0
-end
+config["markdown-preview"] = {
+    "iamcco/markdown-preview.nvim",
+    ft = "markdown",
+    config = function()
+        vim.g.mkdp_filetypes = { "markdown" }
+        vim.g.mkdp_auto_close = 0
+    end,
+    keys = {
+        {
+            "<leader>mdp",
+            function()
+                if vim.bo.filetype == "markdown" then
+                    vim.cmd "MarkdownPreviewToggle"
+                end
+            end,
+            desc = "markdown preview",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config.neogit = function()
-    init("neogit", {
+config.neogit = {
+    "NeogitOrg/neogit",
+    dependencies = "nvim-lua/plenary.nvim",
+    main = "neogit",
+    opts = {
         status = {
             recent_commit_count = 30,
         },
-    })
-end
-
-_config.neorg = function()
-    require("nvim-web-devicons").set_icon {
-        norg = {
-            icon = require("nvim-web-devicons").get_icon "file.org",
+    },
+    keys = {
+        {
+            "<leader>ng",
+            ":Neogit<CR>",
+            desc = "neogit",
+            silent = true,
+            noremap = true,
+            nowait = true,
         },
-    }
+    },
+}
 
-    init("neorg", {
+config.neorg = {
+    "nvim-neorg/neorg",
+    -- Do not set ft = "norg", as we might want to access to neorg functions
+    -- prior to entering a norg file
+    event = "VeryLazy",
+    main = "neorg",
+    opts = {
         load = {
             ["core.defaults"] = {},
             ["core.completion"] = {
@@ -292,11 +481,23 @@ _config.neorg = function()
             },
             ["core.summary"] = {},
         },
-    })
-end
+    },
+    config = function(_, opts)
+        require("neorg").setup(opts)
 
-_config.neoscroll = function()
-    init("neoscroll", {
+        require("nvim-web-devicons").set_icon {
+            norg = {
+                icon = require("nvim-web-devicons").get_icon "file.org",
+            },
+        }
+    end,
+}
+
+config.neoscroll = {
+    "karb94/neoscroll.nvim",
+    event = "BufEnter",
+    main = "neoscroll",
+    opts = {
         mappings = { "<C-u>", "<C-d>" },
         hide_cursor = true,
         stop_eof = true,
@@ -306,71 +507,102 @@ _config.neoscroll = function()
         pre_hook = nil,
         post_hook = nil,
         performance_mode = false,
-    })
-end
+    },
+}
 
-_config["nvim-autopairs"] = function()
-    init("nvim-autopairs", {
-        check_ts = true,
-        ts_config = {
-            lua = { "string" },
-            javascript = { "template_string" },
-            java = false,
-        },
-    })
-end
+config.nui = {
+    "MunifTanjim/nui.nvim",
+}
 
-_config["nvim-cmp"] = function()
-    local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-    ---@diagnostic disable-next-line: different-requires
-    local cmp = require "cmp"
-    cmp.event:on(
-        "confirm_done",
-        cmp_autopairs.on_confirm_done { map_char = { tex = "" } }
-    )
-end
+config["nvim-autopairs"] = {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    main = "nvim-autopairs",
+    opts = {},
+}
 
-_config["nvim-notify"] = function()
-    init("notify", {
+config["nvim-notify"] = {
+    "rcarriga/nvim-notify",
+    event = "VeryLazy",
+    opts = {
         timeout = 3000,
         background_colour = "#000000",
         stages = "static",
-    })
-end
+    },
+    config = function(_, opts)
+        require("notify").setup(opts)
+        vim.notify = require "notify"
+    end,
+}
 
-_config["nvim-scrollview"] = function()
-    init("scrollview", {
+config["nvim-scrollview"] = {
+    "dstein64/nvim-scrollview",
+    event = "BufEnter",
+    main = "scrollview",
+    opts = {
         excluded_filetypes = { "nvimtree" },
         current_only = true,
         winblend = 75,
         base = "right",
         column = 1,
-    })
-end
+    },
+}
 
-_config["nvim-transparent"] = function()
-    -- Enable transparent by default
-    local transparent_cache = vim.fn.stdpath "data" .. "/transparent_cache"
-    local f = io.open(transparent_cache, "r")
-    if f ~= nil then
-        f:close()
-    else
-        f = io.open(transparent_cache, "w")
-        f:write "true"
-        f:close()
-    end
-
-    init("transparent", {
+config["nvim-transparent"] = {
+    "xiyaowong/nvim-transparent",
+    opts = {
         extra_groups = {
             "NvimTreeNormal",
             "NvimTreeNormalNC",
         },
-    })
-end
+    },
+    config = function(_, opts)
+        -- Enable transparent by default
+        local transparent_cache = vim.fn.stdpath "data" .. "/transparent_cache"
+        local f = io.open(transparent_cache, "r")
+        if f ~= nil then
+            f:close()
+        else
+            f = io.open(transparent_cache, "w")
+            f:write "true"
+            f:close()
+        end
 
-_config["nvim-tree"] = function()
-    init("nvim-tree", {
-        on_attach = require("settings").plugin.keymap._nvimTreeOnAttach,
+        require("transparent").setup(opts)
+    end,
+}
+
+config["nvim-tree"] = {
+    "nvim-tree/nvim-tree.lua",
+    dependencies = "nvim-tree/nvim-web-devicons",
+    opts = {
+        on_attach = function(bufnr)
+            local api = require "nvim-tree.api"
+            local opt = {
+                buffer = bufnr,
+                noremap = true,
+                silent = true,
+                nowait = true,
+            }
+
+            api.config.mappings.default_on_attach(bufnr)
+
+            require("core.utils").map_group {
+                { "<CR>", api.node.open.edit, opt = opt, mode = "n" },
+                { "v", api.node.open.vertical, opt = opt, mode = "n" },
+                { "h", api.node.open.horizontal, opt = opt, mode = "n" },
+                { "i", api.tree.toggle_custom_filter, opt = opt, mode = "n" },
+                { ".", api.tree.toggle_hidden_filter, opt = opt, mode = "n" },
+                { "<F5>", api.tree.reload, opt = opt, mode = "n" },
+                { "a", api.fs.create, opt = opt, mode = "n" },
+                { "d", api.fs.remove, opt = opt, mode = "n" },
+                { "r", api.fs.rename, opt = opt, mode = "n" },
+                { "x", api.fs.cut, opt = opt, mode = "n" },
+                { "y", api.fs.copy.node, opt = opt, mode = "n" },
+                { "p", api.fs.paste, opt = opt, mode = "n" },
+                { "s", api.node.run.system, opt = opt, mode = "n" },
+            }
+        end,
         git = {
             enable = false,
         },
@@ -397,13 +629,32 @@ _config["nvim-tree"] = function()
                 quit_on_open = true,
             },
         },
-    })
-    vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif" -- automatically close
-end
+    },
+    config = function(_, opts)
+        require("nvim-tree").setup(opts)
 
-_config["nvim-treesitter"] = function()
-    require("nvim-treesitter.install").prefer_git = true
-    init("nvim-treesitter.configs", {
+        -- automatically close
+        vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
+    end,
+    keys = {
+        {
+            "<C-b>",
+            ":NvimTreeToggle<CR>",
+            desc = "toggle nvim tree",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
+
+config["nvim-treesitter"] = {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    dependencies = { "hiphish/rainbow-delimiters.nvim" },
+    pin = true,
+    main = "nvim-treesitter",
+    opts = {
         ensure_installed = {
             "c",
             "c_sharp",
@@ -438,40 +689,46 @@ _config["nvim-treesitter"] = function()
             -- conflicts with flutter-tools.nvim, causing performance issues
             disable = { "dart" },
         },
-    })
+    },
+    config = function(_, opts)
+        require("nvim-treesitter.install").prefer_git = true
+        require("nvim-treesitter.configs").setup(opts)
 
-    vim.opt.foldmethod = "expr"
-    vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+        vim.opt.foldmethod = "expr"
+        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
 
-    -- Unfold all upon opening a file, see:
-    -- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
-    vim.opt.foldlevel = 99
+        -- Unfold all upon opening a file, see:
+        -- https://stackoverflow.com/questions/8316139/how-to-set-the-default-to-unfolded-when-you-open-a-file
+        vim.opt.foldlevel = 99
 
-    local rainbow_delimiters = require "rainbow-delimiters"
+        local rainbow_delimiters = require "rainbow-delimiters"
 
-    vim.g.rainbow_delimiters = {
-        strategy = {
-            [""] = rainbow_delimiters.strategy["global"],
-            vim = rainbow_delimiters.strategy["local"],
-        },
-        query = {
-            [""] = "rainbow-delimiters",
-            lua = "rainbow-blocks",
-        },
-        highlight = {
-            "RainbowDelimiterRed",
-            "RainbowDelimiterYellow",
-            "RainbowDelimiterBlue",
-            "RainbowDelimiterOrange",
-            "RainbowDelimiterGreen",
-            "RainbowDelimiterViolet",
-            "RainbowDelimiterCyan",
-        },
-    }
-end
+        vim.g.rainbow_delimiters = {
+            strategy = {
+                [""] = rainbow_delimiters.strategy["global"],
+                vim = rainbow_delimiters.strategy["local"],
+            },
+            query = {
+                [""] = "rainbow-delimiters",
+                lua = "rainbow-blocks",
+            },
+            highlight = {
+                "RainbowDelimiterRed",
+                "RainbowDelimiterYellow",
+                "RainbowDelimiterBlue",
+                "RainbowDelimiterOrange",
+                "RainbowDelimiterGreen",
+                "RainbowDelimiterViolet",
+                "RainbowDelimiterCyan",
+            },
+        }
+    end,
+}
 
-_config.project = function()
-    init("project_nvim", {
+config.project = {
+    "ahmedkhalf/project.nvim",
+    dependencies = { "nvim-telescope/telescope.nvim" },
+    opts = {
         patterns = {
             ".git",
             ".gitignore",
@@ -484,31 +741,64 @@ _config.project = function()
             "deno.json",
             "deno.jsonc",
         },
-    })
+    },
+    config = function(_, opts)
+        require("project_nvim").setup(opts)
+        local status, telescope = pcall(require, "telescope")
+        if status then
+            telescope.load_extension "projects"
+        end
+    end,
+    keys = {
+        {
+            "<leader>pro",
+            ":Telescope projects<CR>",
+            desc = "view projects",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-    local status, telescope = pcall(require, "telescope")
-    if status then
-        telescope.load_extension "projects"
-    end
-end
-
-_config["rust-tools"] = function()
-    init("rust-tools", {
+config["rust-tools"] = {
+    "simrat39/rust-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    ft = "rust",
+    main = "rust-tools",
+    opts = {
         server = {
-            capabilities = require("lsp.utils").capabilities,
             on_attach = function(_, bufnr)
                 require("lsp.utils").keyAttach(bufnr)
             end,
         },
-    })
-end
+    },
+}
 
-_config["symbols-outline"] = function()
-    local symbols = require("settings").symbols
-    init("symbols-outline", {
+config.surround = {
+    "tpope/vim-surround",
+}
+
+config["symbols-outline"] = {
+    "simrat39/symbols-outline.nvim",
+    main = "symbols-outline",
+    opts = {
         show_symbol_details = true,
         winblend = 20,
-        keymaps = require("settings").plugin.keymap._outline,
+        keymaps = {
+            close = { "<Esc>" },
+            goto_location = "<Cr>",
+            focus_location = "o",
+            hover_symbol = "<C-space>",
+            toggle_preview = "K",
+            rename_symbol = "<leader>rn",
+            code_actions = "<leader>ca",
+            fold = "<leader>fd",
+            unfold = "ufd",
+            fold_all = "fda",
+            unfold_all = "ufa",
+            fold_reset = "R",
+        },
         wrap = true,
         symbols = {
             File = { icon = symbols.File, hl = "@text.uri" },
@@ -540,14 +830,50 @@ _config["symbols-outline"] = function()
             Component = { icon = symbols.Component, hl = "@function" },
             Fragment = { icon = symbols.Fragment, hl = "@constant" },
         },
-    })
-end
+    },
+    keys = {
+        {
+            "<leader>otl",
+            function()
+                -- If flutter-tools is active, use FlutterOutlineToggle
+                ---@diagnostic disable-next-line: param-type-mismatch
+                local status, _ = pcall(vim.cmd, "FlutterOutlineToggle")
+                if not status then
+                    vim.cmd "SymbolsOutline"
+                end
+            end,
+            desc = "toggle outline",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config.telescope = function()
-    local telescope = init("telescope", {
+config.telescope = {
+    "nvim-telescope/telescope.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "LinArcX/telescope-env.nvim",
+        {
+            "nvim-telescope/telescope-fzf-native.nvim",
+            build = "make",
+        },
+    },
+    opts = {
         defaults = {
             initial_mode = "insert",
-            mappings = require("settings").plugin.keymap._telescopeList,
+            mappings = {
+                i = {
+                    ["<C-j>"] = "move_selection_next",
+                    ["<C-k>"] = "move_selection_previous",
+                    ["<C-n>"] = "cycle_history_next",
+                    ["<C-p>"] = "cycle_history_prev",
+                    ["<C-c>"] = "close",
+                    ["<C-u>"] = "preview_scrolling_up",
+                    ["<C-d>"] = "preview_scrolling_down",
+                },
+            },
         },
         pickers = {
             find_files = {
@@ -562,18 +888,189 @@ _config.telescope = function()
                 case_mode = "smart_case",
             },
         },
-    })
-    pcall(telescope.load_extension, "fzf")
-    pcall(telescope.load_extension, "env")
-end
+    },
+    config = function(_, opts)
+        local telescope = require("telescope").setup(opts)
+        pcall(telescope.load_extension, "fzf")
+        pcall(telescope.load_extension, "env")
+    end,
+    keys = {
+        {
+            "<C-p>",
+            ":Telescope find_files<CR>",
+            desc = "find file",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader><C-f>",
+            ":Telescope live_grep<CR>",
+            desc = "live grep",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<C-f>",
+            ":Telescope current_buffer_fuzzy_find<CR>",
+            desc = "find in current buffer",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>env",
+            ":Telescope env<CR>",
+            desc = "n",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config["todo-comments"] = function()
-    init("todo-comments", {})
-end
+config["todo-comments"] = {
+    "folke/todo-comments.nvim",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "nvim-telescope/telescope.nvim",
+    },
+    main = "todo-comments",
+    opts = {},
+    keys = {
+        {
+            "<leader>nt",
+            function()
+                require("todo-comments").jump_next()
+            end,
+            desc = "next todo",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "<leader>pt",
+            function()
+                require("todo-comments").jump_prev()
+            end,
+            desc = "prev todo",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+        {
+            "todo",
+            ":TodoTelescope<CR>",
+            desc = "todo list",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-_config.undotree = function()
-    vim.g.undotree_WindowLayout = 2
-    vim.g.undotree_TreeNodeShape = "-"
-end
+config.trouble = {
+    "folke/trouble.nvim",
+    keys = {
+        {
+            "<leader>tt",
+            ":TroubleToggle<CR>",
+            desc = "trouble toggle",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
 
-return _config
+config.undotree = {
+    "mbbill/undotree",
+    config = function()
+        vim.g.undotree_WindowLayout = 2
+        vim.g.undotree_TreeNodeShape = "-"
+    end,
+    keys = {
+        {
+            "<leader>udt",
+            ":UndotreeToggle<CR>",
+            desc = "undo tree toggle",
+            silent = true,
+            noremap = true,
+            nowait = true,
+        },
+    },
+}
+
+-- Colorschemes
+config["ayu"] = {
+    "Luxed/ayu-vim",
+    priority = priority.HIGH,
+}
+
+config["github"] = {
+    "projekt0n/github-nvim-theme",
+    priority = priority.HIGH,
+}
+
+config["gruvbox"] = {
+    "ellisonleao/gruvbox.nvim",
+    priority = priority.HIGH,
+}
+
+config["nightfox"] = {
+    "EdenEast/nightfox.nvim",
+    priority = priority.HIGH,
+}
+
+config["nord"] = {
+    "shaunsingh/nord.nvim",
+    priority = priority.HIGH,
+}
+
+config["tokyonight"] = {
+    "folke/tokyonight.nvim",
+    priority = priority.HIGH,
+}
+
+config.mason = {
+    "williamboman/mason.nvim",
+    dependencies = {
+        "williamboman/mason-lspconfig.nvim",
+        "neovim/nvim-lspconfig",
+    },
+    event = "VeryLazy",
+}
+
+config["nvim-cmp"] = {
+    "hrsh7th/nvim-cmp",
+    dependencies = {
+        "L3MON4D3/LuaSnip",
+        "saadparwaiz1/cmp_luasnip",
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        "hrsh7th/cmp-cmdline",
+        "rafamadriz/friendly-snippets",
+        "onsails/lspkind-nvim",
+        "tami5/lspsaga.nvim",
+    },
+    event = "InsertEnter",
+    config = function()
+        local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+        ---@diagnostic disable-next-line: different-requires
+        local cmp = require "cmp"
+        cmp.event:on(
+            "confirm_done",
+            cmp_autopairs.on_confirm_done { map_char = { tex = "" } }
+        )
+    end,
+}
+
+config["null-ls"] = {
+    "jose-elias-alvarez/null-ls.nvim",
+    dependencies = "nvim-lua/plenary.nvim",
+    event = "VeryLazy",
+}
+
+return config

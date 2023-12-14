@@ -13,24 +13,10 @@ return {
     { "<C-z>", "<Esc>:u<CR>", mode = { "n", "i", "v" } },
     { "<C-z>", "<Nop>", mode = { "t", "c" } },
 
-    -- Window management: starting with s
-    { "s", "", mode = "n" }, -- Disable current mapping of s
-    { "sV", ":vsp<CR>", mode = "n" }, -- Vertical split
-    { "sH", ":sp<CR>", mode = "n" }, -- Horizontal split
-    { "sh", ":vertical resize -10<CR>", mode = "n" }, -- Decrease current vertical split width
-    { "sl", ":vertical resize +10<CR>", mode = "n" }, -- Increase current vertical split width
-    { "sj", ":resize -5<CR>", mode = "n" }, -- Decrease current horizontal split height
-    { "sk", ":resize +5<CR>", mode = "n" }, -- Increase current horizontal split height
-    { "s=", "<C-w>=", mode = "n" }, -- Equal size
-
     -- Visual setting
     -- Indenting
     { "<", "<gv", mode = "v" },
     { ">", ">gv", mode = "v" },
-
-    -- Move selected content
-    { "J", ":move '>+1<CR>gv-gv", mode = "v" },
-    { "K", ":move '<-2<CR>gv-gv", mode = "v" },
 
     -- Saving files
     { "<C-s>", ":w<CR>", mode = "n" },

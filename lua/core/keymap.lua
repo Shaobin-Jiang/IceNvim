@@ -9,15 +9,6 @@ return {
     -- Clearing the command line
     { "<C-g>", ":echo<CR>", opt = { noremap = true }, mode = "n" },
 
-    {
-        "<leader>cfg",
-        function()
-            require("core.utils").view_configuration()
-        end,
-        opt = { noremap = true },
-        mode = "n",
-    },
-
     -- Map ctrl-z to undo in normal / insert / visual modes
     { "<C-z>", "<Esc>:u<CR>", mode = { "n", "i", "v" } },
     { "<C-z>", "<Nop>", mode = { "t", "c" } },
@@ -52,24 +43,6 @@ return {
             if vim.bo.filetype == "html" then
                 vim.cmd "!explorer %"
             end
-        end,
-        mode = "n",
-    },
-
-    -- Check symbols
-    {
-        "<leader>ico",
-        function()
-            require("core.utils").check_icons()
-        end,
-        mode = "n",
-    },
-
-    -- Select colorscheme
-    {
-        "<leader>cs",
-        function()
-            require("core.utils").select_colorscheme()
         end,
         mode = "n",
     },

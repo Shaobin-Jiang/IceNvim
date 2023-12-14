@@ -27,7 +27,16 @@ return {
         "<A-b>",
         function()
             if vim.bo.filetype == "html" then
-                vim.cmd "!explorer %"
+                local utils = require "core.utils"
+                local command
+                if utils.is_linux() or utils.is_wsl() then
+                    command = "xdg-open"
+                elseif utils.is_windows() then
+                    command = "explorer"
+                else
+                    command = "open"
+                end
+                vim.cmd(string.format("!%s %%", command))
             end
         end,
         mode = "n",

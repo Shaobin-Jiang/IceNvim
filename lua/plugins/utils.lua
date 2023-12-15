@@ -149,8 +149,7 @@ utils.select_colorscheme = function()
                         local selection = action_state.get_selected_entry()
                         local config = colorschemes[selection.value]
                         utils.colorscheme(config)
-                        -- TODO: make this configurable
-                        local lualine = require("plugins.config").lualine.opts
+                        local lualine = Ice.plugins.lualine.opts
                         local copy = vim.tbl_deep_extend("keep", lualine, {})
                         copy.theme = Ice.colorscheme.lualine_theme
                         require("lualine").setup(copy)

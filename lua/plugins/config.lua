@@ -1048,10 +1048,10 @@ config.mason = {
 
         local lspconfig = require "lspconfig"
 
-        for name, config in pairs(require("settings").lsp.servers) do
+        for name, lsp in pairs(require("settings").lsp.servers) do
             if lspconfig[name] ~= nil then
-                if type(config) == "table" then
-                    lspconfig[name].setup(config)
+                if type(lsp) == "table" then
+                    lspconfig[name].setup(lsp)
                 else
                     local predefined_config =
                         require("plugins.lsp").server[name]

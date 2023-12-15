@@ -137,6 +137,34 @@ utils.lsp_is_active = function(lsp)
     return #active_client > 0
 end
 
+-- Maps a group of keymaps with the same opt; if no opt is provided, the default
+-- opt is used.
+-- The keymaps should be in the format like below:
+--     desc = { mode, lhs, rhs, [opt] }
+-- For example:
+--     black_hole_register = { { "n", "v" }, "\\", '"_' },
+-- The desc part will automatically merged into the keymap's opt, unless one is
+-- already provided there, with the slight modification of replacing "_" with a
+-- blank space.
+---@param group table list of keymaps
+---@param opt table default opt
+utils.group_map = function(group, opt)
+    for desc, keymap in pairs(group) do
+        desc = string.gsub(desc, "_", " ")
+        local default_option = vim.tbl_extend(
+            "force",
+            { desc = desc, noremap = true, nowait = true, silent = true },
+            opt
+        )
+        local map = vim.tbl_deep_extend(
+            "force",
+            { nil, nil, nil, default_option },
+            keymap
+        )
+        vim.keymap.set(map[1], map[2], map[3], map[4])
+    end
+end
+
 utils.map_group = function(group, opt)
     for _, item in pairs(group) do
         local option

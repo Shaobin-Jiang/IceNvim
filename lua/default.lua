@@ -72,13 +72,6 @@ default.symbols = {
     Warn = " ",
 }
 
-default.plugin = {
-    config = require "plugins.config",
-    keymap = require "plugins.keymap",
-    lazy = require "plugins.lazy",
-    list = require "plugins.list",
-}
-
 default.lsp = {
     ensure_installed = {
         "clangd",

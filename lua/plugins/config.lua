@@ -1013,11 +1013,6 @@ config["nightfox"] = {
     priority = priority.HIGH,
 }
 
-config["nord"] = {
-    "shaunsingh/nord.nvim",
-    priority = priority.HIGH,
-}
-
 config["tokyonight"] = {
     "folke/tokyonight.nvim",
     priority = priority.HIGH,

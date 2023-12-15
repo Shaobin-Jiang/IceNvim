@@ -38,7 +38,8 @@ local function undo()
     end
 end
 
-return {
+Ice.keymap = {}
+Ice.keymap.general = {
     -- See `:h quote_`
     black_hole_register = { { "n", "v" }, "\\", '"_' },
     clear_cmd_line = { "n", "<C-g>", ":echo<CR>", { noremap = true } },

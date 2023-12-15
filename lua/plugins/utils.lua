@@ -260,4 +260,12 @@ utils.view_configuration = function()
     picker()
 end
 
+-- Checks whether a lsp client is active
+---@param lsp
+---@return boolean
+utils.lsp_is_active = function(lsp)
+    local active_client = vim.lsp.get_active_clients { name = lsp }
+    return #active_client > 0
+end
+
 return utils

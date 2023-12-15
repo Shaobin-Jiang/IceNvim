@@ -28,11 +28,6 @@ utils.is_wsl = function()
     return out == "1"
 end
 
-utils.lsp_is_active = function(lsp)
-    local active_client = vim.lsp.get_active_clients { name = lsp }
-    return #active_client > 0
-end
-
 -- Maps a group of keymaps with the same opt; if no opt is provided, the default
 -- opt is used.
 -- The keymaps should be in the format like below:

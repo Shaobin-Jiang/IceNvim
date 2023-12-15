@@ -161,7 +161,7 @@ keymap.mapLsp = {
         "n",
         "<leader>fm",
         function()
-            local lsp_is_active = require("core.utils").lsp_is_active
+            local lsp_is_active = require("plugins.utils").lsp_is_active
 
             if lsp_is_active "denols" then
                 vim.cmd ":w"

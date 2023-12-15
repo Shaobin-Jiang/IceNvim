@@ -1147,7 +1147,6 @@ config["nvim-cmp"] = {
                 { name = "buffer" },
                 { name = "path" },
             }),
-            -- TODO: make this configurable
             mapping = Ice.lsp.keymap.cmp(cmp),
             formatting = {
                 format = lspkind.cmp_format {

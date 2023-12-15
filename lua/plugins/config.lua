@@ -312,7 +312,7 @@ config["indent-blankline"] = {
     },
 }
 
-local theme = vim.g.user_colorscheme.lualine_theme
+local theme = Ice.colorscheme
 if not theme then
     theme = "auto"
 end

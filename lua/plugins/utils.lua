@@ -2,7 +2,7 @@ local utils = {}
 
 -- Set up colorscheme and Ice.colorscheme, but does not take care of lualine
 utils.colorscheme = function(colorscheme)
-    vim.g.user_colorscheme = colorscheme
+    Ice.colorscheme = colorscheme
     if type(colorscheme.setup) == "table" then
         require(colorscheme.name).setup(colorscheme.setup)
     elseif type(colorscheme.setup) == "function" then

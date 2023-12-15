@@ -1003,6 +1003,39 @@ config.undotree = {
     },
 }
 
+config["which-key"] = {
+    "folke/which-key.nvim",
+    event = "VeryLazy",
+    main = "which-key",
+    opts = {
+        plugins = {
+            marks = true,
+            registers = true,
+            spelling = {
+                enabled = false,
+            },
+            presets = {
+                operators = false,
+                motions = true,
+                text_objects = true,
+                windows = true,
+                nav = true,
+                z = true,
+                g = true,
+            },
+        },
+        window = {
+            border = "none",
+            position = "bottom",
+            -- Leave 1 line at top / bottom for bufferline / lualine
+            margin = { 1, 0, 1, 0 },
+            padding = { 1, 0, 1, 0 },
+            winblend = 0,
+            zindex = 1000,
+        },
+    },
+}
+
 -- Colorschemes
 config["ayu"] = {
     "Luxed/ayu-vim",

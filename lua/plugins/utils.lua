@@ -85,6 +85,14 @@ utils.check_icons = function()
 end
 
 -- Set up colorscheme and Ice.colorscheme, but does not take care of lualine
+-- The colorscheme is a table with:
+--   - name: to be called with the `colorscheme` command
+--   - setup: optional; can either be:
+--     - a function called alongside `colorscheme`
+--     - a table for plugin setup
+--   - background: "light" / "dark"
+--   - lualine_theme: optional
+---@param colorscheme table
 utils.colorscheme = function(colorscheme)
     Ice.colorscheme = colorscheme
     if type(colorscheme.setup) == "table" then

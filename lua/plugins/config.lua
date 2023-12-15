@@ -1033,13 +1033,66 @@ config["tokyonight"] = {
     priority = priority.HIGH,
 }
 
+-- Lsp
 config.mason = {
     "williamboman/mason.nvim",
     dependencies = {
         "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
     },
-    event = "VeryLazy",
+    lazy = false,
+    config = function()
+        require("mason").setup {
+            ui = {
+                icons = {
+                    package_installed = symbols.Affirmative,
+                    package_pending = symbols.Pending,
+                    package_uninstalled = symbols.Negative,
+                },
+            },
+        }
+
+        require("mason-lspconfig").setup {
+            ensure_installed = require("settings").lsp.ensure_installed,
+        }
+
+        local lspconfig = require "lspconfig"
+
+        for name, config in pairs(require("settings").lsp.servers) do
+            if lspconfig[name] ~= nil then
+                if type(config) == "table" then
+                    lspconfig[name].setup(config)
+                else
+                    local predefined_config =
+                        require("lsp.server-default")[name]
+                    if predefined_config ~= nil then
+                        lspconfig[name].setup(predefined_config)
+                    else
+                        lspconfig[name].setup(
+                            require("lsp.server-default").default
+                        )
+                    end
+                end
+            end
+        end
+
+        -- UI
+        vim.diagnostic.config {
+            virtual_text = true,
+            signs = true,
+            update_in_insert = true,
+        }
+        local signs = {
+            Error = symbols.Error,
+            Warn = symbols.Warn,
+            Hint = symbols.Hint,
+            Info = symbols.Info,
+        }
+        for type, icon in pairs(signs) do
+            local hl = "DiagnosticSign" .. type
+            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+        end
+    end,
 }
 
 config["nvim-cmp"] = {
@@ -1057,9 +1110,88 @@ config["nvim-cmp"] = {
     },
     event = "InsertEnter",
     config = function()
-        local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-        ---@diagnostic disable-next-line: different-requires
+        local lspkind = require "lspkind"
+        lspkind.init {
+            mode = "symbol",
+            preset = "codicons",
+            symbol_map = {
+                Text = symbols.Text,
+                Method = symbols.Method,
+                Function = symbols.Function,
+                Constructor = symbols.Constructor,
+                Field = symbols.Field,
+                Variable = symbols.Variable,
+                Class = symbols.Class,
+                Interface = symbols.Interface,
+                Module = symbols.Module,
+                Property = symbols.Property,
+                Unit = symbols.Unit,
+                Value = symbols.Value,
+                Enum = symbols.Enum,
+                Keyword = symbols.Keyword,
+                Snippet = symbols.Snippet,
+                Color = symbols.Color,
+                File = symbols.File,
+                Reference = symbols.Reference,
+                Folder = symbols.Folder,
+                EnumMember = symbols.EnumMember,
+                Constant = symbols.Constant,
+                Struct = symbols.Struct,
+                Event = symbols.Event,
+                Operator = symbols.Operator,
+                TypeParameter = symbols.TypeParameter,
+            },
+        }
+
         local cmp = require "cmp"
+        cmp.setup {
+            snippet = {
+                expand = function(args)
+                    require("luasnip").lsp_expand(args.body)
+                end,
+            },
+            sources = cmp.config.sources({
+                { name = "nvim_lsp" },
+                { name = "luasnip" },
+            }, {
+                { name = "buffer" },
+                { name = "path" },
+            }),
+            mapping = require("settings").lsp.keymap.cmp(cmp),
+            formatting = {
+                format = lspkind.cmp_format {
+                    mode = "symbol",
+                    maxwidth = 50,
+                },
+            },
+        }
+
+        cmp.setup.filetype("norg", {
+            sources = cmp.config.sources({
+                { name = "neorg" },
+            }, {
+                { name = "buffer" },
+                { name = "path" },
+            }),
+        })
+
+        cmp.setup.cmdline({ "/", "?" }, {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = {
+                { name = "buffer" },
+            },
+        })
+
+        cmp.setup.cmdline(":", {
+            mapping = cmp.mapping.preset.cmdline(),
+            sources = cmp.config.sources({
+                { name = "path" },
+            }, {
+                { name = "cmdline" },
+            }),
+        })
+
+        local cmp_autopairs = require "nvim-autopairs.completion.cmp"
         cmp.event:on(
             "confirm_done",
             cmp_autopairs.on_confirm_done { map_char = { tex = "" } }
@@ -1071,6 +1203,40 @@ config["null-ls"] = {
     "jose-elias-alvarez/null-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     event = "VeryLazy",
+    config = function()
+        local null_ls = require "null-ls"
+
+        local formatting = null_ls.builtins.formatting
+
+        null_ls.setup {
+            debug = false,
+            sources = {
+                formatting.shfmt,
+                formatting.stylua,
+                formatting.csharpier,
+                formatting.prettier.with {
+                    filetypes = {
+                        "javascript",
+                        "javascriptreact",
+                        "typescript",
+                        "typescriptreact",
+                        "vue",
+                        "css",
+                        "scss",
+                        "less",
+                        "html",
+                        "json",
+                        "yaml",
+                        "graphql",
+                    },
+                    extra_filetypes = { "njk" },
+                    prefer_local = "node_modules/.bin",
+                },
+                formatting.autopep8,
+            },
+            diagnostics_format = "[#{s}] #{m}",
+        }
+    end,
 }
 
 return config

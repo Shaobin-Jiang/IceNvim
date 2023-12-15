@@ -1,29 +1,30 @@
 local keymap = {}
 
 keymap.mapLsp = {
-    { "<leader>rn", ":Lspsaga rename<CR>", mode = "n" },
-    { "<leader>ca", ":Lspsaga code_action<CR>", mode = "n" },
-    { "gd", ":lua vim.lsp.buf.definition()<CR>", mode = "n" },
-    { "gh", ":Lspsaga hover_doc<CR>", mode = "n" },
-    { "gr", ":Lspsaga lsp_finder<CR>", mode = "n" },
-    { "gi", ":lua vim.lsp.buf.implementation()<CR>", mode = "n" },
-    { "gP", ":Lspsaga show_line_diagnostics<CR>", mode = "n" },
-    { "gn", ":Lspsaga diagnostic_jump_next<CR>", mode = "n" },
-    { "gp", ":Lspsaga diagnostic_jump_prev<CR>", mode = "n" },
-    { "gy", ":Lspsaga yank_line_diagnostics<CR>", mode = "n" },
-    {
+    rename = { "n", "<leader>rn", ":Lspsaga rename<CR>" },
+    code_action = { "n", "<leader>ca", ":Lspsaga code_action<CR>" },
+    go_to_definition = { "n", "gd", ":lua vim.lsp.buf.definition()<CR>" },
+    doc = { "n", "gh", ":Lspsaga hover_doc<CR>" },
+    references = { "n", "gr", ":Lspsaga lsp_finder<CR>" },
+    go_to_implementation = { "n", "gi", ":lua vim.lsp.buf.implementation()<CR>" },
+    show_line_diagnostic = { "n", "gP", ":Lspsaga show_line_diagnostics<CR>" },
+    next_diagnostic = { "n", "gn", ":Lspsaga diagnostic_jump_next<CR>" },
+    prev_diagnostic = { "n", "gp", ":Lspsaga diagnostic_jump_prev<CR>" },
+    copy_diagnostic = { "n", "gy", ":Lspsaga yank_line_diagnostics<CR>" },
+    format_code = {
+        "n",
         "<leader>fm",
         function()
             local lsp_is_active = require("core.utils").lsp_is_active
 
-            if lsp_is_active("denols") then
+            if lsp_is_active "denols" then
                 vim.cmd ":w"
                 vim.cmd "!deno fmt %"
                 vim.cmd ""
                 return
             end
 
-            if lsp_is_active("rust_analyzer") then
+            if lsp_is_active "rust_analyzer" then
                 vim.cmd ":w"
                 vim.cmd "!cargo fmt"
                 vim.cmd ""
@@ -32,7 +33,6 @@ keymap.mapLsp = {
 
             vim.lsp.buf.format { async = true }
         end,
-        mode = "n",
     },
 }
 

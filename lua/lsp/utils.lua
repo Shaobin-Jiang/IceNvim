@@ -1,6 +1,6 @@
 return {
     keyAttach = function(bufnr)
-        require("core.utils").map_group(
+        require("core.utils").group_map(
             require("settings").lsp.keymap.mapLsp,
             { noremap = true, silent = true, buffer = bufnr }
         )

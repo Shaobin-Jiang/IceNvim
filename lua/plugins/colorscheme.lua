@@ -1,5 +1,5 @@
 -- Predefined colorschemes
-return {
+Ice.colorschemes = {
     ["ayu-light"] = {
         name = "ayu",
         setup = function()

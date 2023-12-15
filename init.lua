@@ -19,3 +19,16 @@ end
 require("lazy").setup(config)
 
 require("core.utils").group_map(require "plugins.keymap")
+
+-- Define colorscheme
+local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+local f = io.open(colorscheme_cache, "r")
+if f ~= nil then
+    local colorscheme = f:read "*a"
+    f:close()
+    Ice.colorscheme = Ice.colorschemes[colorscheme]
+else
+    Ice.colorscheme = Ice.colorschemes["tokyonight"]
+end
+
+require("plugins.utils").colorscheme(Ice.colorscheme)

@@ -45,6 +45,10 @@ end
 ---@param group table list of keymaps
 ---@param opt table | nil default opt
 utils.group_map = function(group, opt)
+    if not opt then
+        opt = {}
+    end
+
     for desc, keymap in pairs(group) do
         desc = string.gsub(desc, "_", " ")
         local default_option = vim.tbl_extend(

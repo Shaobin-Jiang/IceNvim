@@ -1,15 +1,7 @@
 local version_string = vim.api.nvim_exec("version", true)
 local version = string.match(version_string, "NVIM v(%d+.%d+.%d+)")
 
-local function map(mode, lhs, rhs, opt)
-    if not opt then
-        opt = { noremap = true, silent = true, nowait = true }
-    end
-    vim.keymap.set(mode, lhs, rhs, opt)
-end
-
 local utils = {
-    map = map,
     version = version,
 }
 
@@ -162,20 +154,6 @@ utils.group_map = function(group, opt)
             keymap
         )
         vim.keymap.set(map[1], map[2], map[3], map[4])
-    end
-end
-
-utils.map_group = function(group, opt)
-    for _, item in pairs(group) do
-        local option
-        if not opt then
-            option = item.opt
-        elseif not item.opt then
-            option = opt
-        else
-            option = vim.tbl_extend("force", opt, item.opt)
-        end
-        map(item.mode, item[1], item[2], option)
     end
 end
 

@@ -890,7 +890,8 @@ config.telescope = {
         },
     },
     config = function(_, opts)
-        local telescope = require("telescope").setup(opts)
+        local telescope = require "telescope"
+        telescope.setup(opts)
         pcall(telescope.load_extension, "fzf")
         pcall(telescope.load_extension, "env")
     end,

@@ -587,21 +587,20 @@ config["nvim-tree"] = {
 
             api.config.mappings.default_on_attach(bufnr)
 
-            require("core.utils").map_group {
-                { "<CR>", api.node.open.edit, opt = opt, mode = "n" },
-                { "v", api.node.open.vertical, opt = opt, mode = "n" },
-                { "h", api.node.open.horizontal, opt = opt, mode = "n" },
-                { "i", api.tree.toggle_custom_filter, opt = opt, mode = "n" },
-                { ".", api.tree.toggle_hidden_filter, opt = opt, mode = "n" },
-                { "<F5>", api.tree.reload, opt = opt, mode = "n" },
-                { "a", api.fs.create, opt = opt, mode = "n" },
-                { "d", api.fs.remove, opt = opt, mode = "n" },
-                { "r", api.fs.rename, opt = opt, mode = "n" },
-                { "x", api.fs.cut, opt = opt, mode = "n" },
-                { "y", api.fs.copy.node, opt = opt, mode = "n" },
-                { "p", api.fs.paste, opt = opt, mode = "n" },
-                { "s", api.node.run.system, opt = opt, mode = "n" },
-            }
+            require("core.utils").group_map({
+                edit = { "n", "<CR>", api.node.open.edit },
+                vertical_split = { "n", "v", api.node.open.vertical },
+                horizontal_split = { "n", "h", api.node.open.horizontal },
+                toggle_hidden_file = { "n", ".", api.tree.toggle_hidden_filter },
+                reload = { "n", "<F5>", api.tree.reload },
+                create = { "n", "a", api.fs.create },
+                remove = { "n", "d", api.fs.remove },
+                rename = { "n", "r", api.fs.rename },
+                cut = { "n", "x", api.fs.cut },
+                copy = { "n", "y", api.fs.copy.node },
+                paste = { "n", "p", api.fs.paste },
+                system_run = { "n", "s", api.node.run.system },
+            }, opt)
         end,
         git = {
             enable = false,

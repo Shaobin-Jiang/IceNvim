@@ -186,6 +186,10 @@ config.dashboard = {
 config["flutter-tools"] = {
     "akinsho/flutter-tools.nvim",
     ft = "dart",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "stevearc/dressing.nvim",
+    },
     main = "flutter-tools",
     opts = {
         ui = {

@@ -246,7 +246,7 @@ config["flutter-tools"] = {
         },
         lsp = {
             on_attach = function(_, bufnr)
-                require("lsp.utils").keyAttach(bufnr)
+                require("plugins.lsp").keyAttach(bufnr)
             end,
         },
     },
@@ -768,7 +768,7 @@ config["rust-tools"] = {
     opts = {
         server = {
             on_attach = function(_, bufnr)
-                require("lsp.utils").keyAttach(bufnr)
+                require("plugins.lsp").keyAttach(bufnr)
             end,
         },
     },
@@ -1097,12 +1097,12 @@ config.mason = {
                     lspconfig[name].setup(config)
                 else
                     local predefined_config =
-                        require("lsp.server-default")[name]
+                        require("plugins.lsp").server[name]
                     if predefined_config ~= nil then
                         lspconfig[name].setup(predefined_config)
                     else
                         lspconfig[name].setup(
-                            require("lsp.server-default").default
+                            require("plugins.lsp").server.default
                         )
                     end
                 end
@@ -1190,7 +1190,8 @@ config["nvim-cmp"] = {
                 { name = "buffer" },
                 { name = "path" },
             }),
-            mapping = require("settings").lsp.keymap.cmp(cmp),
+            -- TODO: make this configurable
+            mapping = require("plugins.lsp").keymap.cmp(cmp),
             formatting = {
                 format = lspkind.cmp_format {
                     mode = "symbol",

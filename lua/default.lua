@@ -85,7 +85,6 @@ default.lsp = {
         "pyright",
         "tsserver",
     },
-    keymap = require "lsp.keymap",
     null_ls_sources = function(formatting, _, _)
         return {
             formatting.shfmt,

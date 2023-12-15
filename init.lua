@@ -4,7 +4,7 @@ require "core.init"
 require "plugins.init"
 
 -- Define colorscheme
-local colorscheme = vim.g.user_colorscheme
+local colorscheme = Ice.colorscheme
 require("plugins.utils").colorscheme(colorscheme)
 
 -- Define keymap

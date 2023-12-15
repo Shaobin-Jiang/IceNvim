@@ -114,7 +114,7 @@ utils.select_colorscheme = function()
     local function picker(opts)
         opts = opts or {}
 
-        local colorschemes = require "core.colorscheme"
+        local colorschemes = require "plugins.colorscheme"
         local results = {}
         for name, _ in require("core.utils").ordered_pair(colorschemes) do
             results[#results + 1] = name

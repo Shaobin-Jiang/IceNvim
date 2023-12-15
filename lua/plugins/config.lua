@@ -315,6 +315,8 @@ config["indent-blankline"] = {
 local theme = Ice.colorscheme
 if not theme then
     theme = "auto"
+else
+    theme = theme.lualine_theme
 end
 config.lualine = {
     "nvim-lualine/lualine.nvim",

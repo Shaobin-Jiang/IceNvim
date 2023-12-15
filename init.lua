@@ -18,7 +18,7 @@ for _, plugin in pairs(Ice.plugins) do
 end
 require("lazy").setup(config)
 
-require("core.utils").group_map(require "plugins.keymap")
+require("core.utils").group_map(Ice.keymap.plugins)
 
 -- Define colorscheme
 local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"

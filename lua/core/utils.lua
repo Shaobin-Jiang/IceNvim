@@ -147,7 +147,7 @@ end
 -- already provided there, with the slight modification of replacing "_" with a
 -- blank space.
 ---@param group table list of keymaps
----@param opt table default opt
+---@param opt table | nil default opt
 utils.group_map = function(group, opt)
     for desc, keymap in pairs(group) do
         desc = string.gsub(desc, "_", " ")

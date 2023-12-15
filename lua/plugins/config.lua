@@ -204,7 +204,7 @@ config["flutter-tools"] = {
         },
         lsp = {
             on_attach = function(_, bufnr)
-                require("plugins.lsp").keyAttach(bufnr)
+                Ice.lsp.keyAttach(bufnr)
             end,
         },
     },
@@ -729,7 +729,7 @@ config["rust-tools"] = {
     opts = {
         server = {
             on_attach = function(_, bufnr)
-                require("plugins.lsp").keyAttach(bufnr)
+                Ice.lsp.keyAttach(bufnr)
             end,
         },
     },
@@ -1043,23 +1043,23 @@ config.mason = {
         }
 
         require("mason-lspconfig").setup {
-            ensure_installed = require("settings").lsp.ensure_installed,
+            ensure_installed = Ice.lsp.ensure_installed,
         }
 
         local lspconfig = require "lspconfig"
 
-        for name, lsp in pairs(require("settings").lsp.servers) do
+        for name, lsp in pairs(Ice.lsp.servers) do
             if lspconfig[name] ~= nil then
                 if type(lsp) == "table" then
                     lspconfig[name].setup(lsp)
                 else
                     local predefined_config =
-                        require("plugins.lsp").server[name]
+                        Ice.lsp.server[name]
                     if predefined_config ~= nil then
-                        lspconfig[name].setup(predefined_config)
+                        lspconfig[name].setup(predefined_config())
                     else
                         lspconfig[name].setup(
-                            require("plugins.lsp").server.default
+                            Ice.lsp.server.default()
                         )
                     end
                 end
@@ -1148,7 +1148,7 @@ config["nvim-cmp"] = {
                 { name = "path" },
             }),
             -- TODO: make this configurable
-            mapping = require("plugins.lsp").keymap.cmp(cmp),
+            mapping = Ice.lsp.keymap.cmp(cmp),
             formatting = {
                 format = lspkind.cmp_format {
                     mode = "symbol",

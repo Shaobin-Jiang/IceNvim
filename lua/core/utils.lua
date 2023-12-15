@@ -157,6 +157,9 @@ utils.group_map = function(group, opt)
     end
 end
 
+-- Allow ordered iteration through a table
+---@param t table
+---@return function
 utils.ordered_pair = function(t)
     local a = {}
 

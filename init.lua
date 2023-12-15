@@ -3,9 +3,8 @@ Ice = {}
 require "core.init"
 require "plugins.init"
 
--- Define colorscheme
-local colorscheme = Ice.colorscheme
-require("plugins.utils").colorscheme(colorscheme)
+-- Load user configuration files
+require "custom.init"
 
 -- Define keymap
 local keymap = Ice.keymap.general

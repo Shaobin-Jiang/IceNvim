@@ -1,3 +1,4 @@
+require "plugins.lazy"
 require "default"
 local config = {}
 for _, plugin in pairs(require "plugins.config") do

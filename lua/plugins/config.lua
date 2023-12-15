@@ -1230,4 +1230,4 @@ config["null-ls"] = {
     end,
 }
 
-return config
+Ice.plugins = config

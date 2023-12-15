@@ -890,6 +890,7 @@ config["todo-comments"] = {
         "nvim-lua/plenary.nvim",
         "nvim-telescope/telescope.nvim",
     },
+    event = "BufEnter",
     main = "todo-comments",
     opts = {},
     keys = {

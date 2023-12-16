@@ -364,7 +364,7 @@ config.neoscroll = {
     event = "BufEnter",
     main = "neoscroll",
     opts = {
-        mappings = { "<C-u>", "<C-d>" },
+        mappings = {},
         hide_cursor = true,
         stop_eof = true,
         respect_scrolloff = false,
@@ -373,6 +373,22 @@ config.neoscroll = {
         pre_hook = nil,
         post_hook = nil,
         performance_mode = false,
+    },
+    keys = {
+        {
+            "<C-u>",
+            function()
+                require("neoscroll").scroll(-vim.wo.scroll, true, 250)
+            end,
+            desc = "scroll up"
+        },
+        {
+            "<C-d>",
+            function()
+                require("neoscroll").scroll(vim.wo.scroll, true, 250)
+            end,
+            desc = "scroll down"
+        },
     },
 }
 

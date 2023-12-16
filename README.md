@@ -1,27 +1,21 @@
-# My Neovim Configuration
+<h1 align="center">IceNvim</h1>
 
-This is my neovim configuration. I started using neovim for almost all of my development work in September, 2022 and it
-has now been almost a year when I finally take some time to refactor my neovim configuration. I now use neovim for javascript /
-typescript / python / lua / c# (unity) / dart (flutter) development and also markdown writing.
+<div align="center">
 
-My neovim configuration might not look as fancy as other popular neovim configurations, but it better suits my need
-than any existing configuration. That is what using neovim is all about, is it not, customizing it to one's personal needs?
+[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.9.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 
-## Screenshots
+</div>
 
-![](./screenshots/screenshot-1.jpg)
+IceNvim is a beautiful, powerful and customizable neovim config.
 
-![](./screenshots/screenshot-2.jpg)
+## Showcase
 
-![](./screenshots/screenshot-3.jpg)
+![](./screenshots/1.jpg)
 
-![](./screenshots/screenshot-4.jpg)
+![](./screenshots/2.jpg)
 
-![](./screenshots/screenshot-5.jpg)
-
-![](./screenshots/screenshot-6.jpg)
-
-![](./screenshots/screenshot-7.jpg)
+![](./screenshots/3.jpg)
 
 ## Features
 
@@ -30,10 +24,12 @@ than any existing configuration. That is what using neovim is all about, is it n
   - Git integration
 - Enhanced editing experience:
   - Plugins such as `hop.nvim`, `undotree` and `vim-surround`
-  - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#download-im-select.exe-(recommended-for-windows-%2F-wsl-users)))
+  - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#download-im-selectexe-recommended-for-windows--wsl-users))
 - Nice looks:
   - Multiple colorschemes made ready
   - A custom colorschemes picker
+- User friendly:
+  - Uses which-key.nvim for new comers to check out keymaps
 - Well equiped:
   - An icon viewer to check whether your font works well with icons
   - A configuration file selector
@@ -58,9 +54,6 @@ than any existing configuration. That is what using neovim is all about, is it n
     - gcc
     - node
     - npm
-  - Required by null-ls (in this configuration):
-    - shfmt
-    - stylua
   - Required by rust-tools:
     - rust-analyzer (NOT the rust-analyzer provided by Mason!!!)
   - python3 and pip3
@@ -72,7 +65,7 @@ than any existing configuration. That is what using neovim is all about, is it n
 
 Note that some of the packages might have different names with different package managers!
 
-## Clone This Repo
+## Installation
 
 On Windows:
 
@@ -86,7 +79,9 @@ On Linux:
 git clone https://github.com/Shaobin-Jiang/neovim ~/.config/nvim
 ```
 
-## Download `im-select.exe` (recommended for windows / wsl users)
+### Download `im-select.exe` (recommended for windows / wsl users)
+
+For automatic IME switching when inputing Chinese, im-select.exe is needed.
 
 Download it from [https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe](https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe) and place to the `bin` repository in the configuration directory.
 
@@ -98,18 +93,34 @@ chmod +x ~/.config/nvim/bin/im-select.exe
 
 ## Custom Configuration
 
-This neovim configuration allows users to override the default configuration by creating a `user-config.lua` under `lua/`.
+This neovim configuration allows users to override the default configuration by creating a `custom` dir under `lua/`.
 
-By default, the configuration in `default.lua` is used, so long as no `user-config.lua` is detected.
+IceNvim will try to detect and load `custom/init.lua`. Since `custom/` is git-ignored, it will be easy for you to make your own configurations without messing up the original git repo and missing follow-up updates.
 
-To apply your custom configurations, modify the `user-config.lua` file thus:
+Most IceNvim config options can be found under a global variable `Ice`. The entire setup follows this routine:
+
+- IceNvim sets its default options and store some of them, e.g., plugin config and keymaps, in `Ice`
+- IceNvim loads `custom/init.lua`
+- IceNvim uses `Ice` to set up plugins and create keymaps
+
+Therefore, almost everything IceNvim defines can be re-configured by you.
+
+An example `custom/init.lua`:
 
 ```lua
-local _M = require "default"
+Ice.plugins["nvim-transparent"].enabled = false
 
--- Modifications can be made here
+Ice.keymap.general.open_terminal = { "n", "<leader>terminal", ":split term://bash<CR>" }
 
-return _M
+local autogroup = vim.api.nvim_create_augroup("OverrideFtplugin", { clear = true })
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = autogroup,
+    callback = function()
+        if vim.bo.filetype == "lua" then
+            vim.cmd "setlocal colorcolumn=120"
+        end
+    end,
+})
 ```
 
 ## Troubleshooting
@@ -132,22 +143,11 @@ quite so with file links, such as `{file:///path/to/file}`, as this is not a rec
 Until a workaround is provided by Neorg, one can define an `explorer.exe` in `/bin`:
 
 ```bash
-sudo nvim /bin/explorer.exe
-```
-
-And replace the command with whatever you might prefer, such as `xdg-open`. My recommended way of opening files with
-Windows programs is [`wslview`](https://wslutiliti.es/wslu/), so in this case, you can modify the content of `/bin/explorer.exe`
-like this:
-
-```sh
-wslview "$*"
-```
-
-And do not forget to:
-
-```bash
+echo 'wslview "$*' | sudo tee /bin/explorer.exe
 sudo chmod +x /bin/explorer.exe
 ```
+
+My preferred way of opening files with Windows programs is [`wslview`](https://wslutiliti.es/wslu/), but you can still use whatever command you like better, such as `xdg-open`.
 
 ### Rust not Working Properly
 

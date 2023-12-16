@@ -44,16 +44,6 @@ config.bufferline = {
     },
     config = function(_, opts)
         require("bufferline").setup(opts)
-
-        -- disable transparency for bufferline
-        vim.g.transparent_exclude_groups = vim.list_extend(
-            vim.g.transparent_exclude_groups or {},
-            vim.tbl_map(function(v)
-                return v.hl_group
-            end, vim.tbl_values(
-                require("bufferline.config").highlights
-            ))
-        )
     end,
     keys = {
         {

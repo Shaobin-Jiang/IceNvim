@@ -297,7 +297,7 @@ config["markdown-preview"] = {
     end,
     keys = {
         {
-            "<leader>mdp",
+            "<leader>um",
             function()
                 if vim.bo.filetype == "markdown" then
                     vim.cmd "MarkdownPreviewToggle"
@@ -501,7 +501,7 @@ config["nvim-tree"] = {
         vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
     end,
     keys = {
-        { "<C-b>", ":NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
+        { "<leader>uf", ":NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
     },
 }
 
@@ -654,7 +654,7 @@ config["symbols-outline"] = {
     },
     keys = {
         {
-            "<leader>otl",
+            "<leader>uo",
             function()
                 -- If flutter-tools is active, use FlutterOutlineToggle
                 ---@diagnostic disable-next-line: param-type-mismatch
@@ -732,25 +732,7 @@ config["todo-comments"] = {
     main = "todo-comments",
     opts = {},
     keys = {
-        {
-            "<leader>nt",
-            function()
-                require("todo-comments").jump_next()
-            end,
-            desc = "next todo",
-            silent = true,
-            noremap = true,
-        },
-        {
-            "<leader>pt",
-            function()
-                require("todo-comments").jump_prev()
-            end,
-            desc = "prev todo",
-            silent = true,
-            noremap = true,
-        },
-        { "todo", ":TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
+        { "<leader>ut", ":TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
     },
 }
 
@@ -768,7 +750,7 @@ config.undotree = {
         vim.g.undotree_TreeNodeShape = "-"
     end,
     keys = {
-        { "<leader>udt", ":UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
+        { "<leader>uu", ":UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
     },
 }
 

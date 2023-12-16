@@ -845,14 +845,6 @@ config.telescope = {
     },
 }
 
-config.tint = {
-    "levouh/tint.nvim",
-    main = "tint",
-    opts = {
-        tint = -60,
-    },
-}
-
 config["todo-comments"] = {
     "folke/todo-comments.nvim",
     dependencies = {

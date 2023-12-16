@@ -2,10 +2,9 @@ vim.g.mapleader = " "
 
 -- Open the current html file with the default browser.
 --
--- FIX: the function currently assumes that the user is using Windows / Linux
--- MacOS, which is why the command for opening file only includes explorer /
--- xdg-open / open. This should probably be changed in the future, but given
--- that I have only Windows / Linux devices at hand, this fix will have to wait.
+-- FIX: the function currently assumes that the user is using Windows / Linux MacOS, which is why the command for
+-- opening file only includes explorer / xdg-open / open. This should probably be changed in the future, but given that
+-- I have only Windows / Linux devices at hand, this fix will have to wait.
 local function open_html_file()
     if vim.bo.filetype == "html" then
         local utils = require "core.utils"
@@ -21,8 +20,7 @@ local function open_html_file()
     end
 end
 
--- When evoked under normal / insert / visual mode, call vim's `undo` command
--- and then go to normal mode.
+-- When evoked under normal / insert / visual mode, call vim's `undo` command and then go to normal mode.
 local function undo()
     local mode = vim.api.nvim_get_mode().mode
 
@@ -30,11 +28,7 @@ local function undo()
     if mode == "n" or mode == "i" or mode == "v" then
         vim.cmd "undo"
         -- Back to normal mode
-        vim.api.nvim_feedkeys(
-            vim.api.nvim_replace_termcodes("<Esc>", true, false, true),
-            "n",
-            false
-        )
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
     end
 end
 

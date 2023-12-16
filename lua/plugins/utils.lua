@@ -159,8 +159,7 @@ utils.select_colorscheme = function()
 
                         utils.colorscheme(config)
 
-                        local colorscheme_cache = vim.fn.stdpath "data"
-                            .. "/colorscheme"
+                        local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
                         local f = io.open(colorscheme_cache, "w")
                         f:write(selection.value)
                         f:close()
@@ -193,8 +192,7 @@ utils.view_configuration = function()
         opts = opts or {}
 
         local config_root = vim.fn.stdpath "config"
-        local files =
-            require("plenary.scandir").scan_dir(config_root, { hidden = true })
+        local files = require("plenary.scandir").scan_dir(config_root, { hidden = true })
         local sep = require("plenary.path").path.sep
         local picker_sep = "/" -- sep that is displayed in the picker
         local results = {}
@@ -205,13 +203,7 @@ utils.view_configuration = function()
             item = string.gsub(item, config_root, "")
             item = string.gsub(item, sep, picker_sep)
             item = string.sub(item, 2)
-            if
-                not (
-                    string.find(item, "bin/")
-                    or string.find(item, ".git/")
-                    or string.find(item, "screenshots/")
-                )
-            then
+            if not (string.find(item, "bin/") or string.find(item, ".git/") or string.find(item, "screenshots/")) then
                 results[#results + 1] = item
             end
         end

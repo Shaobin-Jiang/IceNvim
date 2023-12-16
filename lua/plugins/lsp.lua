@@ -1,10 +1,7 @@
 local lsp = {}
 
 lsp.keyAttach = function(bufnr)
-    require("core.utils").group_map(
-        lsp.keymap.mapLsp,
-        { noremap = true, silent = true, buffer = bufnr }
-    )
+    require("core.utils").group_map(lsp.keymap.mapLsp, { noremap = true, silent = true, buffer = bufnr })
 end
 
 lsp.disableFormat = function(client)
@@ -83,15 +80,7 @@ end
 
 server.emmet_ls = function()
     return {
-        filetypes = {
-            "html",
-            "typescriptreact",
-            "javascriptreact",
-            "css",
-            "sass",
-            "scss",
-            "less",
-        },
+        filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     }
 end
 

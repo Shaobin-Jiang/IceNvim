@@ -75,7 +75,6 @@ opt.wildmenu = true
 
 opt.termguicolors = true
 
-
 -- Avoid "hit-enter" prompts
 -- Don't pass messages to |ins-completin menu|
 opt.shortmess = vim.o.shortmess .. "c"
@@ -94,4 +93,3 @@ opt.nrformats = "bin,hex,alpha"
 vim.cmd [[
     autocmd TermOpen * setlocal nonumber norelativenumber
 ]]
-

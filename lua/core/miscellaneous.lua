@@ -31,8 +31,7 @@ if utils.is_windows() or utils.is_wsl() then
     if f ~= nil then
         io.close(f)
 
-        local ime_autogroup =
-            vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
+        local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 
         local function autocmd(event, code)
             vim.api.nvim_create_autocmd(event, {

@@ -34,8 +34,7 @@ config.bufferline = {
             diagnostics_indicator = function(_, _, diagnostics_dict, _)
                 local s = " "
                 for e, n in pairs(diagnostics_dict) do
-                    local sym = e == "error" and symbols.Error
-                        or (e == "warning" and symbols.Warn or symbols.Info)
+                    local sym = e == "error" and symbols.Error or (e == "warning" and symbols.Warn or symbols.Info)
                     s = s .. n .. sym
                 end
                 return s
@@ -46,55 +45,13 @@ config.bufferline = {
         require("bufferline").setup(opts)
     end,
     keys = {
-        {
-            "<leader>bc",
-            ":BufferLinePickClose<CR>",
-            desc = "pick close",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>bc", ":BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },
         -- <esc> is added in case current buffer is the last
-        {
-            "<leader>bd",
-            ":bdelete!<CR><Esc>",
-            desc = "close current buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>bh",
-            ":BufferLineCyclePrev<CR>",
-            desc = "prev buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>bl",
-            ":BufferLineCycleNext<CR>",
-            desc = "next buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>bo",
-            ":BufferLineCloseOthers<CR>",
-            desc = "close others",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>bp",
-            ":BufferLinePick<CR>",
-            desc = "pick buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>bd", ":bdelete!<CR><Esc>", desc = "close current buffer", silent = true, noremap = true },
+        { "<leader>bh", ":BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true, noremap = true },
+        { "<leader>bl", ":BufferLineCycleNext<CR>", desc = "next buffer", silent = true, noremap = true },
+        { "<leader>bo", ":BufferLineCloseOthers<CR>", desc = "close others", silent = true, noremap = true },
+        { "<leader>bp", ":BufferLinePick<CR>", desc = "pick buffer", silent = true, noremap = true },
     },
 }
 
@@ -143,67 +100,31 @@ config.comment = {
         local api = require "Comment.api"
 
         local toggle_current_line = function()
-            return vvar "count" == 0
-                    and "<Plug>(comment_toggle_linewise_current)"
-                or "<Plug>(comment_toggle_linewise_count)"
+            if vvar "count" == 0 then
+                return "<Plug>(comment_toggle_linewise_current)"
+            else
+                return "<Plug>(comment_toggle_linewise_count)"
+            end
         end
 
         local toggle_current_block = function()
-            return vvar "count" == 0
-                    and "<Plug>(comment_toggle_blockwise_current)"
-                or "<Plug>(comment_toggle_blockwise_count)"
+            if vvar "count" == 0 then
+                return "<Plug>(comment_toggle_blockwise_current)"
+            else
+                return "<Plug>(comment_toggle_blockwise_count)"
+            end
         end
 
         return {
-            {
-                "<leader>c",
-                "<Plug>(comment_toggle_linewise)",
-                desc = "comment toggle linewise",
-            },
-            {
-                "<leader>ca",
-                "<Plug>(comment_toggle_blockwise)",
-                desc = "comment toggle blockwise",
-            },
-            {
-                "<leader>cc",
-                toggle_current_line,
-                expr = true,
-                desc = "comment toggle current line",
-            },
-            {
-                "<leader>cb",
-                toggle_current_block,
-                expr = true,
-                desc = "comment toggle current block",
-            },
-            {
-                "<leader>cc",
-                "<Plug>(comment_toggle_linewise_visual)",
-                mode = "x",
-                desc = "comment toggle linewise",
-            },
-            {
-                "<leader>cb",
-                "<Plug>(comment_toggle_blockwise_visual)",
-                mode = "x",
-                desc = "comment toggle blockwise",
-            },
-            {
-                "<leader>co",
-                api.insert.linewise.below,
-                desc = "comment insert below",
-            },
-            {
-                "<leader>cO",
-                api.insert.linewise.above,
-                desc = "comment insert above",
-            },
-            {
-                "<leader>cA",
-                api.locked "insert.linewise.eol",
-                desc = "comment insert end of line",
-            },
+            { "<leader>c", "<Plug>(comment_toggle_linewise)", desc = "comment toggle linewise" },
+            { "<leader>ca", "<Plug>(comment_toggle_blockwise)", desc = "comment toggle blockwise" },
+            { "<leader>cc", toggle_current_line, expr = true, desc = "comment toggle current line" },
+            { "<leader>cb", toggle_current_block, expr = true, desc = "comment toggle current block" },
+            { "<leader>cc", "<Plug>(comment_toggle_linewise_visual)", mode = "x", desc = "comment toggle linewise" },
+            { "<leader>cb", "<Plug>(comment_toggle_blockwise_visual)", mode = "x", desc = "comment toggle blockwise" },
+            { "<leader>co", api.insert.linewise.below, desc = "comment insert below" },
+            { "<leader>cO", api.insert.linewise.above, desc = "comment insert above" },
+            { "<leader>cA", api.locked "insert.linewise.eol", desc = "comment insert end of line" },
         }
     end,
 }
@@ -223,10 +144,7 @@ config.dashboard = {
                 "██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║",
                 "╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝",
                 " ",
-                string.format(
-                    "                      %s                       ",
-                    require("core.utils").version
-                ),
+                string.format("                      %s                       ", require("core.utils").version),
                 " ",
             },
             center = {
@@ -238,10 +156,7 @@ config.dashboard = {
                 {
                     icon = "  ",
                     desc = "Edit preferences   ",
-                    action = string.format(
-                        "edit %s/lua/user-config.lua",
-                        config_root
-                    ),
+                    action = string.format("edit %s/lua/user-config.lua", config_root),
                 },
             },
             footer = { "Work hard, and enjoy coding with vim." },
@@ -285,62 +200,13 @@ config.gitsigns = {
     main = "gitsigns",
     opts = {},
     keys = {
-        {
-            "<leader>ghn",
-            ":Gitsigns next_hunk<CR>",
-            desc = "next hunk",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>ghp",
-            ":Gitsigns prev_hunk<CR>",
-            desc = "prev hunk",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>gph",
-            ":Gitsigns preview_hunk<CR>",
-            desc = "preview hunk",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>gsh",
-            ":Gitsigns stage_hunk<CR>",
-            desc = "stage hunk",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>guh",
-            ":Gitsigns undo_stage_hunk<CR>",
-            desc = "undo stage",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>grh",
-            ":Gitsigns reset_hunk<CR>",
-            desc = "reset hunk",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>gsb",
-            ":Gitsigns stage_buffer<CR>",
-            desc = "stage buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>ghn", ":Gitsigns next_hunk<CR>", desc = "next hunk", silent = true, noremap = true },
+        { "<leader>ghp", ":Gitsigns prev_hunk<CR>", desc = "prev hunk", silent = true, noremap = true },
+        { "<leader>gph", ":Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true, noremap = true },
+        { "<leader>gsh", ":Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true, noremap = true },
+        { "<leader>guh", ":Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true, noremap = true },
+        { "<leader>grh", ":Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true, noremap = true },
+        { "<leader>gsb", ":Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
     },
 }
 
@@ -354,14 +220,7 @@ config.hop = {
         keys = "fjghdksltyrueiwoqpvbcnxmza",
     },
     keys = {
-        {
-            "<leader>hp",
-            ":HopWord<CR>",
-            desc = "hop word",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>hp", ":HopWord<CR>", desc = "hop word", silent = true, noremap = true },
     },
 }
 
@@ -401,10 +260,7 @@ config.lualine = {
         },
         extensions = { "nvim-tree" },
         sections = {
-            lualine_b = {
-                "branch",
-                "diff",
-            },
+            lualine_b = { "branch", "diff" },
             lualine_c = {
                 "filename",
                 {
@@ -423,11 +279,7 @@ config.lualine = {
                 "filesize",
                 {
                     "fileformat",
-                    symbols = {
-                        unix = symbols.Unix,
-                        dos = symbols.Dos,
-                        mac = symbols.Mac,
-                    },
+                    symbols = { unix = symbols.Unix, dos = symbols.Dos, mac = symbols.Mac },
                 },
                 "encoding",
                 "filetype",
@@ -454,7 +306,6 @@ config["markdown-preview"] = {
             desc = "markdown preview",
             silent = true,
             noremap = true,
-            nowait = true,
         },
     },
 }
@@ -469,21 +320,13 @@ config.neogit = {
         },
     },
     keys = {
-        {
-            "<leader>ng",
-            ":Neogit<CR>",
-            desc = "neogit",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>ng", ":Neogit<CR>", desc = "neogit", silent = true, noremap = true },
     },
 }
 
 config.neorg = {
     "nvim-neorg/neorg",
-    -- Do not set ft = "norg", as we might want to access to neorg functions
-    -- prior to entering a norg file
+    -- Do not set ft = "norg", as we might want to access to neorg functions prior to entering a norg file
     event = "VeryLazy",
     main = "neorg",
     opts = {
@@ -605,7 +448,6 @@ config["nvim-tree"] = {
                 buffer = bufnr,
                 noremap = true,
                 silent = true,
-                nowait = true,
             }
 
             api.config.mappings.default_on_attach(bufnr)
@@ -659,14 +501,7 @@ config["nvim-tree"] = {
         vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
     end,
     keys = {
-        {
-            "<C-b>",
-            ":NvimTreeToggle<CR>",
-            desc = "toggle nvim tree",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<C-b>", ":NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
     },
 }
 
@@ -831,7 +666,6 @@ config["symbols-outline"] = {
             desc = "toggle outline",
             silent = true,
             noremap = true,
-            nowait = true,
         },
     },
 }
@@ -882,38 +716,9 @@ config.telescope = {
         pcall(telescope.load_extension, "env")
     end,
     keys = {
-        {
-            "<C-p>",
-            ":Telescope find_files<CR>",
-            desc = "find file",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader><C-f>",
-            ":Telescope live_grep<CR>",
-            desc = "live grep",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<C-f>",
-            ":Telescope current_buffer_fuzzy_find<CR>",
-            desc = "find in current buffer",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-        {
-            "<leader>env",
-            ":Telescope env<CR>",
-            desc = "n",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<C-p>", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
+        { "<leader><C-f>", ":Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
+        { "<leader>env", ":Telescope env<CR>", desc = "n", silent = true, noremap = true },
     },
 }
 
@@ -935,7 +740,6 @@ config["todo-comments"] = {
             desc = "next todo",
             silent = true,
             noremap = true,
-            nowait = true,
         },
         {
             "<leader>pt",
@@ -945,30 +749,15 @@ config["todo-comments"] = {
             desc = "prev todo",
             silent = true,
             noremap = true,
-            nowait = true,
         },
-        {
-            "todo",
-            ":TodoTelescope<CR>",
-            desc = "todo list",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "todo", ":TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
     },
 }
 
 config.trouble = {
     "folke/trouble.nvim",
     keys = {
-        {
-            "<leader>tt",
-            ":TroubleToggle<CR>",
-            desc = "trouble toggle",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>tt", ":TroubleToggle<CR>", desc = "trouble toggle", silent = true, noremap = true },
     },
 }
 
@@ -979,14 +768,7 @@ config.undotree = {
         vim.g.undotree_TreeNodeShape = "-"
     end,
     keys = {
-        {
-            "<leader>udt",
-            ":UndotreeToggle<CR>",
-            desc = "undo tree toggle",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
+        { "<leader>udt", ":UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
     },
 }
 
@@ -1209,10 +991,7 @@ config["nvim-cmp"] = {
         })
 
         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
-        cmp.event:on(
-            "confirm_done",
-            cmp_autopairs.on_confirm_done { map_char = { tex = "" } }
-        )
+        cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
     end,
 }
 

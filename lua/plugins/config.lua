@@ -391,14 +391,14 @@ config.neoscroll = {
             function()
                 require("neoscroll").scroll(-vim.wo.scroll, true, 250)
             end,
-            desc = "scroll up"
+            desc = "scroll up",
         },
         {
             "<C-d>",
             function()
                 require("neoscroll").scroll(vim.wo.scroll, true, 250)
             end,
-            desc = "scroll down"
+            desc = "scroll down",
         },
     },
 }

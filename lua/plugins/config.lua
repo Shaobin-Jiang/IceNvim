@@ -1061,14 +1061,11 @@ config.mason = {
                 if type(lsp) == "table" then
                     lspconfig[name].setup(lsp)
                 else
-                    local predefined_config =
-                        Ice.lsp.server[name]
+                    local predefined_config = Ice.lsp.server[name]
                     if predefined_config ~= nil then
                         lspconfig[name].setup(predefined_config())
                     else
-                        lspconfig[name].setup(
-                            Ice.lsp.server.default()
-                        )
+                        lspconfig[name].setup(Ice.lsp.server.default())
                     end
                 end
             end

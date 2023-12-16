@@ -148,7 +148,6 @@ utils.select_colorscheme = function()
 
                         local selection = action_state.get_selected_entry()
                         local config = colorschemes[selection.value]
-                        utils.colorscheme(config)
 
                         if config.background == "light" then
                             ---@diagnostic disable-next-line: param-type-mismatch
@@ -157,6 +156,8 @@ utils.select_colorscheme = function()
                             ---@diagnostic disable-next-line: param-type-mismatch
                             pcall(vim.cmd, "TransparentEnable")
                         end
+
+                        utils.colorscheme(config)
 
                         local colorscheme_cache = vim.fn.stdpath "data"
                             .. "/colorscheme"

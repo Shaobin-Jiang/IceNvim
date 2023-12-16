@@ -757,7 +757,7 @@ config["todo-comments"] = {
 config.trouble = {
     "folke/trouble.nvim",
     keys = {
-        { "<leader>tt", ":TroubleToggle<CR>", desc = "trouble toggle", silent = true, noremap = true },
+        { "<leader>lt", ":TroubleToggle<CR>", desc = "trouble toggle", silent = true, noremap = true },
     },
 }
 

@@ -685,42 +685,6 @@ config["nvim-treesitter"] = {
     end,
 }
 
-config.project = {
-    "ahmedkhalf/project.nvim",
-    dependencies = { "nvim-telescope/telescope.nvim" },
-    opts = {
-        patterns = {
-            ".git",
-            ".gitignore",
-            "_darcs",
-            ".hg",
-            ".bzr",
-            ".svn",
-            "Makefile",
-            "package.json",
-            "deno.json",
-            "deno.jsonc",
-        },
-    },
-    config = function(_, opts)
-        require("project_nvim").setup(opts)
-        local status, telescope = pcall(require, "telescope")
-        if status then
-            telescope.load_extension "projects"
-        end
-    end,
-    keys = {
-        {
-            "<leader>pro",
-            ":Telescope projects<CR>",
-            desc = "view projects",
-            silent = true,
-            noremap = true,
-            nowait = true,
-        },
-    },
-}
-
 config["rust-tools"] = {
     "simrat39/rust-tools.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },

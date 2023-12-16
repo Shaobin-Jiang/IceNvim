@@ -306,13 +306,6 @@ config["indent-blankline"] = {
     },
 }
 
-local colorscheme = Ice.colorscheme
-local theme
-if not colorscheme then
-    theme = "auto"
-else
-    theme = colorscheme.lualine_theme
-end
 config.lualine = {
     "nvim-lualine/lualine.nvim",
     dependencies = {
@@ -322,7 +315,7 @@ config.lualine = {
     main = "lualine",
     opts = {
         options = {
-            theme = theme,
+            theme = "auto",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
             disabled_filetypes = { "undotree", "diff", "Outline" },

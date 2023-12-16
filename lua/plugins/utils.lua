@@ -149,10 +149,14 @@ utils.select_colorscheme = function()
                         local selection = action_state.get_selected_entry()
                         local config = colorschemes[selection.value]
                         utils.colorscheme(config)
-                        local lualine = Ice.plugins.lualine.opts
-                        local copy = vim.tbl_deep_extend("keep", lualine, {})
-                        copy.theme = Ice.colorscheme.lualine_theme
-                        require("lualine").setup(copy)
+
+                        if config.background == "light" then
+                            ---@diagnostic disable-next-line: param-type-mismatch
+                            pcall(vim.cmd, "TransparentDisable")
+                        else
+                            ---@diagnostic disable-next-line: param-type-mismatch
+                            pcall(vim.cmd, "TransparentEnable")
+                        end
 
                         local colorscheme_cache = vim.fn.stdpath "data"
                             .. "/colorscheme"

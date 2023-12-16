@@ -6,7 +6,6 @@ Ice.colorschemes = {
             vim.g.ayucolor = "light"
         end,
         background = "light",
-        lualine_theme = "ayu_light",
     },
     ["ayu-mirage"] = {
         name = "ayu",
@@ -14,7 +13,6 @@ Ice.colorschemes = {
             vim.g.ayucolor = "mirage"
         end,
         background = "dark",
-        lualine_theme = "ayu_mirage",
     },
     ["ayu-dark"] = {
         name = "ayu",
@@ -22,7 +20,6 @@ Ice.colorschemes = {
             vim.g.ayucolor = "dark"
         end,
         background = "dark",
-        lualine_theme = "ayu_dark",
     },
     ["github-dark"] = {
         name = "github_dark",
@@ -55,7 +52,6 @@ Ice.colorschemes = {
             contrast = "hard",
         },
         background = "dark",
-        lualine_theme = "gruvbox",
     },
     ["gruvbox-light"] = {
         name = "gruvbox",
@@ -68,7 +64,6 @@ Ice.colorschemes = {
             contrast = "hard",
         },
         background = "light",
-        lualine_theme = "gruvbox",
     },
     nightfox = {
         name = "nightfox",
@@ -93,7 +88,6 @@ Ice.colorschemes = {
     ["nightfox-nord"] = {
         name = "nordfox",
         background = "dark",
-        lualine_theme = "nord",
     },
     ["nightfox-tera"] = {
         name = "terafox",

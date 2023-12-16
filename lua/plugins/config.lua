@@ -993,7 +993,6 @@ config.undotree = {
 config["which-key"] = {
     "folke/which-key.nvim",
     event = "VeryLazy",
-    main = "which-key",
     opts = {
         plugins = {
             marks = true,
@@ -1021,6 +1020,11 @@ config["which-key"] = {
             zindex = 1000,
         },
     },
+    config = function(_, opts)
+        require("which-key").setup(opts)
+        local wk = require "which-key"
+        wk.register(Ice.keymap.prefix)
+    end,
 }
 
 -- Colorschemes
@@ -1253,3 +1257,12 @@ config["null-ls"] = {
 }
 
 Ice.plugins = config
+Ice.keymap.prefix = {
+    ["<leader>b"] = { name = "+buffer" },
+    ["<leader>c"] = { name = "+comment" },
+    ["<leader>g"] = { name = "+git" },
+    ["<leader>h"] = { name = "+hop" },
+    ["<leader>l"] = { name = "+lsp" },
+    ["<leader>t"] = { name = "+telescope" },
+    ["<leader>u"] = { name = "+utils" },
+}

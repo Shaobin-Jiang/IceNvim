@@ -13,10 +13,28 @@ lsp.flags = {
     debounce_text_changes = 150,
 }
 
+-- Do not configure dartls here when using flutter-tools
 lsp.ensure_installed = {
     "clangd",
+    "css-lsp",
+    "emmet-ls",
+    "html-lsp",
+    "json-lsp",
+    "lua-language-server",
+    "omnisharp",
+    "pyright",
+    "typescript-language-server",
+    "autopep8",
+    "csharpier",
+    "fixjson",
+    "prettier",
+    "shfmt",
+    "stylua",
+}
+
+lsp.servers = {
+    "clangd",
     "cssls",
-    "denols",
     "emmet_ls",
     "html",
     "jsonls",
@@ -26,23 +44,9 @@ lsp.ensure_installed = {
     "tsserver",
 }
 
--- Do not configure dartls here when using flutter-tools
-lsp.servers = {
-    clangd = "",
-    cssls = "",
-    denols = "",
-    emmet_ls = "",
-    html = "",
-    jsonls = "",
-    lua_ls = "",
-    omnisharp = "",
-    pyright = "",
-    tsserver = "",
-}
+local config = {}
 
-local server = {}
-
-server.default = function()
+config.default = function()
     return {
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
         flags = lsp.flags,
@@ -53,8 +57,8 @@ server.default = function()
     }
 end
 
-server.cssls = function()
-    return vim.tbl_extend("force", server.default(), {
+config.cssls = function()
+    return vim.tbl_extend("force", config.default(), {
         settings = {
             css = {
                 validate = true,
@@ -78,17 +82,17 @@ server.cssls = function()
     })
 end
 
-server.emmet_ls = function()
+config.emmet_ls = function()
     return {
         filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     }
 end
 
-server.lua_ls = function()
+config.lua_ls = function()
     local runtime_path = vim.split(package.path, ";")
     table.insert(runtime_path, "lua/?.lua")
     table.insert(runtime_path, "lua/?/init.lua")
-    return vim.tbl_extend("force", server.default(), {
+    return vim.tbl_extend("force", config.default(), {
         settings = {
             Lua = {
                 runtime = {
@@ -110,14 +114,14 @@ server.lua_ls = function()
     })
 end
 
-server.omnisharp = function()
-    return vim.tbl_extend("force", server.default(), {
+config.omnisharp = function()
+    return vim.tbl_extend("force", config.default(), {
         cmd = {
             "dotnet",
             vim.fn.stdpath "data" .. "/mason/packages/omnisharp/Omnisharp.dll",
         },
         on_attach = function(client, bufnr)
-            server.default.on_attach(client, bufnr)
+            config.default.on_attach(client, bufnr)
             client.server_capabilities.semanticTokensProvider = nil
         end,
         enable_editorconfig_support = true,
@@ -130,7 +134,7 @@ server.omnisharp = function()
     })
 end
 
-server.tsserver = function()
+config.tsserver = function()
     return {
         single_file_support = true,
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
@@ -146,7 +150,7 @@ server.tsserver = function()
     }
 end
 
-lsp.server = server
+lsp["server-config"] = config
 
 local keymap = {}
 

@@ -848,7 +848,6 @@ config["tokyonight"] = {
 config.mason = {
     "williamboman/mason.nvim",
     dependencies = {
-        "williamboman/mason-lspconfig.nvim",
         "neovim/nvim-lspconfig",
     },
     lazy = false,
@@ -863,24 +862,33 @@ config.mason = {
             },
         }
 
-        require("mason-lspconfig").setup {
-            ensure_installed = Ice.lsp.ensure_installed,
-        }
+        local registry = require "mason-registry"
+        local function install(package)
+            local s, p = pcall(registry.get_package, package)
+            if s and not p:is_installed() then
+                p:install()
+            end
+        end
+
+        for _, package in pairs(Ice.lsp.ensure_installed) do
+            if type(package) == "table" then
+                for _, p in pairs(package) do
+                    install(p)
+                end
+            else
+                install(package)
+            end
+        end
 
         local lspconfig = require "lspconfig"
 
-        for name, lsp in pairs(Ice.lsp.servers) do
-            if lspconfig[name] ~= nil then
-                if type(lsp) == "table" then
-                    lspconfig[name].setup(lsp)
-                else
-                    local predefined_config = Ice.lsp.server[name]
-                    if predefined_config ~= nil then
-                        lspconfig[name].setup(predefined_config())
-                    else
-                        lspconfig[name].setup(Ice.lsp.server.default())
-                    end
+        for _, lsp in pairs(Ice.lsp.servers) do
+            if lspconfig[lsp] ~= nil then
+                local predefined_config = Ice.lsp["server-config"][lsp]
+                if not predefined_config then
+                    predefined_config = Ice.lsp["server-config"].default
                 end
+                lspconfig[lsp].setup(predefined_config())
             end
         end
 

@@ -4,7 +4,11 @@ require "core.init"
 require "plugins.init"
 
 -- Load user configuration files
-require "custom.init"
+local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
+if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
+    os.execute("mkdir \"" .. config_root .. "/lua/custom\"")
+end
+pcall(require, "custom.init")
 
 -- Define keymap
 local keymap = Ice.keymap.general

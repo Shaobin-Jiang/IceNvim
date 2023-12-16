@@ -1,12 +1,11 @@
 -- Predefined colorschemes
-return {
+Ice.colorschemes = {
     ["ayu-light"] = {
         name = "ayu",
         setup = function()
             vim.g.ayucolor = "light"
         end,
         background = "light",
-        lualine_theme = "ayu_light",
     },
     ["ayu-mirage"] = {
         name = "ayu",
@@ -14,7 +13,6 @@ return {
             vim.g.ayucolor = "mirage"
         end,
         background = "dark",
-        lualine_theme = "ayu_mirage",
     },
     ["ayu-dark"] = {
         name = "ayu",
@@ -22,7 +20,6 @@ return {
             vim.g.ayucolor = "dark"
         end,
         background = "dark",
-        lualine_theme = "ayu_dark",
     },
     ["github-dark"] = {
         name = "github_dark",
@@ -55,7 +52,6 @@ return {
             contrast = "hard",
         },
         background = "dark",
-        lualine_theme = "gruvbox",
     },
     ["gruvbox-light"] = {
         name = "gruvbox",
@@ -68,7 +64,6 @@ return {
             contrast = "hard",
         },
         background = "light",
-        lualine_theme = "gruvbox",
     },
     nightfox = {
         name = "nightfox",
@@ -93,21 +88,10 @@ return {
     ["nightfox-nord"] = {
         name = "nordfox",
         background = "dark",
-        lualine_theme = "nord",
     },
     ["nightfox-tera"] = {
         name = "terafox",
         background = "dark",
-    },
-    nord = {
-        name = "nord",
-        setup = function()
-            vim.g.nord_contrast = true
-            vim.g.nord_borders = true
-            vim.g.nord_cursorline_transparent = true
-        end,
-        background = "dark",
-        lualine_theme = "nord",
     },
     tokyonight = {
         name = "tokyonight",

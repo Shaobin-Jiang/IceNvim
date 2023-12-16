@@ -716,9 +716,9 @@ config.telescope = {
         pcall(telescope.load_extension, "env")
     end,
     keys = {
-        { "<C-p>", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
-        { "<leader><C-f>", ":Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
-        { "<leader>env", ":Telescope env<CR>", desc = "n", silent = true, noremap = true },
+        { "<leader>tf", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
+        { "<leader>t<C-f>", ":Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
+        { "<leader>te", ":Telescope env<CR>", desc = "n", silent = true, noremap = true },
     },
 }
 

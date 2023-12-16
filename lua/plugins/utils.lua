@@ -1,6 +1,64 @@
 ---@diagnostic disable: need-check-nil
 local utils = {}
 
+utils.about = function()
+    local status, popup = pcall(require, "nui.popup")
+    if not status then
+        error "nui.nvim required"
+    end
+
+    local text = require "nui.text"
+    local line = require "nui.line"
+    local width = 80
+
+    local p = popup {
+        enter = true,
+        focusable = true,
+        border = {
+            style = "single",
+            text = {
+                top = "About IceNvim",
+                top_align = "center",
+                bottom = "Press q to close window",
+                bottom_align = "center",
+            },
+        },
+        buf_options = {
+            modifiable = true,
+            readonly = false,
+        },
+        position = "50%",
+        size = {
+            width = tostring(width),
+            height = "30%",
+        },
+    }
+
+    p:mount()
+
+    local function render(content, row)
+        local l = line()
+        l:append(content)
+        l:render(p.bufnr, -1, row)
+    end
+
+    render("", 1)
+    render("A beautiful, powerful and highly customizable neovim config.", 2)
+    render("", 3)
+    render("Author: Shaobin Jiang", 4)
+    render("", 5)
+    render("Url: https://github.com/Shaobin-Jiang/IceNvim", 6)
+    render("", 7)
+    render(string.format("Copyright © 2022-%s Shaobin Jiang", os.date "%Y"), 8)
+
+    p:map("n", "q", function()
+        p:unmount()
+    end, { noremap = true, silent = true })
+
+    vim.api.nvim_buf_set_option(p.bufnr, "modifiable", false)
+    vim.api.nvim_buf_set_option(p.bufnr, "readonly", true)
+end
+
 -- Use nui popup to check whether nerd font icons look normal
 utils.check_icons = function()
     local status, popup = pcall(require, "nui.popup")

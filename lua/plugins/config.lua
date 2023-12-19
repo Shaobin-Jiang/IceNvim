@@ -544,7 +544,6 @@ config["nvim-treesitter"] = {
             "c_sharp",
             "cpp",
             "css",
-            "fortran",
             "html",
             "javascript",
             "json",

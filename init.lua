@@ -8,7 +8,13 @@ local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
 if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
     os.execute("mkdir \"" .. config_root .. "/lua/custom\"")
 end
-pcall(require, "custom.init")
+
+local custom_path = config_root .. "/lua/custom/init.lua"
+local f = io.open(custom_path, "r")
+if f ~= nil then
+    f:close()
+    require "custom.init"
+end
 
 -- Define keymap
 local keymap = Ice.keymap.general

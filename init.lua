@@ -10,9 +10,9 @@ if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
 end
 
 local custom_path = config_root .. "/lua/custom/init.lua"
-local f = io.open(custom_path, "r")
-if f ~= nil then
-    f:close()
+local custom_init_file = io.open(custom_path, "r")
+if custom_init_file ~= nil then
+    custom_init_file:close()
     require "custom.init"
 end
 
@@ -34,10 +34,10 @@ if not require("core.utils").noplugin then
     -- Define colorscheme
     if not Ice.colorscheme then
         local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
-        local f = io.open(colorscheme_cache, "r")
-        if f ~= nil then
-            local colorscheme = f:read "*a"
-            f:close()
+        local colorscheme_cache_file = io.open(colorscheme_cache, "r")
+        if colorscheme_cache_file ~= nil then
+            local colorscheme = colorscheme_cache_file:read "*a"
+            colorscheme_cache_file:close()
             Ice.colorscheme = Ice.colorschemes[colorscheme]
         else
             Ice.colorscheme = Ice.colorschemes["tokyonight"]

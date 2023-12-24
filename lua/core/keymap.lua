@@ -37,6 +37,12 @@ Ice.keymap.general = {
     -- See `:h quote_`
     black_hole_register = { { "n", "v" }, "\\", '"_' },
     clear_cmd_line = { "n", "<C-g>", ":echo<CR>", { noremap = true } },
+    cmd_forward = { "c", "<C-f>", "<Right>", { silent = false } },
+    cmd_backward = { "c", "<C-b>", "<Left>", { silent = false } },
+    cmd_home = { "c", "<C-a>", "<Home>", { silent = false } },
+    cmd_end = { "c", "<C-e>", "<End>", { silent = false } },
+    cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
+    cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", ":split term://bash<CR>" },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },

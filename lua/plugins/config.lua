@@ -1012,7 +1012,7 @@ config["nvim-cmp"] = {
 }
 
 config["null-ls"] = {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvimtools/none-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
     event = "VeryLazy",
     config = function()

@@ -43,6 +43,12 @@ Ice.keymap.general = {
     cmd_end = { "c", "<C-e>", "<End>", { silent = false } },
     cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
     cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
+
+    -- Move the cursor through wrapped lines with j and k
+    -- https://github.com/NvChad/NvChad/blob/b9963e29b21a672325af5b51f1d32a9191abcdaa/lua/core/mappings.lua#L40C5-L41C99
+    move_down = { "n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true } },
+    move_up = { "n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true } },
+
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", ":split term://bash<CR>" },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },

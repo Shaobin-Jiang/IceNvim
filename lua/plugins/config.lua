@@ -327,6 +327,7 @@ config["markdown-preview"] = {
         vim.g.mkdp_filetypes = { "markdown" }
         vim.g.mkdp_auto_close = 0
     end,
+    build = "cd app && yarn install",
     keys = {
         {
             "<leader>um",

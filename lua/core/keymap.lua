@@ -16,7 +16,7 @@ local function open_html_file()
         else
             command = "open"
         end
-        vim.cmd(string.format("!%s %%", command))
+        vim.cmd(string.format("silent exec \"!%s %%\"", command))
     end
 end
 

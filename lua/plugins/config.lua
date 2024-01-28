@@ -243,7 +243,7 @@ config.gitsigns = {
 }
 
 config.hop = {
-    "phaazon/hop.nvim",
+    "smoka7/hop.nvim",
     main = "hop",
     opts = {
         -- This is actually equal to:

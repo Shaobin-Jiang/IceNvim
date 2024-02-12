@@ -71,4 +71,5 @@ Ice.keymap.general = {
     shift_line_left = { "v", "<", "<gv" },
     shift_line_right = { "v", ">", ">gv" },
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },
+    visual_line = { "n", "V", "0v$" },
 }

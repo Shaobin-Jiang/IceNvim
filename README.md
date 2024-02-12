@@ -91,6 +91,18 @@ Additionally, if you are using wsl, you might have to do this:
 chmod +x ~/.config/nvim/bin/im-select.exe
 ```
 
+### Download `uclip.exe` (recommended for windows / wsl users)
+
+Although text yanked from within IceNvim is already available from outside, one might find that utf-8 characters are not copied properly on Windows and WSL. This is because the functionality is dealt with by Windows' `CLIP` command which does a poor job when used with utf-8 characters.
+
+To solve this, one might need to download [uclip.exe](https://github.com/suzusime/uclip/releases/download/v0.1.0/uclip.exe) and place it in the `bin` repository in the configuration directory.
+
+Additionally, if you are using wsl, you might have to do this:
+
+```bash
+chmod +x ~/.config/nvim/bin/uclip.exe
+```
+
 ## Custom Configuration
 
 This neovim configuration allows users to override the default configuration by creating a `custom` dir under `lua/`.

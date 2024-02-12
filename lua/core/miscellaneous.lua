@@ -1,22 +1,31 @@
 local utils = require "core.utils"
 
+local config_path = string.gsub(vim.fn.stdpath "config", "\\", "/")
+
 -- Yanking on windows / wsl
-if utils.is_windows() or utils.is_wsl() then
+local clip_path = config_path .. "/bin/uclip.exe"
+local uclip_exe = io.open(clip_path, "r")
+if uclip_exe ~= nil then
+    io.close(uclip_exe)
+else
     local root
     if utils.is_windows() then
         root = "C:"
     else
         root = "/mnt/c"
     end
+    clip_path = root .. "/Windows/System32/clip.exe"
+end
 
+if utils.is_windows() or utils.is_wsl() then
     vim.cmd(string.format(
         [[
         augroup fix_yank
             autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system('%s/Windows/System32/clip.exe', @0) | endif
+            autocmd TextYankPost * if v:event.operator ==# 'y' | call system('%s', @0) | endif
         augroup END
         ]],
-        root
+        clip_path
     ))
 elseif utils.is_linux() then
     vim.cmd "set clipboard+=unnamedplus"
@@ -24,12 +33,11 @@ end
 
 -- IME switching on windows / wsl
 if utils.is_windows() or utils.is_wsl() then
-    local config_path = string.gsub(vim.fn.stdpath "config", "\\", "/")
     local im_select_path = config_path .. "/bin/im-select.exe"
 
-    local f = io.open(im_select_path, "r")
-    if f ~= nil then
-        io.close(f)
+    local im_select_exe = io.open(im_select_path, "r")
+    if im_select_exe ~= nil then
+        io.close(im_select_exe)
 
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 

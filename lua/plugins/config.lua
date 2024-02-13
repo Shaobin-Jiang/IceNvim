@@ -766,7 +766,7 @@ config.telescope = {
     keys = {
         { "<leader>tf", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
         { "<leader>t<C-f>", ":Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
-        { "<leader>te", ":Telescope env<CR>", desc = "n", silent = true, noremap = true },
+        { "<leader>te", ":Telescope env<CR>", desc = "environment variables", silent = true, noremap = true },
     },
 }
 

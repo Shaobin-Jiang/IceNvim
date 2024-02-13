@@ -357,41 +357,6 @@ config.neogit = {
     },
 }
 
-config.neorg = {
-    "nvim-neorg/neorg",
-    -- Do not set ft = "norg", as we might want to access to neorg functions prior to entering a norg file
-    event = "VeryLazy",
-    main = "neorg",
-    opts = {
-        load = {
-            ["core.defaults"] = {},
-            ["core.completion"] = {
-                config = {
-                    engine = "nvim-cmp",
-                },
-            },
-            ["core.concealer"] = {},
-            ["core.dirman"] = {
-                config = {
-                    workspaces = {
-                        notes = "~/notes",
-                    },
-                },
-            },
-            ["core.summary"] = {},
-        },
-    },
-    config = function(_, opts)
-        require("neorg").setup(opts)
-
-        require("nvim-web-devicons").set_icon {
-            norg = {
-                icon = require("nvim-web-devicons").get_icon "file.org",
-            },
-        }
-    end,
-}
-
 config.neoscroll = {
     "karb94/neoscroll.nvim",
     event = "BufEnter",
@@ -1002,15 +967,6 @@ config["nvim-cmp"] = {
                 },
             },
         }
-
-        cmp.setup.filetype("norg", {
-            sources = cmp.config.sources({
-                { name = "neorg" },
-            }, {
-                { name = "buffer" },
-                { name = "path" },
-            }),
-        })
 
         cmp.setup.cmdline({ "/", "?" }, {
             mapping = cmp.mapping.preset.cmdline(),

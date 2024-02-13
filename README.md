@@ -147,20 +147,6 @@ When receiving nuget-related errors when installing csharpier, you might have to
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
 
-### Opening Links in `norg` Files on Wsl
-
-By custom, Neorg uses `explorer.exe` to open links on Wsl. While this may work well with opening web links, it is not
-quite so with file links, such as `{file:///path/to/file}`, as this is not a recognizable link for Windows' `explorer.exe`.
-
-Until a workaround is provided by Neorg, one can define an `explorer.exe` in `/bin`:
-
-```bash
-echo 'wslview "$*' | sudo tee /bin/explorer.exe
-sudo chmod +x /bin/explorer.exe
-```
-
-My preferred way of opening files with Windows programs is [`wslview`](https://wslutiliti.es/wslu/), but you can still use whatever command you like better, such as `xdg-open`.
-
 ### Rust not Working Properly
 
 You need to check how you installed rust. I have not been able to set up rust-analyzer when installing rust only (e.g., via `scoop install rust` or `sudo zypper in rust`) either, but with the officially recommended way, i.e., by installing rustup, everything works properly.

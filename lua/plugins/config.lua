@@ -801,6 +801,38 @@ config["which-key"] = {
     end,
 }
 
+config["zen-mode"] = {
+    "folke/zen-mode.nvim",
+    -- Set high priority to ensure this is loaded before nvim-transparent
+    priority = priority.HIGH,
+    opts = {
+        window = {
+            backdrop = 0.8,
+            width = vim.fn.winwidth(0) - 16,
+            height = vim.fn.winheight(0) + 1,
+        },
+        on_open = function()
+            vim.opt.cmdheight = 1
+        end,
+        on_close = function()
+            vim.opt.cmdheight = 2
+        end,
+    },
+    config = function (_, opts)
+        -- TODO: this highlight is only used because I have not yet found a way of getting the bg of Normal, which is
+        -- wiped out when transparency is on. BufferLineTabSelected is amidst the few highlights that is opaque and
+        -- shares the same bg as Normal.
+        local zen_mode_util = require("zen-mode.util")
+        local hl = zen_mode_util.get_hl("BufferLineTabSelected")
+        local bg = zen_mode_util.darken(hl.background, opts.window.backdrop)
+        vim.cmd(("highlight default ZenBg guibg=%s guifg=%s"):format(bg, bg))
+        require("zen-mode").setup(opts)
+    end,
+    keys = {
+        { "<leader>uz", ":ZenMode<CR>", desc = "toggle zen mode", silent = true, noremap = true },
+    },
+}
+
 -- Colorschemes
 config["ayu"] = {
     "Luxed/ayu-vim",

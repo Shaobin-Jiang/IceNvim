@@ -59,7 +59,7 @@ IceNvim is a beautiful, powerful and customizable neovim config.
   - python3 and pip3
   - Additional dependencies on Linux:
     - unzip
-    - virtual environment
+    - python virtual environment
     - xclip (for accessing system clipboard; **not required on WSL**)
     - zip
 
@@ -83,7 +83,7 @@ git clone https://github.com/Shaobin-Jiang/neovim ~/.config/nvim
 
 For automatic IME switching when inputing Chinese, im-select.exe is needed.
 
-Download it from [https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe](https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe) and place to the `bin` repository in the configuration directory.
+Download it from [https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe](https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe) and place to the `bin` directory in the configuration directory.
 
 Additionally, if you are using wsl, you might have to do this:
 
@@ -93,9 +93,9 @@ chmod +x ~/.config/nvim/bin/im-select.exe
 
 ### Download `uclip.exe` (recommended for windows / wsl users)
 
-Although text yanked from within IceNvim is already available from outside, one might find that utf-8 characters are not copied properly on Windows and WSL. This is because the functionality is dealt with by Windows' `CLIP` command which does a poor job when used with utf-8 characters.
+Although text yanked from within IceNvim is already available from outside, one might find that unicode characters are not copied properly on Windows and WSL. This is because the functionality is dealt with by Windows' `CLIP` command which does a poor job when used with utf-8 characters.
 
-To solve this, one might need to download [uclip.exe](https://github.com/suzusime/uclip/releases/download/v0.1.0/uclip.exe) and place it in the `bin` repository in the configuration directory.
+To solve this, one might need to download [uclip.exe](https://github.com/suzusime/uclip/releases/download/v0.1.0/uclip.exe) and place it in the `bin` directory in the configuration directory.
 
 Additionally, if you are using wsl, you might have to do this:
 

@@ -118,11 +118,11 @@ config.omnisharp = function()
     return vim.tbl_extend("force", config.default(), {
         cmd = {
             "dotnet",
-            vim.fn.stdpath "data" .. "/mason/packages/omnisharp/Omnisharp.dll",
+            vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/Omnisharp.dll",
         },
         on_attach = function(client, bufnr)
             client.server_capabilities.semanticTokensProvider = nil
-            config.default.on_attach(client, bufnr)
+            config.default().on_attach(client, bufnr)
         end,
         enable_editorconfig_support = true,
         enable_ms_build_load_projects_on_demand = false,

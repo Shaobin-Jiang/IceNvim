@@ -61,3 +61,26 @@ elseif utils.is_linux() then
         autocmd InsertEnter * :silent if fcitx5state == 2 | call system("fcitx5-remote -o") | endif
     ]]
 end
+
+-- Automatic switch to root directory
+vim.api.nvim_create_autocmd("BufEnter", {
+    group = vim.api.nvim_create_augroup("AutoChdir", { clear = true }),
+    callback = function()
+        if not (Ice.auto_chdir or Ice.auto_chdir == nil) then
+            return
+        end
+
+        local default_exclude_filetype = { "NvimTree", "help" }
+
+        local exclude_filetype = Ice.chdir_exclude_filetype
+        if exclude_filetype == nil or type(exclude_filetype) ~= "table" then
+            exclude_filetype = default_exclude_filetype
+        end
+
+        if table.find(exclude_filetype, vim.bo.filetype) then
+            return
+        end
+
+        vim.api.nvim_set_current_dir(require("core.utils").get_root())
+    end,
+})

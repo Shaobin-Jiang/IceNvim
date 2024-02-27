@@ -22,7 +22,7 @@ lsp.ensure_installed = {
     "json-lsp",
     "lua-language-server",
     "omnisharp",
-    "pyright",
+    "black",
     "typescript-language-server",
     "autopep8",
     "csharpier",

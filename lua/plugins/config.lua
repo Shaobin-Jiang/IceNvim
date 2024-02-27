@@ -1051,7 +1051,7 @@ config["null-ls"] = {
                     extra_filetypes = { "njk" },
                     prefer_local = "node_modules/.bin",
                 },
-                formatting.autopep8,
+                formatting.black,
             },
             diagnostics_format = "[#{s}] #{m}",
         }

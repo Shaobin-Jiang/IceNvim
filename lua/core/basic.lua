@@ -69,10 +69,6 @@ opt.timeoutlen = 500
 opt.splitbelow = true
 opt.splitright = true
 
--- Enable auto complete menu and forbid automatically selecting the first option
-g.completeopt = "menu,menuone,noinsert,noselect"
-opt.wildmenu = true
-
 opt.termguicolors = true
 
 -- Avoid "hit-enter" prompts

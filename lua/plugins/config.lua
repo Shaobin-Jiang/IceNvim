@@ -687,7 +687,9 @@ config.telescope = {
         "LinArcX/telescope-env.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
-            build = "make",
+            build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && "
+                .. "cmake --build build --config Release && "
+                .. "cmake --install build --prefix build",
         },
     },
     opts = {
@@ -722,8 +724,8 @@ config.telescope = {
     config = function(_, opts)
         local telescope = require "telescope"
         telescope.setup(opts)
-        telescope.load_extension("fzf")
-        telescope.load_extension("env")
+        telescope.load_extension "fzf"
+        telescope.load_extension "env"
     end,
     keys = {
         { "<leader>tf", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
@@ -818,12 +820,12 @@ config["zen-mode"] = {
             vim.opt.cmdheight = 2
         end,
     },
-    config = function (_, opts)
+    config = function(_, opts)
         -- TODO: this highlight is only used because I have not yet found a way of getting the bg of Normal, which is
         -- wiped out when transparency is on. BufferLineTabSelected is amidst the few highlights that is opaque and
         -- shares the same bg as Normal.
-        local zen_mode_util = require("zen-mode.util")
-        local hl = zen_mode_util.get_hl("BufferLineTabSelected")
+        local zen_mode_util = require "zen-mode.util"
+        local hl = zen_mode_util.get_hl "BufferLineTabSelected"
         local bg = zen_mode_util.darken(hl.background, opts.window.backdrop)
         vim.cmd(("highlight default ZenBg guibg=%s guifg=%s"):format(bg, bg))
         require("zen-mode").setup(opts)

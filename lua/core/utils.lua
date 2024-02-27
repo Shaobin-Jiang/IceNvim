@@ -1,5 +1,3 @@
-local version_string = vim.api.nvim_exec("version", true)
-
 local v = vim.version()
 local version = string.format("%d.%d.%d", v.major, v.minor, v.patch)
 

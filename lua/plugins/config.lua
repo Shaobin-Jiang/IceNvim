@@ -722,8 +722,8 @@ config.telescope = {
     config = function(_, opts)
         local telescope = require "telescope"
         telescope.setup(opts)
-        pcall(telescope.load_extension, "fzf")
-        pcall(telescope.load_extension, "env")
+        telescope.load_extension("fzf")
+        telescope.load_extension("env")
     end,
     keys = {
         { "<leader>tf", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },

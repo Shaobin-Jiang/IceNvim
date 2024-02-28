@@ -71,13 +71,19 @@ vim.api.nvim_create_autocmd("BufEnter", {
         end
 
         local default_exclude_filetype = { "NvimTree", "help" }
+        local default_exclude_buftype = { "terminal", "nofile" }
 
         local exclude_filetype = Ice.chdir_exclude_filetype
         if exclude_filetype == nil or type(exclude_filetype) ~= "table" then
             exclude_filetype = default_exclude_filetype
         end
 
-        if table.find(exclude_filetype, vim.bo.filetype) then
+        local exclude_buftype = Ice.chdir_exclude_buftype
+        if exclude_buftype == nil or type(exclude_buftype) ~= "table" then
+            exclude_buftype = default_exclude_buftype
+        end
+
+        if table.find(exclude_filetype, vim.bo.filetype) or table.find(exclude_buftype, vim.bo.buftype) then
             return
         end
 

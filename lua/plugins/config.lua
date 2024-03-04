@@ -468,8 +468,8 @@ config["nvim-tree"] = {
 
             require("core.utils").group_map({
                 edit = { "n", "<CR>", api.node.open.edit },
-                vertical_split = { "n", "v", api.node.open.vertical },
-                horizontal_split = { "n", "h", api.node.open.horizontal },
+                vertical_split = { "n", "V", api.node.open.vertical },
+                horizontal_split = { "n", "H", api.node.open.horizontal },
                 toggle_hidden_file = { "n", ".", api.tree.toggle_hidden_filter },
                 reload = { "n", "<F5>", api.tree.reload },
                 create = { "n", "a", api.fs.create },

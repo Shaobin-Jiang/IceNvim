@@ -65,6 +65,21 @@ Ice.colorschemes = {
         },
         background = "light",
     },
+    ["kanagawa-wave"] = {
+        name = "kanagawa",
+        theme = "wave",
+        background = "dark",
+    },
+    ["kanagawa-dragon"] = {
+        name = "kanagawa",
+        theme = "dragon",
+        background = "dark",
+    },
+    ["kanagawa-lotus"] = {
+        name = "kanagawa",
+        theme = "lotus",
+        background = "light",
+    },
     nightfox = {
         name = "nightfox",
         background = "dark",

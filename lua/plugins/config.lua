@@ -851,6 +851,11 @@ config["gruvbox"] = {
     priority = priority.HIGH,
 }
 
+config["kanagawa"] = {
+    "rebelot/kanagawa.nvim",
+    priority = priority.HIGH,
+}
+
 config["nightfox"] = {
     "EdenEast/nightfox.nvim",
     priority = priority.HIGH,

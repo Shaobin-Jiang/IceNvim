@@ -467,7 +467,57 @@ config["nvim-tree"] = {
             api.config.mappings.default_on_attach(bufnr)
 
             require("core.utils").group_map({
-                edit = { "n", "<CR>", api.node.open.edit },
+                edit = {
+                    "n",
+                    "<CR>",
+                    function()
+                        local node = api.tree.get_node_under_cursor()
+                        if node.fs_stat.type == "file" then
+                            -- Taken partially from:
+                            -- https://support.microsoft.com/en-us/windows/common-file-name-extensions-in-windows-da4a4430-8e76-89c5-59f7-1cdbbc75cb01
+                            --
+                            -- Not all are included for speed's sake and that we do not really need to "open" certain
+                            -- file types such as dll.
+                            local extensions_opened_externally = {
+                                "avi",
+                                "bmp",
+                                "doc",
+                                "docx",
+                                "exe",
+                                "flv",
+                                "gif",
+                                "jpg",
+                                "jpeg",
+                                "m4a",
+                                "mov",
+                                "mp3",
+                                "mp4",
+                                "mpeg",
+                                "mpg",
+                                "pdf",
+                                "png",
+                                "ppt",
+                                "pptx",
+                                "psd",
+                                "pub",
+                                "rar",
+                                "rtf",
+                                "tif",
+                                "tiff",
+                                "wav",
+                                "xls",
+                                "xlsx",
+                                "zip",
+                            }
+                            if table.find(extensions_opened_externally, node.extension) then
+                                api.node.run.system()
+                                return
+                            end
+                        end
+
+                        api.node.open.edit()
+                    end,
+                },
                 vertical_split = { "n", "V", api.node.open.vertical },
                 horizontal_split = { "n", "H", api.node.open.horizontal },
                 toggle_hidden_file = { "n", ".", api.tree.toggle_hidden_filter },

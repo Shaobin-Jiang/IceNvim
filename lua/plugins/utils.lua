@@ -7,7 +7,6 @@ utils.about = function()
         error "nui.nvim required"
     end
 
-    local text = require "nui.text"
     local line = require "nui.line"
     local width = 80
 

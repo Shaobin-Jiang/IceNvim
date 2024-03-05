@@ -479,6 +479,7 @@ config["nvim-tree"] = {
                 copy = { "n", "y", api.fs.copy.node },
                 paste = { "n", "p", api.fs.paste },
                 system_run = { "n", "s", api.node.run.system },
+                show_info = { "n", "i", api.node.show_info_popup },
             }, opt)
         end,
         git = {

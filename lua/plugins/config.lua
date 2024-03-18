@@ -476,8 +476,7 @@ config["nvim-tree"] = {
                             -- Taken partially from:
                             -- https://support.microsoft.com/en-us/windows/common-file-name-extensions-in-windows-da4a4430-8e76-89c5-59f7-1cdbbc75cb01
                             --
-                            -- Not all are included for speed's sake and that we do not really need to "open" certain
-                            -- file types such as dll.
+                            -- Not all are included for speed's sake
                             local extensions_opened_externally = {
                                 "avi",
                                 "bmp",

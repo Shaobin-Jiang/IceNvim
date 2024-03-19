@@ -70,13 +70,13 @@ Note that some of the packages might have different names with different package
 On Windows:
 
 ```bash
-git clone https://github.com/Shaobin-Jiang/neovim "$env:LOCALAPPDATA\nvim"
+git clone https://github.com/Shaobin-Jiang/IceNvim "$env:LOCALAPPDATA\nvim"
 ```
 
 On Linux:
 
 ```bash
-git clone https://github.com/Shaobin-Jiang/neovim ~/.config/nvim
+git clone https://github.com/Shaobin-Jiang/IceNvim ~/.config/nvim
 ```
 
 ### Download `im-select.exe` (recommended for windows / wsl users)

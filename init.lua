@@ -27,7 +27,7 @@ if not require("core.utils").noplugin then
     for _, plugin in pairs(Ice.plugins) do
         config[#config + 1] = plugin
     end
-    require("lazy").setup(config)
+    require("lazy").setup(config, Ice.lazy)
 
     require("core.utils").group_map(Ice.keymap.plugins)
 

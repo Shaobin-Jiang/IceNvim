@@ -7,7 +7,7 @@
 
 </div>
 
-IceNvim is a beautiful, powerful and customizable neovim config.
+IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet blazing fast.
 
 ## Showcase
 

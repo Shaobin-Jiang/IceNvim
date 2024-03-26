@@ -834,32 +834,32 @@ config["zen-mode"] = {
 -- Colorschemes
 config["ayu"] = {
     "Luxed/ayu-vim",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 config["github"] = {
     "projekt0n/github-nvim-theme",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 config["gruvbox"] = {
     "ellisonleao/gruvbox.nvim",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 config["kanagawa"] = {
     "rebelot/kanagawa.nvim",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 config["nightfox"] = {
     "EdenEast/nightfox.nvim",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 config["tokyonight"] = {
     "folke/tokyonight.nvim",
-    priority = priority.HIGH,
+    lazy = true,
 }
 
 -- Lsp

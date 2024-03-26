@@ -17,6 +17,8 @@ IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet b
 
 ![](./screenshots/3.jpg)
 
+![](./screenshots/4.jpg)
+
 ## Features
 
 - Ideal for development:

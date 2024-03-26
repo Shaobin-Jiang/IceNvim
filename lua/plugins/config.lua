@@ -14,8 +14,10 @@ config.bufferline = {
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    -- Set high priority to ensure this is loaded before nvim-transparent
-    priority = priority.HIGH,
+    -- ensures that it does not load in dashboard, see:
+    -- https://vi.stackexchange.com/questions/43485/how-to-exclude-a-specific-buffer-from-the-bufenter-autocmd-group
+    -- The same goes for all below that has an event of "BufRead"
+    event = "BufRead",
     opts = {
         options = {
             close_command = ":BufferLineClose %d",
@@ -78,7 +80,7 @@ config.bufferline = {
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
-    event = "BufEnter",
+    event = "BufRead",
     opts = {
         filetypes = {
             "*",
@@ -227,7 +229,7 @@ config["flutter-tools"] = {
 
 config.gitsigns = {
     "lewis6991/gitsigns.nvim",
-    event = "BufEnter",
+    event = "BufRead",
     main = "gitsigns",
     opts = {},
     keys = {
@@ -257,7 +259,7 @@ config.hop = {
 
 config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufEnter",
+    event = "BufRead",
     main = "ibl",
     opts = {
         exclude = {
@@ -281,6 +283,7 @@ config.lualine = {
         "nvim-tree/nvim-web-devicons",
         "arkav/lualine-lsp-progress",
     },
+    event = "BufRead",
     main = "lualine",
     opts = {
         options = {
@@ -358,7 +361,6 @@ config.neogit = {
 
 config.neoscroll = {
     "karb94/neoscroll.nvim",
-    event = "BufEnter",
     main = "neoscroll",
     opts = {
         mappings = {},
@@ -391,6 +393,7 @@ config.neoscroll = {
 
 config.nui = {
     "MunifTanjim/nui.nvim",
+    lazy = true,
 }
 
 config["nvim-autopairs"] = {
@@ -416,7 +419,7 @@ config["nvim-notify"] = {
 
 config["nvim-scrollview"] = {
     "dstein64/nvim-scrollview",
-    event = "BufEnter",
+    event = "BufRead",
     main = "scrollview",
     opts = {
         excluded_filetypes = { "nvimtree" },
@@ -595,6 +598,7 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
+    event = "BufRead",
     pin = true,
     main = "nvim-treesitter",
     opts = {
@@ -680,6 +684,7 @@ config["rust-tools"] = {
 
 config.surround = {
     "tpope/vim-surround",
+    event = "BufRead",
 }
 
 config.telescope = {
@@ -740,9 +745,8 @@ config["todo-comments"] = {
     "folke/todo-comments.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
     },
-    event = "BufEnter",
+    event = "BufRead",
     main = "todo-comments",
     opts = {},
     keys = {
@@ -868,7 +872,7 @@ config.mason = {
     dependencies = {
         "neovim/nvim-lspconfig",
     },
-    lazy = false,
+    event = { "BufRead", "VeryLazy" },
     config = function()
         require("mason").setup {
             ui = {
@@ -942,7 +946,7 @@ config["nvim-cmp"] = {
         "onsails/lspkind-nvim",
         "tami5/lspsaga.nvim",
     },
-    event = "VeryLazy",
+    event = { "InsertEnter", "CmdlineEnter" },
     config = function()
         local lspkind = require "lspkind"
         lspkind.init {
@@ -1024,7 +1028,7 @@ config["nvim-cmp"] = {
 config["null-ls"] = {
     "nvimtools/none-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    event = "VeryLazy",
+    event = "BufRead",
     config = function()
         local null_ls = require "null-ls"
 

@@ -823,13 +823,7 @@ config["zen-mode"] = {
         end,
     },
     config = function(_, opts)
-        -- TODO: this highlight is only used because I have not yet found a way of getting the bg of Normal, which is
-        -- wiped out when transparency is on. BufferLineTabSelected is amidst the few highlights that is opaque and
-        -- shares the same bg as Normal.
-        local zen_mode_util = require "zen-mode.util"
-        local hl = zen_mode_util.get_hl "BufferLineTabSelected"
-        local bg = zen_mode_util.darken(hl.background, opts.window.backdrop)
-        vim.cmd(("highlight default ZenBg guibg=%s guifg=%s"):format(bg, bg))
+        vim.api.nvim_command "highlight link ZenBg IceNormal"
         require("zen-mode").setup(opts)
     end,
     keys = {

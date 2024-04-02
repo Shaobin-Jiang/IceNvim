@@ -9,15 +9,33 @@ local priority = {
     HIGH = 615,
 }
 
+-- Add IceLoad event
+-- If user starts neovim but does not edit a file, i.e., entering Dashboard directly, the IceLoad event is hooked to the
+-- next BufRead event. Otherwise, the event is triggered right after the VeryLazy event.
+vim.api.nvim_create_autocmd("User", {
+    pattern = "VeryLazy",
+    callback = function()
+        local function _trigger()
+            vim.api.nvim_exec_autocmds("User", { pattern = "IceLoad" })
+        end
+
+        if vim.bo.filetype == "dashboard" then
+            vim.api.nvim_create_autocmd("BufRead", {
+                once = true,
+                callback = _trigger,
+            })
+        else
+            _trigger()
+        end
+    end,
+})
+
 config.bufferline = {
     "akinsho/bufferline.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
     },
-    -- ensures that it does not load in dashboard, see:
-    -- https://vi.stackexchange.com/questions/43485/how-to-exclude-a-specific-buffer-from-the-bufenter-autocmd-group
-    -- The same goes for all below that has an event of "BufRead"
-    event = "BufRead",
+    event = "User IceLoad",
     opts = {
         options = {
             close_command = ":BufferLineClose %d",
@@ -80,7 +98,7 @@ config.bufferline = {
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
-    event = "BufRead",
+    event = "User IceLoad",
     opts = {
         filetypes = {
             "*",
@@ -229,7 +247,7 @@ config["flutter-tools"] = {
 
 config.gitsigns = {
     "lewis6991/gitsigns.nvim",
-    event = "BufRead",
+    event = "User IceLoad",
     main = "gitsigns",
     opts = {},
     keys = {
@@ -259,7 +277,7 @@ config.hop = {
 
 config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
-    event = "BufRead",
+    event = "User IceLoad",
     main = "ibl",
     opts = {
         exclude = {
@@ -283,7 +301,7 @@ config.lualine = {
         "nvim-tree/nvim-web-devicons",
         "arkav/lualine-lsp-progress",
     },
-    event = "BufRead",
+    event = "User IceLoad",
     main = "lualine",
     opts = {
         options = {
@@ -420,7 +438,7 @@ config["nvim-notify"] = {
 
 config["nvim-scrollview"] = {
     "dstein64/nvim-scrollview",
-    event = "BufRead",
+    event = "User IceLoad",
     main = "scrollview",
     opts = {
         excluded_filetypes = { "nvimtree" },
@@ -599,7 +617,7 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    event = "BufRead",
+    event = "User IceLoad",
     pin = true,
     main = "nvim-treesitter",
     opts = {
@@ -685,7 +703,7 @@ config["rust-tools"] = {
 
 config.surround = {
     "tpope/vim-surround",
-    event = "BufRead",
+    event = "User IceLoad",
 }
 
 config.telescope = {
@@ -747,7 +765,7 @@ config["todo-comments"] = {
     dependencies = {
         "nvim-lua/plenary.nvim",
     },
-    event = "BufRead",
+    event = "User IceLoad",
     main = "todo-comments",
     opts = {},
     keys = {
@@ -873,7 +891,7 @@ config.mason = {
     dependencies = {
         "neovim/nvim-lspconfig",
     },
-    event = { "BufRead", "VeryLazy" },
+    event = "User IceLoad",
     config = function()
         require("mason").setup {
             ui = {
@@ -1029,7 +1047,7 @@ config["nvim-cmp"] = {
 config["null-ls"] = {
     "nvimtools/none-ls.nvim",
     dependencies = "nvim-lua/plenary.nvim",
-    event = "BufRead",
+    event = "User IceLoad",
     config = function()
         local null_ls = require "null-ls"
 

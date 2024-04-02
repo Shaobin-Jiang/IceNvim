@@ -412,6 +412,7 @@ config["nvim-notify"] = {
         stages = "static",
     },
     config = function(_, opts)
+        ---@diagnostic disable-next-line: undefined-field
         require("notify").setup(opts)
         vim.notify = require "notify"
     end,

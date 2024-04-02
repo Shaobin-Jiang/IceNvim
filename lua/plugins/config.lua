@@ -949,6 +949,8 @@ config.mason = {
             local hl = "DiagnosticSign" .. type
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
+
+        vim.api.nvim_command "LspStart"
     end,
 }
 

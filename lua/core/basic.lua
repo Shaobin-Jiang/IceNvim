@@ -82,7 +82,6 @@ opt.pumheight = 16
 opt.showtabline = 2
 
 opt.showmode = false
--- opt.laststatus = 3
 
 opt.nrformats = "bin,hex,alpha"
 

@@ -892,6 +892,7 @@ config.mason = {
         "neovim/nvim-lspconfig",
     },
     event = "User IceLoad",
+    cmd = "Mason",
     config = function()
         require("mason").setup {
             ui = {

@@ -702,7 +702,9 @@ config["rust-tools"] = {
 }
 
 config.surround = {
-    "tpope/vim-surround",
+    "kylechui/nvim-surround",
+    version = "*",
+    opts = {},
     event = "User IceLoad",
 }
 

@@ -12,4 +12,21 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-Ice.lazy = {}
+Ice.lazy = {
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "editorconfig",
+                "gzip",
+                "matchit",
+                "matchparen",
+                "netrwPlugin",
+                "shada",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            },
+        },
+    },
+}

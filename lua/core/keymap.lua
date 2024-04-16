@@ -65,7 +65,7 @@ Ice.keymap.general = {
     move_up = { "n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true } },
 
     open_html_file = { "n", "<A-b>", open_html_file },
-    open_terminal = { "n", "<C-t>", ":split term://bash<CR>" },
+    open_terminal = { "n", "<C-t>", "<Cmd>split term://bash<CR>" },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>" },
     shift_line_left = { "v", "<", "<gv" },

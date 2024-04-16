@@ -155,16 +155,16 @@ lsp["server-config"] = config
 local keymap = {}
 
 keymap.mapLsp = {
-    rename = { "n", "<leader>lr", ":Lspsaga rename<CR>" },
-    code_action = { "n", "<leader>lc", ":Lspsaga code_action<CR>" },
-    go_to_definition = { "n", "<leader>ld", ":lua vim.lsp.buf.definition()<CR>" },
-    doc = { "n", "<leader>lh", ":Lspsaga hover_doc<CR>" },
-    references = { "n", "<leader>lR", ":Lspsaga lsp_finder<CR>" },
-    go_to_implementation = { "n", "<leader>li", ":lua vim.lsp.buf.implementation()<CR>" },
-    show_line_diagnostic = { "n", "<leader>lP", ":Lspsaga show_line_diagnostics<CR>" },
-    next_diagnostic = { "n", "<leader>ln", ":Lspsaga diagnostic_jump_next<CR>" },
-    prev_diagnostic = { "n", "<leader>lp", ":Lspsaga diagnostic_jump_prev<CR>" },
-    copy_diagnostic = { "n", "<leader>ly", ":Lspsaga yank_line_diagnostics<CR>" },
+    rename = { "n", "<leader>lr", "<Cmd>Lspsaga rename<CR>" },
+    code_action = { "n", "<leader>lc", "<Cmd>Lspsaga code_action<CR>" },
+    go_to_definition = { "n", "<leader>ld", "<Cmd>lua vim.lsp.buf.definition()<CR>" },
+    doc = { "n", "<leader>lh", "<Cmd>Lspsaga hover_doc<CR>" },
+    references = { "n", "<leader>lR", "<Cmd>Lspsaga lsp_finder<CR>" },
+    go_to_implementation = { "n", "<leader>li", "<Cmd>lua vim.lsp.buf.implementation()<CR>" },
+    show_line_diagnostic = { "n", "<leader>lP", "<Cmd>Lspsaga show_line_diagnostics<CR>" },
+    next_diagnostic = { "n", "<leader>ln", "<Cmd>Lspsaga diagnostic_jump_next<CR>" },
+    prev_diagnostic = { "n", "<leader>lp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>" },
+    copy_diagnostic = { "n", "<leader>ly", "<Cmd>Lspsaga yank_line_diagnostics<CR>" },
     format_code = {
         "n",
         "<leader>lf",
@@ -172,14 +172,14 @@ keymap.mapLsp = {
             local lsp_is_active = require("plugins.utils").lsp_is_active
 
             if lsp_is_active "denols" then
-                vim.cmd ":w"
+                vim.cmd "<Cmd>w"
                 vim.cmd "!deno fmt %"
                 vim.cmd ""
                 return
             end
 
             if lsp_is_active "rust_analyzer" then
-                vim.cmd ":w"
+                vim.cmd "<Cmd>w"
                 vim.cmd "!cargo fmt"
                 vim.cmd ""
                 return

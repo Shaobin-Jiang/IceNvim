@@ -38,8 +38,8 @@ config.bufferline = {
     event = "User IceLoad",
     opts = {
         options = {
-            close_command = ":BufferLineClose %d",
-            right_mouse_command = ":BufferLineClose %d",
+            close_command = "<Cmd>BufferLineClose %d",
+            right_mouse_command = "<Cmd>BufferLineClose %d",
             separator_style = "thin",
             offsets = {
                 {
@@ -85,13 +85,13 @@ config.bufferline = {
         require("bufferline").setup(opts)
     end,
     keys = {
-        { "<leader>bc", ":BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },
+        { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },
         -- <esc> is added in case current buffer is the last
-        { "<leader>bd", ":BufferLineClose 0<CR><ESC>", desc = "close current buffer", silent = true, noremap = true },
-        { "<leader>bh", ":BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true, noremap = true },
-        { "<leader>bl", ":BufferLineCycleNext<CR>", desc = "next buffer", silent = true, noremap = true },
-        { "<leader>bo", ":BufferLineCloseOthers<CR>", desc = "close others", silent = true, noremap = true },
-        { "<leader>bp", ":BufferLinePick<CR>", desc = "pick buffer", silent = true, noremap = true },
+        { "<leader>bd", "<Cmd>BufferLineClose 0<CR><ESC>", desc = "close current buffer", silent = true, noremap = true },
+        { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true, noremap = true },
+        { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true, noremap = true },
+        { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true, noremap = true },
+        { "<leader>bp", "<Cmd>BufferLinePick<CR>", desc = "pick buffer", silent = true, noremap = true },
     },
 }
 
@@ -262,13 +262,13 @@ config.gitsigns = {
     main = "gitsigns",
     opts = {},
     keys = {
-        { "<leader>gn", ":Gitsigns next_hunk<CR>", desc = "next hunk", silent = true, noremap = true },
-        { "<leader>gp", ":Gitsigns prev_hunk<CR>", desc = "prev hunk", silent = true, noremap = true },
-        { "<leader>gP", ":Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true, noremap = true },
-        { "<leader>gs", ":Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true, noremap = true },
-        { "<leader>gu", ":Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true, noremap = true },
-        { "<leader>gr", ":Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true, noremap = true },
-        { "<leader>gb", ":Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
+        { "<leader>gn", "<Cmd>Gitsigns next_hunk<CR>", desc = "next hunk", silent = true, noremap = true },
+        { "<leader>gp", "<Cmd>Gitsigns prev_hunk<CR>", desc = "prev hunk", silent = true, noremap = true },
+        { "<leader>gP", "<Cmd>Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true, noremap = true },
+        { "<leader>gs", "<Cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true, noremap = true },
+        { "<leader>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true, noremap = true },
+        { "<leader>gr", "<Cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true, noremap = true },
+        { "<leader>gb", "<Cmd>Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
     },
 }
 
@@ -282,7 +282,7 @@ config.hop = {
         keys = "fjghdksltyrueiwoqpvbcnxmza",
     },
     keys = {
-        { "<leader>hp", ":HopWord<CR>", desc = "hop word", silent = true, noremap = true },
+        { "<leader>hp", "<Cmd>HopWord<CR>", desc = "hop word", silent = true, noremap = true },
     },
 }
 
@@ -384,7 +384,7 @@ config.neogit = {
         },
     },
     keys = {
-        { "<leader>gt", ":Neogit<CR>", desc = "neogit", silent = true, noremap = true },
+        { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true, noremap = true },
     },
 }
 
@@ -620,7 +620,7 @@ config["nvim-tree"] = {
         vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
     end,
     keys = {
-        { "<leader>uf", ":NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
+        { "<leader>uf", "<Cmd>NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
     },
 }
 
@@ -767,9 +767,9 @@ config.telescope = {
         telescope.load_extension "env"
     end,
     keys = {
-        { "<leader>tf", ":Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
-        { "<leader>t<C-f>", ":Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
-        { "<leader>te", ":Telescope env<CR>", desc = "environment variables", silent = true, noremap = true },
+        { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
+        { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
+        { "<leader>te", "<Cmd>Telescope env<CR>", desc = "environment variables", silent = true, noremap = true },
     },
 }
 
@@ -782,14 +782,14 @@ config["todo-comments"] = {
     main = "todo-comments",
     opts = {},
     keys = {
-        { "<leader>ut", ":TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
+        { "<leader>ut", "<Cmd>TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
     },
 }
 
 config.trouble = {
     "folke/trouble.nvim",
     keys = {
-        { "<leader>lt", ":TroubleToggle<CR>", desc = "trouble toggle", silent = true, noremap = true },
+        { "<leader>lt", "<Cmd>TroubleToggle<CR>", desc = "trouble toggle", silent = true, noremap = true },
     },
 }
 
@@ -800,7 +800,7 @@ config.undotree = {
         vim.g.undotree_TreeNodeShape = "-"
     end,
     keys = {
-        { "<leader>uu", ":UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
+        { "<leader>uu", "<Cmd>UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
     },
 }
 
@@ -863,7 +863,7 @@ config["zen-mode"] = {
         require("zen-mode").setup(opts)
     end,
     keys = {
-        { "<leader>uz", ":ZenMode<CR>", desc = "toggle zen mode", silent = true, noremap = true },
+        { "<leader>uz", "<Cmd>ZenMode<CR>", desc = "toggle zen mode", silent = true, noremap = true },
     },
 }
 

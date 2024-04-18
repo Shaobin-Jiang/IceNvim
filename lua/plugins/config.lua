@@ -39,7 +39,7 @@ config.bufferline = {
     opts = {
         options = {
             close_command = "<Cmd>BufferLineClose %d",
-            right_mouse_command = "<Cmd>BufferLineClose %d",
+            right_mouse_command = ":BufferLineClose %d",
             separator_style = "thin",
             offsets = {
                 {

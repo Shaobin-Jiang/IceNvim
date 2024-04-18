@@ -100,5 +100,3 @@ vim.api.nvim_create_autocmd("CmdlineEnter", {
         vim.api.nvim_command("rshada! " .. shada)
     end,
 })
-
--- vim.cmd "syntax off"

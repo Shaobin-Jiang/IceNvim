@@ -319,7 +319,7 @@ config.lualine = {
             theme = "auto",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
-            disabled_filetypes = { "undotree", "diff", "Outline" },
+            disabled_filetypes = { "undotree", "diff" },
         },
         extensions = { "nvim-tree" },
         sections = {

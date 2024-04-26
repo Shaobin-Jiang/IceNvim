@@ -15,6 +15,19 @@ local utils = {
     version = version,
 }
 
+local ft_group = vim.api.nvim_create_augroup("IceFt", { clear = true })
+
+-- Add callback to filetype
+---@param filetype string
+---@param config function
+utils.ft = function(filetype, config)
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = filetype,
+        group = ft_group,
+        callback = config,
+    })
+end
+
 -- Get the parent directory of target. If target is nil, the parent directory of the current file will be looked for,
 -- suffixed with a "/" (which is because this function is intended to be used together with fs_scandir, where errors
 -- would occur sometimes should a path without an ending "/" be passed to it, such as "C:" instead of "C:/").

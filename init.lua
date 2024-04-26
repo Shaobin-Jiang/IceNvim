@@ -20,6 +20,10 @@ end
 local keymap = Ice.keymap.general
 require("core.utils").group_map(keymap)
 
+for filetype, config in pairs(Ice.ft) do
+    require("core.utils").ft(filetype, config)
+end
+
 -- Only load plugins and colorscheme when --noplugin arg is not present
 if not require("core.utils").noplugin then
     -- Load plugins

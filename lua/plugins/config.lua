@@ -87,7 +87,13 @@ config.bufferline = {
     keys = {
         { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },
         -- <esc> is added in case current buffer is the last
-        { "<leader>bd", "<Cmd>BufferLineClose 0<CR><ESC>", desc = "close current buffer", silent = true, noremap = true },
+        {
+            "<leader>bd",
+            "<Cmd>BufferLineClose 0<CR><ESC>",
+            desc = "close current buffer",
+            silent = true,
+            noremap = true,
+        },
         { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true, noremap = true },
         { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true, noremap = true },
         { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true, noremap = true },
@@ -918,34 +924,36 @@ config.mason = {
         }
 
         local registry = require "mason-registry"
-        local function install(package)
-            local s, p = pcall(registry.get_package, package)
-            if s and not p:is_installed() then
-                p:install()
-            end
-        end
-
-        for _, package in pairs(Ice.lsp.ensure_installed) do
-            if type(package) == "table" then
-                for _, p in pairs(package) do
-                    install(p)
+        registry.refresh(function()
+            local function install(package)
+                local s, p = pcall(registry.get_package, package)
+                if s and not p:is_installed() then
+                    p:install()
                 end
-            else
-                install(package)
             end
-        end
 
-        local lspconfig = require "lspconfig"
-
-        for _, lsp in pairs(Ice.lsp.servers) do
-            if lspconfig[lsp] ~= nil then
-                local predefined_config = Ice.lsp["server-config"][lsp]
-                if not predefined_config then
-                    predefined_config = Ice.lsp["server-config"].default
+            for _, package in pairs(Ice.lsp.ensure_installed) do
+                if type(package) == "table" then
+                    for _, p in pairs(package) do
+                        install(p)
+                    end
+                else
+                    install(package)
                 end
-                lspconfig[lsp].setup(predefined_config())
             end
-        end
+
+            local lspconfig = require "lspconfig"
+
+            for _, lsp in pairs(Ice.lsp.servers) do
+                if lspconfig[lsp] ~= nil then
+                    local predefined_config = Ice.lsp["server-config"][lsp]
+                    if not predefined_config then
+                        predefined_config = Ice.lsp["server-config"].default
+                    end
+                    lspconfig[lsp].setup(predefined_config())
+                end
+            end
+        end)
 
         -- UI
         vim.diagnostic.config {

@@ -85,7 +85,9 @@ opt.showmode = false
 
 opt.nrformats = "bin,hex,alpha"
 
-opt.shellslash = true
+if require("core.utils").is_windows() then
+    opt.shellslash = true
+end
 
 vim.cmd [[
     autocmd TermOpen * setlocal nonumber norelativenumber

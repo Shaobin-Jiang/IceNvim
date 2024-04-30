@@ -39,14 +39,14 @@ utils.get_parent = function(target)
     if target == nil then
         local parent = vim.fn.expand("%:p:h", true)
 
-        if require("core.utils").is_windows() then
+        if utils.is_windows() then
             parent = string.gsub(parent, "\\", "/")
         end
 
         return parent
     end
 
-    if require("core.utils").is_windows() then
+    if utils.is_windows() then
         target = string.gsub(target, "\\", "/")
     end
 

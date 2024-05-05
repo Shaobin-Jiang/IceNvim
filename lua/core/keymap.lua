@@ -22,7 +22,7 @@ local function open_html_file()
             vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
             vim.opt.shellslash = old_shellslash
         else
-            vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
+            vim.api.nvim_command(string.format('silent exec "!%s \'%%:p\'"', command))
         end
     end
 end

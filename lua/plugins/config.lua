@@ -924,36 +924,34 @@ config.mason = {
         }
 
         local registry = require "mason-registry"
-        registry.refresh(function()
-            local function install(package)
-                local s, p = pcall(registry.get_package, package)
-                if s and not p:is_installed() then
-                    p:install()
-                end
+        local function install(package)
+            local s, p = pcall(registry.get_package, package)
+            if s and not p:is_installed() then
+                p:install()
             end
+        end
 
-            for _, package in pairs(Ice.lsp.ensure_installed) do
-                if type(package) == "table" then
-                    for _, p in pairs(package) do
-                        install(p)
-                    end
-                else
-                    install(package)
+        for _, package in pairs(Ice.lsp.ensure_installed) do
+            if type(package) == "table" then
+                for _, p in pairs(package) do
+                    install(p)
                 end
+            else
+                install(package)
             end
+        end
 
-            local lspconfig = require "lspconfig"
+        local lspconfig = require "lspconfig"
 
-            for _, lsp in pairs(Ice.lsp.servers) do
-                if lspconfig[lsp] ~= nil then
-                    local predefined_config = Ice.lsp["server-config"][lsp]
-                    if not predefined_config then
-                        predefined_config = Ice.lsp["server-config"].default
-                    end
-                    lspconfig[lsp].setup(predefined_config())
+        for _, lsp in pairs(Ice.lsp.servers) do
+            if lspconfig[lsp] ~= nil then
+                local predefined_config = Ice.lsp["server-config"][lsp]
+                if not predefined_config then
+                    predefined_config = Ice.lsp["server-config"].default
                 end
+                lspconfig[lsp].setup(predefined_config())
             end
-        end)
+        end
 
         -- UI
         vim.diagnostic.config {

@@ -16,10 +16,14 @@ local function open_html_file()
         else
             command = "open"
         end
-        local old_shellslash = vim.opt.shellslash
-        vim.opt.shellslash = false
-        vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
-        vim.opt.shellslash = old_shellslash
+        if require("core.utils").is_windows() then
+            local old_shellslash = vim.opt.shellslash
+            vim.opt.shellslash = false
+            vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
+            vim.opt.shellslash = old_shellslash
+        else
+            vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
+        end
     end
 end
 

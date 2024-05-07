@@ -635,7 +635,6 @@ config["nvim-treesitter"] = {
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
     event = "User IceLoad",
-    pin = true,
     main = "nvim-treesitter",
     opts = {
         ensure_installed = {

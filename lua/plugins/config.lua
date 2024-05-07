@@ -20,7 +20,7 @@ vim.api.nvim_create_autocmd("User", {
         end
 
         if vim.bo.filetype == "dashboard" then
-            vim.api.nvim_create_autocmd("BufRead", {
+            vim.api.nvim_create_autocmd("BufEnter", {
                 once = true,
                 callback = _trigger,
             })

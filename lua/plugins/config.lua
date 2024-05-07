@@ -651,6 +651,7 @@ config["nvim-treesitter"] = {
             "typescript",
             "tsx",
             "vim",
+            "vimdoc",
         },
         highlight = {
             enable = true,

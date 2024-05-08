@@ -118,18 +118,7 @@ utils.is_linux = function()
 end
 
 utils.is_wsl = function()
-    local out = string.match(
-        vim.api.nvim_exec(
-            [[
-                    redir => s
-                    silent! echo has('wsl')
-                    redir END
-            ]],
-            true
-        ),
-        "%d"
-    )
-    return out == "1"
+    return string.find(vim.loop.os_uname().release, "WSL") ~= nil
 end
 
 -- Maps a group of keymaps with the same opt; if no opt is provided, the default opt is used.

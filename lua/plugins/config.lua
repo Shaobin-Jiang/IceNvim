@@ -21,6 +21,7 @@ vim.api.nvim_create_autocmd("User", {
 
         if vim.bo.filetype == "dashboard" then
             vim.api.nvim_create_autocmd("BufEnter", {
+                pattern = "*/*",
                 once = true,
                 callback = _trigger,
             })

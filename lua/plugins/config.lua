@@ -648,6 +648,7 @@ config["nvim-treesitter"] = {
             "json",
             "lua",
             "python",
+            "query",
             "rust",
             "typescript",
             "tsx",

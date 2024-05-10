@@ -988,7 +988,7 @@ config["nvim-cmp"] = {
         "onsails/lspkind-nvim",
         "tami5/lspsaga.nvim",
     },
-    event = { "InsertEnter", "CmdlineEnter" },
+    event = { "InsertEnter", "CmdlineEnter", "User IceLoad" },
     config = function()
         local lspkind = require "lspkind"
         lspkind.init {

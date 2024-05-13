@@ -4,10 +4,7 @@ local config_path = string.gsub(vim.fn.stdpath "config", "\\", "/")
 
 -- Yanking on windows / wsl
 local clip_path = config_path .. "/bin/uclip.exe"
-local uclip_exe = io.open(clip_path, "r")
-if uclip_exe ~= nil then
-    io.close(uclip_exe)
-else
+if not require("core.utils").file_exists(clip_path) then
     local root
     if utils.is_windows() then
         root = "C:"
@@ -35,10 +32,7 @@ end
 if utils.is_windows() or utils.is_wsl() then
     local im_select_path = config_path .. "/bin/im-select.exe"
 
-    local im_select_exe = io.open(im_select_path, "r")
-    if im_select_exe ~= nil then
-        io.close(im_select_exe)
-
+    if require("core.utils").file_exists(im_select_path) then
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 
         local function autocmd(event, code)

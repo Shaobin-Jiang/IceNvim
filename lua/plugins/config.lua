@@ -64,7 +64,7 @@ config.bufferline = {
     config = function(_, opts)
         vim.api.nvim_create_user_command("BufferLineClose", function(buffer_line_opts)
             local bufnr = 1 * buffer_line_opts.args
-            local buf_is_modified = vim.api.nvim_buf_get_option(bufnr, "modified")
+            local buf_is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
 
             local bdelete_arg
             if bufnr == 0 then

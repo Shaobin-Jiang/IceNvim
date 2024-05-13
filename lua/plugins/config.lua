@@ -490,10 +490,7 @@ config["nvim-transparent"] = {
         })
         -- Enable transparent by default
         local transparent_cache = vim.fn.stdpath "data" .. "/transparent_cache"
-        local f = io.open(transparent_cache, "r")
-        if f ~= nil then
-            f:close()
-        else
+        if not require("core.utils").file_exists(transparent_cache) then
             f = io.open(transparent_cache, "w")
             f:write "true"
             f:close()
@@ -635,7 +632,19 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    event = "User IceLoad",
+    -- Do not lazy load if file does not exist
+    --
+    -- Why this is needed:
+    --
+    -- Because nvim-treesitter needs to be loaded early, which is why using "VeryLazy" would not load it in time if we
+    -- open a file directly upon startup. BufRead, on the other hand, loads nvim-treesitter in time for a file but does
+    -- not load it in dashboard, hence doing well with startup time.
+    --
+    -- However, BufRead is not fired for non-existent files. So, if we use `nvim <new-file>`, nvim-treesitter would not
+    -- be loaded for that new file. In this case, the only solution I could see is to prevent lazy loading of the plugin
+    -- altogether.
+    lazy = require("core.utils").file_exists(vim.fn.expand "%:p"),
+    event = "BufRead",
     main = "nvim-treesitter",
     opts = {
         ensure_installed = {
@@ -648,6 +657,7 @@ config["nvim-treesitter"] = {
             "json",
             "lua",
             "python",
+            "query",
             "rust",
             "typescript",
             "tsx",
@@ -657,6 +667,13 @@ config["nvim-treesitter"] = {
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
+            disable = function(_, buf)
+                local max_filesize = 100 * 1024
+                local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
+                if ok and stats and stats.size > max_filesize then
+                    return true
+                end
+            end,
         },
         incremental_selection = {
             enable = true,

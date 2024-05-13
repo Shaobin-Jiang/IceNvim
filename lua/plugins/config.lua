@@ -491,7 +491,7 @@ config["nvim-transparent"] = {
         -- Enable transparent by default
         local transparent_cache = vim.fn.stdpath "data" .. "/transparent_cache"
         if not require("core.utils").file_exists(transparent_cache) then
-            f = io.open(transparent_cache, "w")
+            local f = io.open(transparent_cache, "w")
             f:write "true"
             f:close()
         end

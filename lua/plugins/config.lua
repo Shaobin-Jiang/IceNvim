@@ -682,18 +682,6 @@ config["nvim-treesitter"] = {
         },
     },
     config = function(_, opts)
-        -- WARN: this is only a temporary solution!
-        if require("core.utils").is_windows() then
-            local old_ts_parse_query = vim._ts_parse_query
-            vim._ts_parse_query = function(lang, query)
-                local ok, query_result = pcall(old_ts_parse_query, lang, query)
-                if not ok then
-                    query_result = old_ts_parse_query(lang, "")
-                end
-                return query_result
-            end
-        end
-
         require("nvim-treesitter.install").prefer_git = true
         require("nvim-treesitter.configs").setup(opts)
 

@@ -986,7 +986,7 @@ config["nvim-cmp"] = {
         "hrsh7th/cmp-cmdline",
         "rafamadriz/friendly-snippets",
         "onsails/lspkind-nvim",
-        "tami5/lspsaga.nvim",
+        "nvimdev/lspsaga.nvim",
     },
     event = { "InsertEnter", "CmdlineEnter", "User IceLoad" },
     config = function()
@@ -1064,6 +1064,12 @@ config["nvim-cmp"] = {
 
         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
+
+        require("lspsaga").setup {
+            symbol_in_winbar = {
+                enable = false,
+            },
+        }
     end,
 }
 

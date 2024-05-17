@@ -643,7 +643,10 @@ config["nvim-treesitter"] = {
     -- However, BufRead is not fired for non-existent files. So, if we use `nvim <new-file>`, nvim-treesitter would not
     -- be loaded for that new file. In this case, the only solution I could see is to prevent lazy loading of the plugin
     -- altogether.
-    lazy = require("core.utils").file_exists(vim.fn.expand "%:p"),
+    lazy = (function()
+        local file_name = vim.fn.expand "%:p"
+        return file_name == "" or require("core.utils").file_exists(file_name)
+    end)(),
     event = "BufRead",
     main = "nvim-treesitter",
     opts = {

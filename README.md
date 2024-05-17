@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.9.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 
 </div>

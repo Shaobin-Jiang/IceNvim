@@ -140,7 +140,7 @@ config.tsserver = function()
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
         flags = lsp.flags,
         on_attach = function(client, bufnr)
-            if #vim.lsp.get_active_clients { name = "denols" } > 0 then
+            if #vim.lsp.get_clients { name = "denols" } > 0 then
                 client.stop()
             else
                 lsp.disableFormat(client)

@@ -54,8 +54,8 @@ utils.about = function()
         p:unmount()
     end, { noremap = true, silent = true })
 
-    vim.api.nvim_buf_set_option(p.bufnr, "modifiable", false)
-    vim.api.nvim_buf_set_option(p.bufnr, "readonly", true)
+    vim.api.nvim_set_option_value("modifiable", false, {buf = p.bufnr })
+    vim.api.nvim_set_option_value("readonly", true, {buf = p.bufnr })
 end
 
 -- Use nui popup to check whether nerd font icons look normal
@@ -137,8 +137,8 @@ utils.check_icons = function()
         p:unmount()
     end, { noremap = true, silent = true })
 
-    vim.api.nvim_buf_set_option(p.bufnr, "modifiable", false)
-    vim.api.nvim_buf_set_option(p.bufnr, "readonly", true)
+    vim.api.nvim_set_option_value("modifiable", false, {buf = p.bufnr })
+    vim.api.nvim_set_option_value("readonly", true, {buf = p.bufnr })
 end
 
 -- Set up colorscheme and Ice.colorscheme, but does not take care of lualine
@@ -317,7 +317,7 @@ end
 ---@param lsp string
 ---@return boolean
 utils.lsp_is_active = function(lsp)
-    local active_client = vim.lsp.get_active_clients { name = lsp }
+    local active_client = vim.lsp.get_clients { name = lsp }
     return #active_client > 0
 end
 

@@ -297,6 +297,13 @@ config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
     event = "User IceLoad",
     main = "ibl",
+    version = (function()
+        if vim.version().minor < 10 then
+            return "3.5"
+        else
+            return "*"
+        end
+    end)(),
     opts = {
         exclude = {
             filetypes = {

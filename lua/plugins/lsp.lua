@@ -164,7 +164,6 @@ keymap.mapLsp = {
     show_line_diagnostic = { "n", "<leader>lP", "<Cmd>Lspsaga show_line_diagnostics<CR>" },
     next_diagnostic = { "n", "<leader>ln", "<Cmd>Lspsaga diagnostic_jump_next<CR>" },
     prev_diagnostic = { "n", "<leader>lp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>" },
-    copy_diagnostic = { "n", "<leader>ly", "<Cmd>Lspsaga yank_line_diagnostics<CR>" },
     format_code = {
         "n",
         "<leader>lf",

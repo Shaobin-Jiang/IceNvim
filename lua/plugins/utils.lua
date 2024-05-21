@@ -51,11 +51,19 @@ utils.about = function()
     render(string.format("Copyright © 2022-%s Shaobin Jiang", os.date "%Y"), 8)
 
     p:map("n", "q", function()
+        local old_buf_list = vim.api.nvim_list_bufs()
         p:unmount()
+        local new_buf_list = vim.api.nvim_list_bufs()
+        for key, bufnr in pairs(new_buf_list) do
+            if old_buf_list[key] ~= bufnr then
+                vim.api.nvim_buf_delete(bufnr, { force = true })
+                break
+            end
+        end
     end, { noremap = true, silent = true })
 
-    vim.api.nvim_set_option_value("modifiable", false, {buf = p.bufnr })
-    vim.api.nvim_set_option_value("readonly", true, {buf = p.bufnr })
+    vim.api.nvim_set_option_value("modifiable", false, { buf = p.bufnr })
+    vim.api.nvim_set_option_value("readonly", true, { buf = p.bufnr })
 end
 
 -- Use nui popup to check whether nerd font icons look normal
@@ -134,11 +142,19 @@ utils.check_icons = function()
     }
 
     p:map("n", "q", function()
+        local old_buf_list = vim.api.nvim_list_bufs()
         p:unmount()
+        local new_buf_list = vim.api.nvim_list_bufs()
+        for key, bufnr in pairs(new_buf_list) do
+            if old_buf_list[key] ~= bufnr then
+                vim.api.nvim_buf_delete(bufnr, { force = true })
+                break
+            end
+        end
     end, { noremap = true, silent = true })
 
-    vim.api.nvim_set_option_value("modifiable", false, {buf = p.bufnr })
-    vim.api.nvim_set_option_value("readonly", true, {buf = p.bufnr })
+    vim.api.nvim_set_option_value("modifiable", false, { buf = p.bufnr })
+    vim.api.nvim_set_option_value("readonly", true, { buf = p.bufnr })
 end
 
 -- Set up colorscheme and Ice.colorscheme, but does not take care of lualine

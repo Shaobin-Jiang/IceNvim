@@ -2,7 +2,8 @@
 
 <div align="center">
 
-[![Neovim Minimum Version](https://img.shields.io/badge/Neovim-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Minimum Neovim Version](https://img.shields.io/badge/Minimum_Neovim_Version-0.9.0+-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Latest Supported Version](https://img.shields.io/badge/Latest_Supported_Version-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 
 </div>
@@ -41,7 +42,7 @@ IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet b
 
 ## Requirements
 
-- This neovim configuration requires neovim **0.9.0+**
+- This neovim configuration requires neovim **0.9.0+**, but version **0.10.0+** is preferred
 - Additionally, you need to install these also:
   - A [nerd font](https://www.nerdfonts.com/font-downloads): this is optional, but things may look funny without one installed
   - git: almost all the plugin and lsp installations depend on it

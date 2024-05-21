@@ -393,8 +393,13 @@ config.neogit = {
     dependencies = "nvim-lua/plenary.nvim",
     main = "neogit",
     opts = {
+        disable_hint = true,
         status = {
             recent_commit_count = 30,
+        },
+        commit_editor = {
+            kind = "auto",
+            show_staged_diff = false,
         },
     },
     keys = {

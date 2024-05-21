@@ -2,6 +2,7 @@ Ice = {}
 
 require "core.init"
 require "plugins.init"
+require "v0_9"
 
 -- Load user configuration files
 local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")

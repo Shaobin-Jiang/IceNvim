@@ -598,16 +598,15 @@ config["nvim-tree"] = {
         git = {
             enable = false,
         },
-        update_cwd = true,
         update_focused_file = {
             enable = true,
-            update_cwd = true,
         },
         filters = {
             dotfiles = false,
             custom = { "node_modules", ".git/" },
             exclude = { ".gitignore" },
         },
+        respect_buf_cwd = true,
         view = {
             width = 30,
             side = "left",

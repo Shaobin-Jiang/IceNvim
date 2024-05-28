@@ -60,10 +60,10 @@ IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet b
   - Required by rust-tools:
     - rust-analyzer (NOT the rust-analyzer provided by Mason!!!)
   - python3 and pip3
-  - Additional dependencies on Linux:
+  - Additional dependencies on Linux / WSL:
     - unzip
     - python virtual environment
-    - xclip (for accessing system clipboard; **not required on WSL**)
+    - xclip (for accessing system clipboard)
     - zip
 
 Note that some of the packages might have different names with different package managers!

@@ -76,7 +76,7 @@ utils.get_parent = function(target)
 end
 
 utils.get_root = function()
-    local uv = vim.loop
+    local uv = vim.uv
 
     local default_pattern = {
         ".git",
@@ -123,15 +123,15 @@ utils.get_root = function()
 end
 
 utils.is_windows = function()
-    return vim.loop.os_uname().sysname == "Windows_NT"
+    return vim.uv.os_uname().sysname == "Windows_NT"
 end
 
 utils.is_linux = function()
-    return vim.loop.os_uname().sysname == "Linux"
+    return vim.uv.os_uname().sysname == "Linux"
 end
 
 utils.is_wsl = function()
-    return string.find(vim.loop.os_uname().release, "WSL") ~= nil
+    return string.find(vim.uv.os_uname().release, "WSL") ~= nil
 end
 
 -- Maps a group of keymaps with the same opt; if no opt is provided, the default opt is used.

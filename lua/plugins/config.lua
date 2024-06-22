@@ -398,6 +398,12 @@ config.neogit = {
     keys = {
         { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true, noremap = true },
     },
+    config = function(_, opts)
+        require("neogit").setup(opts)
+        Ice.ft.NeogitCommitMessage = function()
+            vim.api.nvim_win_set_cursor(0, { 1, 0 })
+        end
+    end,
 }
 
 config.neoscroll = {
@@ -1095,7 +1101,7 @@ config["nvim-cmp"] = {
             finder = {
                 keys = {
                     toggle_or_open = "<CR>",
-                }
+                },
             },
             symbol_in_winbar = {
                 enable = false,

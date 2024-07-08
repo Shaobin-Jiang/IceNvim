@@ -854,6 +854,18 @@ config.trouble = {
     },
 }
 
+config["typst-preview"] = {
+    "chomosuke/typst-preview.nvim",
+    ft = "typst",
+    build = function()
+        require("typst-preview").update()
+    end,
+    opts = {},
+    keys = {
+        { "<leader>uT", "<Cmd>TypstPreviewToggle<CR>", desc = "typst preview toggle", silent = true, noremap = true },
+    },
+}
+
 config.undotree = {
     "mbbill/undotree",
     config = function()

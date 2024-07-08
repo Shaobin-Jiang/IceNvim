@@ -23,13 +23,15 @@ lsp.ensure_installed = {
     "lua-language-server",
     "omnisharp",
     "pyright",
-    "black",
     "typescript-language-server",
+    "typst-lsp",
+    "black",
     "csharpier",
     "fixjson",
     "prettier",
     "shfmt",
     "stylua",
+    "typstfmt",
 }
 
 lsp.servers = {
@@ -42,6 +44,7 @@ lsp.servers = {
     "omnisharp",
     "pyright",
     "tsserver",
+    "typst_lsp",
 }
 
 local config = {}

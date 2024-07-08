@@ -689,6 +689,7 @@ config["nvim-treesitter"] = {
             "query",
             "rust",
             "typescript",
+            "typst",
             "tsx",
             "vim",
             "vimdoc",

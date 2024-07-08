@@ -1181,6 +1181,7 @@ config["null-ls"] = {
                     prefer_local = "node_modules/.bin",
                 },
                 formatting.black,
+                formatting.typstfmt,
             },
             diagnostics_format = "[#{s}] #{m}",
         }

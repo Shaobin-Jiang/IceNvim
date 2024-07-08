@@ -155,3 +155,11 @@ dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 You need to check how you installed rust. I have not been able to set up rust-analyzer when installing rust only (e.g., via `scoop install rust` or `sudo zypper in rust`) either, but with the officially recommended way, i.e., by installing rustup, everything works properly.
 
 Also, you might find that completion does not work when first opening a rust project. That is because some time needs to be taken to index the code, and completion would only work after indexing is done.
+
+### Installation Failure for typst-preview.nvim
+
+When installing [typst-preview.nvim](https://github.com/chomosuke/typst-preview.nvim), you might have this error: `Downloading typst-preview binary failed, exit code: 35`. This might be due to the use of proxies. Shut down softwares of such kind and run this command again:
+
+```vim
+lua require("typst-preview").update()
+```

@@ -84,6 +84,14 @@ config.bufferline = {
         end, { nargs = 1 })
 
         require("bufferline").setup(opts)
+
+        require("nvim-web-devicons").set_icon {
+            typ = {
+                icon = "󰰥",
+                color = "#239dad",
+                name = "typst",
+            },
+        }
     end,
     keys = {
         { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },

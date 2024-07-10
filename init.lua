@@ -42,9 +42,9 @@ if not require("core.utils").noplugin then
             ---@diagnostic disable: need-check-nil
             local colorscheme = colorscheme_cache_file:read "*a"
             colorscheme_cache_file:close()
-            Ice.colorscheme = Ice.colorschemes[colorscheme]
+            Ice.colorscheme = colorscheme
         else
-            Ice.colorscheme = Ice.colorschemes["tokyonight"]
+            Ice.colorscheme = "tokyonight"
         end
     end
 

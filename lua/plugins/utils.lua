@@ -165,9 +165,16 @@ end
 --     - a table for plugin setup
 --   - background: "light" / "dark"
 --   - lualine_theme: optional
----@param colorscheme table
-utils.colorscheme = function(colorscheme)
-    Ice.colorscheme = colorscheme
+---@param colorscheme_name string
+utils.colorscheme = function(colorscheme_name)
+    Ice.colorscheme = colorscheme_name
+
+    local colorscheme = Ice.colorschemes[colorscheme_name]
+    if not colorscheme then
+        vim.notify(colorscheme_name .. " is not a valid color scheme!")
+        return
+    end
+
     if type(colorscheme.setup) == "table" then
         require(colorscheme.name).setup(colorscheme.setup)
     elseif type(colorscheme.setup) == "function" then

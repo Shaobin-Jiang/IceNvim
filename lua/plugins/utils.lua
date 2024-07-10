@@ -203,9 +203,12 @@ utils.select_colorscheme = function()
         opts = opts or {}
 
         local colorschemes = Ice.colorschemes
-        local results = {}
+        local suffix_current = " (current)"
+        local results = { Ice.colorscheme .. suffix_current }
         for name, _ in require("core.utils").ordered_pair(colorschemes) do
-            results[#results + 1] = name
+            if name ~= Ice.colorscheme then
+                results[#results + 1] = name
+            end
         end
 
         pickers
@@ -213,8 +216,12 @@ utils.select_colorscheme = function()
                 prompt_title = "Colorschemes",
                 finder = finders.new_table {
                     entry_maker = function(entry)
+                        local pattern = string.gsub(suffix_current, "%(", "%%%(")
+                        pattern = string.gsub(pattern, "%)", "%%%)")
+                        local colorscheme, _ = string.gsub(entry, pattern, "")
+
                         return {
-                            value = entry,
+                            value = colorscheme,
                             display = entry,
                             ordinal = entry,
                         }
@@ -227,7 +234,8 @@ utils.select_colorscheme = function()
                         actions.close(prompt_bufnr)
 
                         local selection = action_state.get_selected_entry()
-                        local config = colorschemes[selection.value]
+                        local colorscheme = selection.value
+                        local config = colorschemes[colorscheme]
 
                         if config.background == "light" then
                             ---@diagnostic disable-next-line: param-type-mismatch
@@ -237,11 +245,11 @@ utils.select_colorscheme = function()
                             pcall(vim.cmd, "TransparentEnable")
                         end
 
-                        utils.colorscheme(config)
+                        utils.colorscheme(selection.value)
 
                         local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
                         local f = io.open(colorscheme_cache, "w")
-                        f:write(selection.value)
+                        f:write(colorscheme)
                         f:close()
                     end)
                     return true

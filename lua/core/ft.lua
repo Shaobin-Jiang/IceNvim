@@ -33,4 +33,9 @@ Ice.ft = {
     typescript = function()
         vim.wo.colorcolumn = "120"
     end,
+    typst = function()
+        vim.wo.wrap = true
+        vim.wo.linebreak = true
+        vim.wo.breakindent = true
+    end
 }

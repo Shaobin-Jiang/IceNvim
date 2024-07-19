@@ -52,7 +52,7 @@ IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet b
     - wget
   - Required by telescope:
     - fd
-    - ripgrep
+    - ripgrep (also required by grug-far.nvim)
   - Required by nvim treesitter:
     - gcc
     - node

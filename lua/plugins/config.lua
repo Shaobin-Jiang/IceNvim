@@ -279,6 +279,14 @@ config.gitsigns = {
     },
 }
 
+config["grug-far"] = {
+    "MagicDuck/grug-far.nvim",
+    opts = {
+        windowCreationCommand = "tabnew %",
+        startInInsertMode = false,
+    },
+}
+
 config.hop = {
     "smoka7/hop.nvim",
     main = "hop",

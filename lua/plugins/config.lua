@@ -275,7 +275,9 @@ config.gitsigns = {
         { "<leader>gs", "<Cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true, noremap = true },
         { "<leader>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true, noremap = true },
         { "<leader>gr", "<Cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true, noremap = true },
-        { "<leader>gb", "<Cmd>Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
+        { "<leader>gB", "<Cmd>Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
+        { "<leader>gb", "<Cmd>Gitsigns blame<CR>", desc = "git blame", silent = true, noremap = true },
+        { "<leader>gl", "<Cmd>Gitsigns blame_line<CR>", desc = "git blame line", silent = true, noremap = true },
     },
 }
 

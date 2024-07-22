@@ -890,6 +890,9 @@ config["which-key"] = {
     "folke/which-key.nvim",
     event = "VeryLazy",
     opts = {
+        icons = {
+            mappings = false,
+        },
         plugins = {
             marks = true,
             registers = true,
@@ -906,21 +909,24 @@ config["which-key"] = {
                 g = true,
             },
         },
-        window = {
+        spec = {
+            { "<leader>b", group = "+buffer" },
+            { "<leader>c", group = "+comment" },
+            { "<leader>g", group = "+git" },
+            { "<leader>h", group = "+hop" },
+            { "<leader>l", group = "+lsp" },
+            { "<leader>t", group = "+telescope" },
+            { "<leader>u", group = "+utils" },
+        },
+        win = {
             border = "none",
-            position = "bottom",
-            -- Leave 1 line at top / bottom for bufferline / lualine
-            margin = { 1, 0, 1, 0 },
             padding = { 1, 0, 1, 0 },
-            winblend = 0,
+            wo = {
+                winblend = 0,
+            },
             zindex = 1000,
         },
     },
-    config = function(_, opts)
-        require("which-key").setup(opts)
-        local wk = require "which-key"
-        wk.register(Ice.keymap.prefix)
-    end,
 }
 
 config["zen-mode"] = {
@@ -1197,12 +1203,21 @@ config["null-ls"] = {
 }
 
 Ice.plugins = config
+-- Ice.keymap.prefix = {
+--     ["<leader>b"] = { name = "+buffer" },
+--     ["<leader>c"] = { name = "+comment" },
+--     ["<leader>g"] = { name = "+git" },
+--     ["<leader>h"] = { name = "+hop" },
+--     ["<leader>l"] = { name = "+lsp" },
+--     ["<leader>t"] = { name = "+telescope" },
+--     ["<leader>u"] = { name = "+utils" },
+-- }
 Ice.keymap.prefix = {
-    ["<leader>b"] = { name = "+buffer" },
-    ["<leader>c"] = { name = "+comment" },
-    ["<leader>g"] = { name = "+git" },
-    ["<leader>h"] = { name = "+hop" },
-    ["<leader>l"] = { name = "+lsp" },
-    ["<leader>t"] = { name = "+telescope" },
-    ["<leader>u"] = { name = "+utils" },
+    { "<leader>b", group = "+buffer" },
+    { "<leader>c", group = "+comment" },
+    { "<leader>g", group = "+git" },
+    { "<leader>h", group = "+hop" },
+    { "<leader>l", group = "+lsp" },
+    { "<leader>t", group = "+telescope" },
+    { "<leader>u", group = "+utils" },
 }

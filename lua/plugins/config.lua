@@ -390,13 +390,10 @@ config["markdown-preview"] = {
     build = "cd app && yarn install",
     keys = {
         {
-            "<leader>um",
-            function()
-                if vim.bo.filetype == "markdown" then
-                    vim.cmd "MarkdownPreviewToggle"
-                end
-            end,
+            "<A-b>",
+            "<Cmd>MarkdownPreviewToggle<CR>",
             desc = "markdown preview",
+            ft = "markdown",
             silent = true,
             noremap = true,
         },
@@ -871,7 +868,14 @@ config["typst-preview"] = {
     end,
     opts = {},
     keys = {
-        { "<leader>uT", "<Cmd>TypstPreviewToggle<CR>", desc = "typst preview toggle", silent = true, noremap = true },
+        {
+            "<A-b>",
+            "<Cmd>TypstPreviewToggle<CR>",
+            desc = "typst preview toggle",
+            ft = "typst",
+            silent = true,
+            noremap = true,
+        },
     },
 }
 

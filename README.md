@@ -44,7 +44,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
 
 ## Requirements
 
-- This neovim configuration requires neovim **0.9.0+**, but version **0.10.0+** is preferred
+- IceNvim requires neovim **0.9.0+**, but version **0.10.0+** is preferred
 - Additionally, you need to install these also:
   - A [nerd font](https://www.nerdfonts.com/font-downloads): this is optional, but things may look funny without one installed
   - git: almost all the plugin and lsp installations depend on it
@@ -69,6 +69,18 @@ For a detailed introduction on the various features of and on how to use IceNvim
     - zip
 
 Note that some of the packages might have different names with different package managers!
+
+Installing dependencies on Arch:
+
+```bash
+sudo pacman -S --needed curl gzip wget fd ripgrep gcc nodejs npm python python-pip unzip zip xclip python-virtualenv
+```
+
+Installing dependencies on Windows (via scoop):
+
+```bash
+scoop install curl gzip wget fd ripgrep mingw nodejs-lts python
+```
 
 ## Installation
 

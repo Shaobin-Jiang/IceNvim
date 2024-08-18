@@ -684,6 +684,7 @@ config["nvim-treesitter"] = {
             "c_sharp",
             "cpp",
             "css",
+            "go",
             "html",
             "javascript",
             "json",
@@ -1200,6 +1201,7 @@ config["null-ls"] = {
                 },
                 formatting.black,
                 formatting.typstfmt,
+                formatting.gofumpt,
             },
             diagnostics_format = "[#{s}] #{m}",
         }

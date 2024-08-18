@@ -18,6 +18,7 @@ lsp.ensure_installed = {
     "clangd",
     "css-lsp",
     "emmet-ls",
+    "gopls",
     "html-lsp",
     "json-lsp",
     "lua-language-server",
@@ -28,6 +29,7 @@ lsp.ensure_installed = {
     "black",
     "csharpier",
     "fixjson",
+    "gofumpt",
     "prettier",
     "shfmt",
     "stylua",
@@ -38,6 +40,7 @@ lsp.servers = {
     "clangd",
     "cssls",
     "emmet_ls",
+    "gopls",
     "html",
     "jsonls",
     "lua_ls",
@@ -89,6 +92,18 @@ config.emmet_ls = function()
     return {
         filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
     }
+end
+
+config.gopls = function()
+    return vim.tbl_extend("force", config.default(), {
+        settings = {
+            gopls = {
+                analyses = {
+                    unusedparams = true,
+                },
+            },
+        },
+    })
 end
 
 config.lua_ls = function()

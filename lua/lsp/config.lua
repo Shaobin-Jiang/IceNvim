@@ -1,9 +1,7 @@
 local lsp = {}
 
 lsp = {
-    clangd = {
-        enabled = false,
-    },
+    clangd = {},
     ["css-lsp"] = {
         formatter = "prettier",
         setup = {
@@ -28,17 +26,14 @@ lsp = {
                 },
             },
         },
-        enabled = false,
     },
     ["emmet-ls"] = {
         setup = {
             filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
         },
-        enabled = false,
     },
     flutter = {
         managed_by_plugin = true,
-        enabled = false,
     },
     gopls = {
         formatter = "gofumpt",
@@ -51,15 +46,12 @@ lsp = {
                 },
             },
         },
-        enabled = false,
     },
     ["html-lsp"] = {
         formatter = "prettier",
-        enabled = false,
     },
     ["json-lsp"] = {
         formatter = "prettier",
-        enabled = false,
     },
     ["lua-language-server"] = {
         formatter = "stylua",
@@ -91,7 +83,7 @@ lsp = {
                 },
             },
         },
-        enabled = false,
+        enabled = true,
     },
     omnisharp = {
         formatter = "csharpier",
@@ -104,15 +96,12 @@ lsp = {
                 client.server_capabilities.semanticTokensProvider = nil
             end,
         },
-        enabled = false,
     },
     pyright = {
         formatter = "black",
-        enabled = false,
     },
     rust = {
         managed_by_plugin = true,
-        enabled = false,
     },
     ["typescript-language-server"] = {
         formatter = "prettier",
@@ -125,11 +114,9 @@ lsp = {
                 end
             end,
         },
-        enabled = false,
     },
     ["typst-lsp"] = {
         formatter = "typstfmt",
-        enabled = false,
     },
 }
 

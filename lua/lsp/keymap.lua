@@ -10,29 +10,6 @@ Ice.keymap.lsp.mapLsp = {
     show_line_diagnostic = { "n", "<leader>lP", "<Cmd>Lspsaga show_line_diagnostics<CR>" },
     next_diagnostic = { "n", "<leader>ln", "<Cmd>Lspsaga diagnostic_jump_next<CR>" },
     prev_diagnostic = { "n", "<leader>lp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>" },
-    format_code = {
-        "n",
-        "<leader>lf",
-        function()
-            local lsp_is_active = require("lsp.utils").lsp_is_active
-
-            if lsp_is_active "denols" then
-                vim.cmd "<Cmd>w"
-                vim.cmd "!deno fmt %"
-                vim.cmd ""
-                return
-            end
-
-            if lsp_is_active "rust_analyzer" then
-                vim.cmd "<Cmd>w"
-                vim.cmd "!cargo fmt"
-                vim.cmd ""
-                return
-            end
-
-            vim.lsp.buf.format { async = true }
-        end,
-    },
 }
 
 Ice.keymap.lsp.cmp = {

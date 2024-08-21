@@ -92,7 +92,7 @@ lsp = {
                 "dotnet",
                 vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/Omnisharp.dll",
             },
-            on_attach = function(client, bufnr)
+            on_attach = function(client)
                 client.server_capabilities.semanticTokensProvider = nil
             end,
         },
@@ -108,7 +108,7 @@ lsp = {
         setup = {
             single_file_support = true,
             flags = lsp.flags,
-            on_attach = function(client, bufnr)
+            on_attach = function(client)
                 if #vim.lsp.get_clients { name = "denols" } > 0 then
                     client.stop()
                 end

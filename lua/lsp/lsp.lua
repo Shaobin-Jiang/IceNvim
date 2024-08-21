@@ -83,8 +83,6 @@ Ice.plugins.mason = {
     config = function(_, opts)
         require("mason").setup(opts)
 
-        -- TODO: define an IceLsp event
-
         local registry = require "mason-registry"
         local function install(package)
             local s, p = pcall(registry.get_package, package)

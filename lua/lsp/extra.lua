@@ -1,6 +1,6 @@
 Ice.plugins.lspsaga = {
     "nvimdev/lspsaga.nvim",
-    event = { "InsertEnter", "User IceLoad" },
+    cmd = "Lspsaga",
     opts = {
         finder = {
             keys = {

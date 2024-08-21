@@ -49,6 +49,7 @@ Ice.plugins["null-ls"] = {
 
                 vim.lsp.buf.format { async = true }
             end,
+            desc = "format code",
         },
     },
 }

@@ -48,6 +48,35 @@ Ice.plugins["nvim-cmp"] = {
         }
 
         local cmp = require "cmp"
+
+        local cmp_func = {
+            show_completion = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+            -- Cancel
+            hide_completion = cmp.mapping {
+                i = cmp.mapping.abort(),
+                c = cmp.mapping.close(),
+            },
+            prev_item = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+            next_item = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+            confirm = cmp.mapping(
+                cmp.mapping.confirm {
+                    select = true,
+                    behavior = cmp.ConfirmBehavior.Insert,
+                },
+                { "i", "c" }
+            ),
+            doc_up = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+            doc_down = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
+        }
+
+        local cmp_keymap = {}
+        for command, key in pairs(Ice.keymap.lsp.cmp) do
+            local func = cmp_func[command]
+            if func then
+                cmp_keymap[key] = cmp_func[command]
+            end
+        end
+
         cmp.setup {
             snippet = {
                 expand = function(args)
@@ -61,7 +90,7 @@ Ice.plugins["nvim-cmp"] = {
                 { name = "buffer" },
                 { name = "path" },
             }),
-            mapping = Ice.keymap.lsp.cmp(cmp),
+            mapping = cmp_keymap,
             formatting = {
                 format = lspkind.cmp_format {
                     mode = "symbol",
@@ -71,14 +100,14 @@ Ice.plugins["nvim-cmp"] = {
         }
 
         cmp.setup.cmdline({ "/", "?" }, {
-            mapping = Ice.keymap.lsp.cmp(cmp),
+            mapping = cmp_keymap,
             sources = {
                 { name = "buffer" },
             },
         })
 
         cmp.setup.cmdline(":", {
-            mapping = Ice.keymap.lsp.cmp(cmp),
+            mapping = cmp_keymap,
             sources = cmp.config.sources({
                 { name = "path" },
             }, {

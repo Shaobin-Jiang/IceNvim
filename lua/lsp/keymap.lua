@@ -35,25 +35,12 @@ Ice.keymap.lsp.mapLsp = {
     },
 }
 
-Ice.keymap.lsp.cmp = function(cmp)
-    return {
-        -- Show completion
-        ["<A-.>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-        -- Cancel
-        ["<A-,>"] = cmp.mapping {
-            i = cmp.mapping.abort(),
-            c = cmp.mapping.close(),
-        },
-        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-        ["<Tab>"] = cmp.mapping(
-            cmp.mapping.confirm {
-                select = true,
-                behavior = cmp.ConfirmBehavior.Insert,
-            },
-            { "i", "c" }
-        ),
-        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
-        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
-    }
-end
+Ice.keymap.lsp.cmp = {
+    show_completion = "<A-.>",
+    hide_completion = "<A-,>",
+    prev_item = "<C-k>",
+    next_item = "<C-j>",
+    confirm = "<Tab>",
+    doc_up = "<C-u>",
+    doc_down = "<C-d>",
+}

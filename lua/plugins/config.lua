@@ -764,6 +764,8 @@ config.telescope = {
                 .. "cmake --install build --prefix build",
         },
     },
+    -- ensure that other plugins that use telescope can function properly
+    cmd = "Telescope",
     opts = {
         defaults = {
             initial_mode = "insert",

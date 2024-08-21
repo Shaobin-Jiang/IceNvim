@@ -34,14 +34,14 @@ Ice.plugins["null-ls"] = {
                 end
 
                 if lsp_is_active "denols" then
-                    vim.cmd "<Cmd>w"
+                    vim.cmd "w"
                     vim.cmd "!deno fmt %"
                     vim.cmd ""
                     return
                 end
 
                 if lsp_is_active "rust_analyzer" then
-                    vim.cmd "<Cmd>w"
+                    vim.cmd "w"
                     vim.cmd "!cargo fmt"
                     vim.cmd ""
                     return

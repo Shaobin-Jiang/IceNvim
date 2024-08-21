@@ -44,13 +44,16 @@ Ice.keymap.lsp.cmp = function(cmp)
             i = cmp.mapping.abort(),
             c = cmp.mapping.close(),
         },
-        ["<C-k>"] = cmp.mapping.select_prev_item(),
-        ["<C-j>"] = cmp.mapping.select_next_item(),
-        ["<Tab>"] = cmp.mapping.confirm {
-            select = true,
-            behavior = cmp.ConfirmBehavior.Insert,
-        },
-        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }),
-        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
+        ["<Tab>"] = cmp.mapping(
+            cmp.mapping.confirm {
+                select = true,
+                behavior = cmp.ConfirmBehavior.Insert,
+            },
+            { "i", "c" }
+        ),
+        ["<C-u>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
+        ["<C-d>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
     }
 end

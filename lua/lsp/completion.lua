@@ -71,14 +71,14 @@ Ice.plugins["nvim-cmp"] = {
         }
 
         cmp.setup.cmdline({ "/", "?" }, {
-            mapping = cmp.mapping.preset.cmdline(),
+            mapping = Ice.keymap.lsp.cmp(cmp),
             sources = {
                 { name = "buffer" },
             },
         })
 
         cmp.setup.cmdline(":", {
-            mapping = cmp.mapping.preset.cmdline(),
+            mapping = Ice.keymap.lsp.cmp(cmp),
             sources = cmp.config.sources({
                 { name = "path" },
             }, {

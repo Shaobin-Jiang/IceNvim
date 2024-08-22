@@ -10,20 +10,13 @@ Ice.keymap.lsp.mapLsp = {
         function()
             local win = require "lspsaga.window"
             local old_new_float = win.new_float
-            win.new_float = function(window, float_opt, enter, force)
-                local return_value = old_new_float(window, float_opt, enter, force)
-                local old_wininfo = return_value.wininfo
-
-                return_value.wininfo = function(_window)
-                    local bufnr, winid = old_wininfo(_window)
-                    vim.api.nvim_set_current_win(winid)
-                    return_value.wininfo = old_wininfo
-
-                    return bufnr, winid
-                end
+            win.new_float = function(self, float_opt, enter, force)
+                local window = old_new_float(self, float_opt, enter, force)
+                local _, winid = window:wininfo()
+                vim.api.nvim_set_current_win(winid)
 
                 win.new_float = old_new_float
-                return return_value
+                return window
             end
 
             vim.cmd "Lspsaga hover_doc"

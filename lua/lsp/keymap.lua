@@ -8,16 +8,25 @@ Ice.keymap.lsp.mapLsp = {
         "n",
         "<leader>lh",
         function()
-            vim.cmd "Lspsaga hover_doc"
+            local win = require "lspsaga.window"
+            local old_new_float = win.new_float
+            win.new_float = function(window, float_opt, enter, force)
+                local return_value = old_new_float(window, float_opt, enter, force)
+                local old_wininfo = return_value.wininfo
 
-            -- PERF: maybe we can do better at this? For now I have now figured out how to make this work without the
-            -- delay, though.
-            vim.defer_fn(function()
-                local winid = require("lspsaga.hover").winid
-                if winid then
+                return_value.wininfo = function(_window)
+                    local bufnr, winid = old_wininfo(_window)
                     vim.api.nvim_set_current_win(winid)
+                    return_value.wininfo = old_wininfo
+
+                    return bufnr, winid
                 end
-            end, 100)
+
+                win.new_float = old_new_float
+                return return_value
+            end
+
+            vim.cmd "Lspsaga hover_doc"
         end,
     },
     references = { "n", "<leader>lR", "<Cmd>Lspsaga finder<CR>" },

@@ -94,7 +94,6 @@ Ice.plugins.mason = {
         local lspconfig = require "lspconfig"
         local mason_lspconfig_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
 
-        -- TODO: packages might still be being installed, for instance the first time IceNvim is launched
         local installed_packages = registry.get_installed_package_names()
 
         for lsp, config in pairs(Ice.lsp) do
@@ -106,8 +105,11 @@ Ice.plugins.mason = {
             install(lsp)
             install(formatter)
 
+            if not vim.tbl_contains(installed_packages, lsp) then
+                goto continue
+            end
+
             lsp = mason_lspconfig_mapping[lsp]
-            -- if vim.tbl_contains(installed_packages, lsp) and lspconfig[lsp] ~= nil then
             if not config.managed_by_plugin and lspconfig[lsp] ~= nil then
                 local setup = config.setup
                 if type(setup) == "function" then

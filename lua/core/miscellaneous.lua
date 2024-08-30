@@ -15,15 +15,13 @@ if not require("core.utils").file_exists(clip_path) then
 end
 
 if utils.is_windows() or utils.is_wsl() then
-    vim.cmd(string.format(
-        [[
-        augroup fix_yank
-            autocmd!
-            autocmd TextYankPost * if v:event.operator ==# 'y' | call system('%s', @0) | endif
-        augroup END
-        ]],
-        clip_path
-    ))
+    vim.api.nvim_create_autocmd("TextYankPost", {
+        callback = function()
+            if vim.v.event.operator == "y" then
+                vim.fn.system(clip_path, vim.fn.getreg "0")
+            end
+        end,
+    })
 elseif utils.is_linux() then
     vim.cmd "set clipboard+=unnamedplus"
 end

@@ -115,6 +115,33 @@ Ice.plugins["nvim-cmp"] = {
             }),
         })
 
+        vim.api.nvim_create_autocmd("CmdwinEnter", {
+            pattern = { ":", "/", "?" },
+            callback = function(args)
+                local match = args.match
+
+                if match == ":" then
+                    cmp.setup.buffer {
+                        mapping = cmp_keymap,
+                        sources = cmp.config.sources({
+                            { name = "path" },
+                        }, {
+                            { name = "cmdline" },
+                        }),
+                    }
+                end
+
+                if match == "/" or "match" == "?" then
+                    cmp.setup.buffer {
+                        mapping = cmp_keymap,
+                        sources = {
+                            { name = "buffer" },
+                        },
+                    }
+                end
+            end,
+        })
+
         local cmp_autopairs = require "nvim-autopairs.completion.cmp"
         cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
 

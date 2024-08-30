@@ -60,9 +60,6 @@ opt.backup = false
 opt.writebackup = false
 opt.swapfile = false
 
--- Smaller updatetime
-opt.updatetime = 300
-
 -- Time to wait for a sequence of key combination
 opt.timeoutlen = 500
 
@@ -72,11 +69,11 @@ opt.splitright = true
 
 opt.termguicolors = true
 
--- Avoid "hit-enter" prompts
--- Don't pass messages to |ins-completin menu|
-opt.shortmess = vim.o.shortmess .. "c"
+-- Do not display the character "W" before search count
+opt.shortmess = vim.o.shortmess .. "s"
 
 -- Maximum of 16 lines of prompt
+-- This affects both neovim's native completion and that of nvim-cmp
 opt.pumheight = 16
 
 -- Always show tab line

@@ -37,7 +37,8 @@ opt.hlsearch = false
 -- Search when typing
 opt.incsearch = true
 
-opt.cmdheight = 2
+opt.cmdheight = 1
+opt.cmdwinheight = 1
 
 -- Auto load the file when modified externally
 opt.autoread = true
@@ -90,18 +91,26 @@ if require("core.utils").is_windows() then
 end
 
 vim.api.nvim_create_autocmd("TermOpen", {
-    callback = function ()
+    callback = function()
         vim.wo.number = false
         vim.wo.relativenumber = false
-    end
+    end,
 })
 
 opt.shadafile = "NONE"
-vim.api.nvim_create_autocmd("CmdlineEnter", {
+vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdwinEnter" }, {
     once = true,
     callback = function()
-        local shada = vim.fn.stdpath("state") .. "/shada/main.shada"
+        local shada = vim.fn.stdpath "state" .. "/shada/main.shada"
         vim.o.shadafile = shada
         vim.api.nvim_command("rshada! " .. shada)
+    end,
+})
+
+vim.api.nvim_create_autocmd("CmdwinEnter", {
+    callback = function()
+        vim.cmd "startinsert"
+        vim.wo.number = false
+        vim.wo.relativenumber = false
     end,
 })

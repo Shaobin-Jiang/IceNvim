@@ -619,12 +619,6 @@ config["nvim-tree"] = {
             },
         },
     },
-    config = function(_, opts)
-        require("nvim-tree").setup(opts)
-
-        -- automatically close
-        vim.cmd "autocmd BufEnter * ++nested if winnr('$') == 1 && bufname() == 'NvimTree_' . tabpagenr() | quit | endif"
-    end,
     keys = {
         { "<leader>uf", "<Cmd>NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
     },

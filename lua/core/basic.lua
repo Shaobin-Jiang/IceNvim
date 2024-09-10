@@ -77,11 +77,15 @@ opt.shortmess = vim.o.shortmess .. "s"
 opt.pumheight = 16
 
 -- Always show tab line
+-- Otherwise, when bufferline is loaded, it will "flash" a bit initially
 opt.showtabline = 2
 
 opt.showmode = false
 
 opt.nrformats = "bin,hex,alpha"
+
+-- Disable python3 provider; otherwise it will significantly slow down opening of py files
+g.loaded_python3_provider = 0
 
 if require("core.utils").is_windows() then
     opt.shellslash = true

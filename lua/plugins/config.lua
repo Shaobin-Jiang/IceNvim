@@ -85,11 +85,13 @@ config.bufferline = {
 
         require("bufferline").setup(opts)
 
-        require("nvim-web-devicons").set_icon {
-            typ = {
-                icon = "󰰥",
-                color = "#239dad",
-                name = "typst",
+        require("nvim-web-devicons").setup {
+            override = {
+                typ = {
+                    icon = "󰰥",
+                    color = "#239dad",
+                    name = "typst",
+                },
             },
         }
     end,

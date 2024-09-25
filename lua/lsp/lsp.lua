@@ -135,7 +135,7 @@ Ice.plugins.mason = {
                     user_on_attach(client, bufnr)
                 end
 
-                setup = vim.tbl_deep_extend("keep", setup, {
+                setup = vim.tbl_deep_extend("force", setup, {
                     capabilies = require("cmp_nvim_lsp").default_capabilities(),
                     on_attach = on_attach,
                 })

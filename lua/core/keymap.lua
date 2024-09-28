@@ -23,7 +23,7 @@ local function open_html_file()
             vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
             vim.opt.shellslash = old_shellslash
         else
-            vim.api.nvim_command(string.format('silent exec "!%s \'%%:p\'"', command))
+            vim.api.nvim_command(string.format("silent exec \"!%s '%%:p'\"", command))
         end
     end
 end
@@ -71,6 +71,27 @@ Ice.keymap.general = {
     -- https://github.com/NvChad/NvChad/blob/b9963e29b21a672325af5b51f1d32a9191abcdaa/lua/core/mappings.lua#L40C5-L41C99
     move_down = { "n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true } },
     move_up = { "n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true } },
+
+    new_line_below_normal = {
+        "n",
+        "<A-o>",
+        "o<Esc>",
+    },
+    new_line_above_normal = {
+        "n",
+        "<A-O>",
+        "O<Esc>",
+    },
+    new_line_below_insert = {
+        "i",
+        "<A-o>",
+        "<Esc>o",
+    },
+    new_line_above_insert = {
+        "i",
+        "<A-O>",
+        "<Esc>O",
+    },
 
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", "<Cmd>split term://bash<CR>" },

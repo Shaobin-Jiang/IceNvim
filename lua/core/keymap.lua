@@ -40,6 +40,20 @@ local function undo()
     end
 end
 
+-- Determine in advance what shell to use for the <C-t> keymap
+local terminal_command
+if not require("core.utils").is_windows() then
+    terminal_command = "<Cmd>split | terminal<CR>" -- let $SHELL decide the default shell
+else
+    local executables = { "pwsh", "powershell", "bash", "cmd" }
+    for _, executable in require("core.utils").ordered_pair(executables) do
+        if vim.fn.executable(executable) then
+            terminal_command = "<Cmd>split term://" .. executable .. "<CR>"
+            break
+        end
+    end
+end
+
 Ice.keymap = {}
 Ice.keymap.general = {
     -- See `:h quote_`
@@ -94,7 +108,7 @@ Ice.keymap.general = {
     },
 
     open_html_file = { "n", "<A-b>", open_html_file },
-    open_terminal = { "n", "<C-t>", "<Cmd>split term://bash<CR>" },
+    open_terminal = { "n", "<C-t>", terminal_command },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>" },
     shift_line_left = { "v", "<", "<gv" },

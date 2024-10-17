@@ -1,7 +1,7 @@
 local lsp = {}
 
 -- For instructions on configuration, see official wiki:
--- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 lsp = {
     clangd = {},
     ["css-lsp"] = {

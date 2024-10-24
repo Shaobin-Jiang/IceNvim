@@ -649,6 +649,7 @@ config["nvim-treesitter"] = {
     main = "nvim-treesitter",
     opts = {
         ensure_installed = {
+            "bash",
             "c",
             "c_sharp",
             "cpp",

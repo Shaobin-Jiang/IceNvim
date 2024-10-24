@@ -3,6 +3,9 @@ local lsp = {}
 -- For instructions on configuration, see official wiki:
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
 lsp = {
+    ["bash-language-server"] = {
+        formatter = "shfmt",
+    },
     clangd = {},
     ["css-lsp"] = {
         formatter = "prettier",

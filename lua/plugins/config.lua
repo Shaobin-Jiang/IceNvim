@@ -130,6 +130,10 @@ config.colorizer = {
             always_update = true,
         },
     },
+    config = function (_, opts)
+        require("colorizer").setup(opts)
+        vim.cmd "ColorizerToggle"
+    end
 }
 
 config.comment = {

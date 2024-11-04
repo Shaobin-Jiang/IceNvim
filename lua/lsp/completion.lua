@@ -50,11 +50,21 @@ Ice.plugins["nvim-cmp"] = {
         local cmp = require "cmp"
 
         local cmp_func = {
-            show_completion = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-            -- Cancel
-            hide_completion = cmp.mapping {
-                i = cmp.mapping.abort(),
-                c = cmp.mapping.close(),
+            toggle_completion = cmp.mapping {
+                i = function()
+                    if cmp.visible() then
+                        cmp.abort()
+                    else
+                        cmp.complete()
+                    end
+                end,
+                c = function()
+                    if cmp.visible() then
+                        cmp.close()
+                    else
+                        cmp.complete()
+                    end
+                end,
             },
             prev_item = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
             next_item = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
@@ -73,7 +83,7 @@ Ice.plugins["nvim-cmp"] = {
         for command, key in pairs(Ice.keymap.lsp.cmp) do
             local func = cmp_func[command]
             if func then
-                cmp_keymap[key] = cmp_func[command]
+                cmp_keymap[key] = func
             end
         end
 

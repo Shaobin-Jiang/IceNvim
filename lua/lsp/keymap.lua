@@ -30,8 +30,7 @@ Ice.keymap.lsp.mapLsp = {
 }
 
 Ice.keymap.lsp.cmp = {
-    show_completion = "<A-.>",
-    hide_completion = "<A-,>",
+    toggle_completion = "<A-c>",
     prev_item = "<C-k>",
     next_item = "<C-j>",
     confirm = "<Tab>",

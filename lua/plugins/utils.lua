@@ -171,7 +171,7 @@ utils.colorscheme = function(colorscheme_name)
 
     local colorscheme = Ice.colorschemes[colorscheme_name]
     if not colorscheme then
-        vim.notify(colorscheme_name .. " is not a valid color scheme!")
+        vim.notify(colorscheme_name .. " is not a valid color scheme!", vim.log.levels.ERROR)
         return
     end
 

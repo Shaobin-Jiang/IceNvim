@@ -214,13 +214,13 @@ string.split = function(str, pattern)
     local s, e = string.find(str, pattern, start)
     local ret = {}
     while s ~= nil do
-        ret[#ret+1] = string.sub(str, start, s - 1)
+        ret[#ret + 1] = string.sub(str, start, s - 1)
         ---@diagnostic disable-next-line: cast-local-type
         start = e + 1
         s, e = string.find(str, pattern, start)
     end
     if start <= #str then
-        ret[#ret+1] = string.sub(str, start)
+        ret[#ret + 1] = string.sub(str, start)
     end
     return ret
 end

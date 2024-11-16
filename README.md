@@ -2,7 +2,9 @@
 
 <div align="center">
 
-[![Minimum Neovim Version](https://img.shields.io/badge/Minimum_Neovim_Version-0.9.0+-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+*Please consider starring the project ✨✨✨. Your support is much appreciated.*
+
+[![Minimum Neovim Version](https://img.shields.io/badge/Minimum_Neovim_Version-0.9.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![Latest Supported Version](https://img.shields.io/badge/Latest_Supported_Version-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 
@@ -177,3 +179,13 @@ When installing [typst-preview.nvim](https://github.com/chomosuke/typst-preview.
 ```vim
 lua require("typst-preview").update()
 ```
+
+## Star History
+
+<a href="https://star-history.com/#Shaobin-Jiang/IceNvim&Date">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Shaobin-Jiang/IceNvim&type=Date&theme=dark" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/svg?repos=Shaobin-Jiang/IceNvim&type=Date" />
+   <img alt="Star History Chart" src="https://api.star-history.com/svg?repos=Shaobin-Jiang/IceNvim&type=Date" />
+ </picture>
+</a>

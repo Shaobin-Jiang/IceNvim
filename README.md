@@ -86,6 +86,8 @@ Installing dependencies on Windows (via scoop):
 scoop install curl gzip wget fd ripgrep mingw nodejs-lts python
 ```
 
+To verify if these are installed, try opening neovim with `nvim --noplugin` and then running `checkhealth core`.
+
 ## Installation
 
 On Windows:

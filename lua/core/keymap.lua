@@ -43,7 +43,7 @@ if not require("core.utils").is_windows() then
 else
     local executables = { "pwsh", "powershell", "bash", "cmd" }
     for _, executable in require("core.utils").ordered_pair(executables) do
-        if vim.fn.executable(executable) then
+        if vim.fn.executable(executable) == 1 then
             terminal_command = "<Cmd>split term://" .. executable .. "<CR>"
             break
         end

@@ -5,7 +5,7 @@ local M = {}
 ---@param cmd string the command to check
 ---@param behavior function | nil what to do if cmd is not executable; throws an error message by default
 local function check(cmd, behavior)
-    if vim.fn.executable(cmd) then
+    if vim.fn.executable(cmd) == 1 then
         vim.health.ok(cmd .. " is installed.")
     else
         if not behavior then

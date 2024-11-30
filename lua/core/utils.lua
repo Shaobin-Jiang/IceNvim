@@ -189,7 +189,7 @@ end
 utils.update = function()
     vim.system({ "git", "pull" }, { cwd = vim.fn.stdpath "config", text = true }, function(out)
         if out.code == 0 then
-            vim.notify "IceNvim update to date"
+            vim.notify "IceNvim up to date"
         else
             vim.notify("IceNvim update failed: " .. out.stderr, vim.log.levels.WARN)
         end

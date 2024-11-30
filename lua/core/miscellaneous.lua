@@ -105,3 +105,4 @@ if utils.is_windows() then
 end
 
 vim.api.nvim_create_user_command("IceUpdate", "lua require('core.utils').update()", { nargs = 0 })
+vim.api.nvim_create_user_command("IceHealth", "checkhealth core", { nargs = 0 })

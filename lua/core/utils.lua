@@ -134,6 +134,10 @@ utils.is_wsl = function()
     return string.find(vim.uv.os_uname().release, "WSL") ~= nil
 end
 
+utils.is_mac = function ()
+    return vim.uv.os_uname().sysname == "Darwin"
+end
+
 -- Maps a group of keymaps with the same opt; if no opt is provided, the default opt is used.
 -- The keymaps should be in the format like below:
 --     desc = { mode, lhs, rhs, [opt] }

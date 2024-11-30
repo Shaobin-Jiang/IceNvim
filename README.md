@@ -160,6 +160,10 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 ## Troubleshooting
 
+### Alt-Combination Keys Not Working in Kitty
+
+Add `macos_option_as_alt yes` to your `kitty.conf`.
+
 ### Installing Omnisharp / Csharpier
 
 When installing omnisharp, make sure that dotnet sdk is installed.
@@ -170,7 +174,7 @@ When receiving nuget-related errors when installing csharpier, you might have to
 dotnet nuget add source https://api.nuget.org/v3/index.json -n nuget.org
 ```
 
-### Rust not Working Properly
+### Rust Not Working Properly
 
 You need to check how you installed rust. I have not been able to set up rust-analyzer when installing rust only (e.g., via `scoop install rust` or `sudo zypper in rust`) either, but with the officially recommended way, i.e., by installing rustup, everything works properly.
 

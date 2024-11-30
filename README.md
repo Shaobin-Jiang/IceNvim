@@ -59,6 +59,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
     - ripgrep (also required by grug-far.nvim)
   - Required by nvim treesitter:
     - gcc
+    - cmake
     - node
     - npm
   - Required by markdown-preview.nvim:
@@ -74,6 +75,12 @@ For a detailed introduction on the various features of and on how to use IceNvim
 
 Note that some of the packages might have different names with different package managers!
 
+Installing dependencies on MacOS:
+
+```bash
+brew install wget fd ripgrep node yarn cmake
+```
+
 Installing dependencies on Arch:
 
 ```bash
@@ -86,7 +93,7 @@ Installing dependencies on Windows (via scoop):
 scoop install curl gzip wget fd ripgrep mingw nodejs-lts python
 ```
 
-To verify if these are installed, try opening neovim with `nvim --noplugin` and then running `checkhealth core`.
+To verify if these are installed, try opening neovim with `nvim --noplugin` and then running `IceHealth`.
 
 ## Installation
 
@@ -96,7 +103,7 @@ On Windows:
 git clone https://github.com/Shaobin-Jiang/IceNvim "$env:LOCALAPPDATA\nvim"
 ```
 
-On Linux:
+On Linux / MacOS:
 
 ```bash
 git clone https://github.com/Shaobin-Jiang/IceNvim ~/.config/nvim
@@ -112,6 +119,17 @@ Additionally, if you are using wsl, you might have to do this:
 
 ```bash
 chmod +x ~/.config/nvim/bin/im-select.exe
+```
+
+### Install `im-select` (recommended for MacOS users)
+
+This is basically for the purpose as the previous session. The only difference is the installation process is not the same on MacOS.
+
+Just run this:
+
+```bash
+brew tap daipeihust/tap
+brew install im-select
 ```
 
 ### Download `uclip.exe` (recommended for windows / wsl users)

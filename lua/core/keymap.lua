@@ -2,10 +2,6 @@ vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Open the current html file with the default browser.
---
--- FIX: the function currently assumes that the user is using Windows / Linux / MacOS, which is why the command for
--- opening file only includes explorer / xdg-open / open. This should probably be changed in the future, but given that
--- I have only Windows / Linux devices at hand, this fix will have to wait.
 local function open_html_file()
     if vim.bo.filetype == "html" then
         local utils = require "core.utils"
@@ -23,7 +19,7 @@ local function open_html_file()
             vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
             vim.opt.shellslash = old_shellslash
         else
-            vim.api.nvim_command(string.format("silent exec \"!%s '%%:p'\"", command))
+            vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
         end
     end
 end

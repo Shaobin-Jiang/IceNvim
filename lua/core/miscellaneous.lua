@@ -22,7 +22,7 @@ if utils.is_windows() or utils.is_wsl() then
             end
         end,
     })
-elseif utils.is_linux() then
+else
     vim.cmd "set clipboard+=unnamedplus"
 end
 

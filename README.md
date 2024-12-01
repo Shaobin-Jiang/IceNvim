@@ -178,7 +178,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 
 ## Troubleshooting
 
-### Alt-Combination Keys Not Working in Kitty
+### Alt-Combination Keys Not Working in Kitty for MacOS
 
 Add `macos_option_as_alt yes` to your `kitty.conf`.
 

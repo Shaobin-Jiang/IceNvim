@@ -108,6 +108,12 @@ lsp = {
     rust = {
         managed_by_plugin = true,
     },
+    tinymist = {
+        formatter = "typstfmt",
+        setup = {
+            single_file_support = true,
+        },
+    },
     ["typescript-language-server"] = {
         formatter = "prettier",
         setup = {
@@ -119,9 +125,6 @@ lsp = {
                 end
             end,
         },
-    },
-    ["typst-lsp"] = {
-        formatter = "typstfmt",
     },
 }
 

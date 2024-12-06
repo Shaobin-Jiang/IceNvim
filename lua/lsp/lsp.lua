@@ -60,7 +60,7 @@ Ice.plugins["typst-preview"] = {
             noremap = true,
         },
     },
-    enabled = Ice.lsp["typst-lsp"].enabled,
+    enabled = Ice.lsp.tinymist.enabled,
 }
 
 Ice.plugins.mason = {

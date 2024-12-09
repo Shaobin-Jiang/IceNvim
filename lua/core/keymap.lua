@@ -61,6 +61,9 @@ Ice.keymap.general = {
     cmd_end = { "c", "<C-e>", "<End>", { silent = false } },
     cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
     cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
+
+    disable_right_mouse = { { "n", "i", "v", "t" }, "<RightMouse>", "<LeftMouse>" },
+
     join_lines = {
         { "n", "v" },
         "J",

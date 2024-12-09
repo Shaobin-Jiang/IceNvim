@@ -56,6 +56,7 @@ opt.hidden = true
 
 -- Add mouse support for all modes
 opt.mouse = "a"
+opt.mousemodel = "extend"
 
 opt.backup = false
 opt.writebackup = false

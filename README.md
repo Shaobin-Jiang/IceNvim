@@ -30,19 +30,20 @@ For a detailed introduction on the various features of and on how to use IceNvim
   - Set up for C# / Flutter / Lua / Python / Rust / Web development and markdown writing
   - Git integration
 - Enhanced editing experience:
-  - Plugins such as `hop.nvim`, `undotree` and `vim-surround`
+  - Plugins such as `hop.nvim`, `undotree` and `nvim-surround`
   - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#download-im-selectexe-recommended-for-windows--wsl-users))
 - Nice looks:
   - Multiple colorschemes made ready
   - A custom colorschemes picker
 - User friendly:
   - Uses which-key.nvim for new comers to check out keymaps
+  - Provides a health check for new comers to locate missing dependencies
 - Well equiped:
   - An icon viewer to check whether your font works well with icons
   - A configuration file selector
 - Modern: uses `Lazy` and `Mason`
 - Customizable:
-  - Override defaults with your own [config file](#custom-configuration)
+  - Easily override defaults with your own [config file](#custom-configuration)
 
 ## Requirements
 

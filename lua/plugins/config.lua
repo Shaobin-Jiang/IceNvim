@@ -714,6 +714,11 @@ config["nvim-treesitter"] = {
                 "RainbowDelimiterCyan",
             },
         }
+
+        -- In markdown files, the rendered output would only display the correct highlight if the code is set to scheme
+        -- However, this would result in incorrect highlight in neovim
+        -- Therefore, the scheme language should be linked to query
+        vim.treesitter.language.register("query", "scheme")
     end,
 }
 

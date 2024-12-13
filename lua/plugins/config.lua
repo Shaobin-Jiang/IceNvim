@@ -732,20 +732,6 @@ config["nvim-treesitter"] = {
     end,
 }
 
-config["rust-tools"] = {
-    "simrat39/rust-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = "rust",
-    main = "rust-tools",
-    opts = {
-        server = {
-            on_attach = function(_, bufnr)
-                Ice.lsp.keyAttach(bufnr)
-            end,
-        },
-    },
-}
-
 config.surround = {
     "kylechui/nvim-surround",
     version = "*",

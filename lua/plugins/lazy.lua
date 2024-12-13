@@ -1,6 +1,6 @@
 -- Set up lazy.nvim
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"
-vim.uv = vim.uv or vim.loop
+
 if not require("core.utils").noplugin then
     if not vim.uv.fs_stat(lazypath) then
         vim.fn.system {

@@ -634,22 +634,7 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    -- Do not lazy load if file does not exist
-    --
-    -- Why this is needed:
-    --
-    -- Because nvim-treesitter needs to be loaded early, which is why using "VeryLazy" would not load it in time if we
-    -- open a file directly upon startup. BufRead, on the other hand, loads nvim-treesitter in time for a file but does
-    -- not load it in dashboard, hence doing well with startup time.
-    --
-    -- However, BufRead is not fired for non-existent files. So, if we use `nvim <new-file>`, nvim-treesitter would not
-    -- be loaded for that new file. In this case, the only solution I could see is to prevent lazy loading of the plugin
-    -- altogether.
-    lazy = (function()
-        local file_name = vim.fn.expand "%:p"
-        return file_name == "" or require("core.utils").file_exists(file_name)
-    end)(),
-    event = "BufRead",
+    event = "VeryLazy",
     main = "nvim-treesitter",
     opts = {
         ensure_installed = {

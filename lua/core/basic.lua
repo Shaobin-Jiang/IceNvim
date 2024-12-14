@@ -1,7 +1,8 @@
 local g = vim.g
 local opt = vim.opt
 
-vim.cmd ":language en_US"
+vim.cmd "language en_US"
+vim.cmd "syntax off"
 g.encoding = "UTF-8"
 opt.fileencoding = "utf-8"
 

@@ -10,6 +10,8 @@
 
 </div>
 
+Read this in other languages: [English](README.md) / [中文](README_zh.md)
+
 IceNvim is a beautiful, powerful and customizable neovim config. Powerful, yet blazing fast.
 
 For a detailed introduction on the various features of and on how to use IceNvim, refer to the [wiki](https://github.com/Shaobin-Jiang/IceNvim/wiki/Introduction).

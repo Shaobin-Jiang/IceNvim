@@ -33,7 +33,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
   - Git integration
 - Enhanced editing experience:
   - Plugins such as `hop.nvim`, `undotree` and `nvim-surround`
-  - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#download-im-selectexe-recommended-for-windows--wsl-users))
+  - For Chinese users, automatic IME switching when changing modes (needs [additional setup](#mark-im-select))
 - Nice looks:
   - Multiple colorschemes made ready
   - A custom colorschemes picker
@@ -45,7 +45,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
   - A configuration file selector
 - Modern: uses `Lazy` and `Mason`
 - Customizable:
-  - Easily override defaults with your own [config file](#custom-configuration)
+  - Easily override defaults with your own [config file](#mark-custom-configuration)
 
 ## Requirements
 
@@ -96,7 +96,7 @@ Installing dependencies on Windows (via scoop):
 scoop install curl gzip wget fd ripgrep mingw nodejs-lts python
 ```
 
-To verify if these are installed, try opening neovim with `nvim --noplugin` and then running `IceHealth`.
+To verify if these are installed, try opening neovim with `nvim --noplugin` and then running `IceHealth` after following the installation instruction in the next section.
 
 ## Installation
 
@@ -112,7 +112,7 @@ On Linux / MacOS:
 git clone https://github.com/Shaobin-Jiang/IceNvim ~/.config/nvim
 ```
 
-### Download `im-select.exe` (recommended for windows / wsl users)
+<h3 id="mark-im-select">Download `im-select.exe` (recommended for windows / wsl users)</h3>
 
 For automatic IME switching when inputing Chinese, im-select.exe is needed.
 
@@ -147,7 +147,7 @@ Additionally, if you are using wsl, you might have to do this:
 chmod +x ~/.config/nvim/bin/uclip.exe
 ```
 
-## Custom Configuration
+<h2 id="mark-custom-configuration">Custom Configuration</h2>
 
 This neovim configuration allows users to override the default configuration by creating a `custom` dir under `lua/`.
 

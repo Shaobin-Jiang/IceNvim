@@ -49,44 +49,7 @@ Ice.plugins["nvim-cmp"] = {
         }
 
         local cmp = require "cmp"
-
-        local cmp_func = {
-            toggle_completion = cmp.mapping {
-                i = function()
-                    if cmp.visible() then
-                        cmp.abort()
-                    else
-                        cmp.complete()
-                    end
-                end,
-                c = function()
-                    if cmp.visible() then
-                        cmp.close()
-                    else
-                        cmp.complete()
-                    end
-                end,
-            },
-            prev_item = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
-            next_item = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
-            confirm = cmp.mapping(
-                cmp.mapping.confirm {
-                    select = true,
-                    behavior = cmp.ConfirmBehavior.Insert,
-                },
-                { "i", "c" }
-            ),
-            doc_up = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i" }),
-            doc_down = cmp.mapping(cmp.mapping.scroll_docs(4), { "i" }),
-        }
-
-        local cmp_keymap = {}
-        for command, key in pairs(Ice.keymap.lsp.cmp) do
-            local func = cmp_func[command]
-            if func then
-                cmp_keymap[key] = func
-            end
-        end
+        local cmp_keymap = require("lsp.utils").create_cmp_keymap()
 
         cmp.setup {
             snippet = {

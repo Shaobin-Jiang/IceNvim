@@ -27,6 +27,11 @@ Ice.ft = {
         vim.wo.linebreak = true
         vim.wo.breakindent = true
     end,
+    org = function ()
+        vim.bo.shiftwidth = 2
+        vim.bo.softtabstop = 2
+        vim.bo.tabstop = 2
+    end,
     python = function()
         vim.bo.formatoptions = "tcqjor"
     end,

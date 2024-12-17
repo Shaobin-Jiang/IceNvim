@@ -620,7 +620,7 @@ config["nvim-tree"] = {
         },
         filters = {
             dotfiles = false,
-            custom = { "node_modules", ".git/" },
+            custom = { "node_modules", "^.git$" },
             exclude = { ".gitignore" },
         },
         respect_buf_cwd = true,

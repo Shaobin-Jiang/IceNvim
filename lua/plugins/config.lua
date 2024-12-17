@@ -2,7 +2,7 @@
 ---@diagnostic disable: need-check-nil
 local config = {}
 local symbols = Ice.symbols
-local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
+local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", "/")
 local priority = {
     LOW = 100,
     MEDIUM = 200,

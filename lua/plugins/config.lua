@@ -781,6 +781,50 @@ config["nvim-treesitter"] = {
     end,
 }
 
+config.orgmode = {
+    "nvim-orgmode/orgmode",
+    event = "VeryLazy",
+    ft = { "org" },
+    -- See https://github.com/nvim-orgmode/orgmode/blob/master/DOCS.md
+    opts = {
+        org_agenda_files = "~/Documents/orgfiles/**/*",
+        org_default_notes_file = "~/Documents/orgfiles/refile.org",
+        org_todo_keywords = { "TODO(t)", "URGENT(u)", "PENDING(p)", "|", "DONE(d)" },
+        win_split_mode = { "float", 0.6 },
+        org_startup_folded = "inherit",
+        org_todo_keyword_faces = {
+            URGENT = ":foreground white :background red :weight bold",
+            PENDING = ":foreground white :background gray",
+        },
+        org_hide_leading_stars = true,
+        org_hide_emphasis_markers = true,
+        mappings = {
+            org = {
+                org_toggle_checkbox = "<leader>oT",
+            },
+        },
+    },
+    config = function(_, opts)
+        require("orgmode").setup(opts)
+
+        local cmp = require "cmp"
+        cmp.setup.filetype("org", {
+            sources = cmp.config.sources {
+                { name = "orgmode" },
+                { name = "luasnip" },
+                { name = "nvim_lsp" },
+                { name = "buffer" },
+                { name = "path" },
+            },
+            mapping = require("lsp.utils").create_cmp_keymap(),
+        })
+    end,
+    keys = {
+        -- TODO: normal / visual mode
+        { "<leader>lf", "gqgq", desc = "format file", ft = "org", silent = true, noremap = true },
+    },
+}
+
 config.surround = {
     "kylechui/nvim-surround",
     version = "*",

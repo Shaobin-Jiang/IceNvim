@@ -263,6 +263,52 @@ config.dashboard = {
     end,
 }
 
+config.fittencode = {
+    "luozhiya/fittencode.nvim",
+    opts = {
+        inline_completion = {
+            enable = false,
+        },
+        chat = {
+            style = "floating",
+            floating = {
+                size = { width = 0.6, height = 0.6 },
+            },
+        },
+        keymaps = {
+            chat = {
+                ["q"] = "close",
+                ["<C-k>"] = "goto_previous_conversation",
+                ["<C-j>"] = "goto_next_conversation",
+                ["y"] = "copy_conversation",
+                ["Y"] = "copy_all_conversations",
+                ["d"] = "delete_conversation",
+                ["D"] = "delete_all_conversations",
+            },
+        },
+        source_completion = {
+            enable = true,
+            engine = "cmp",
+        },
+        completion_mode = "source",
+        log = {
+            level = vim.log.levels.WARN,
+            max_size = 1,
+        },
+    },
+    keys = {
+        { "<leader>fb", "<Cmd>Fitten find_bugs<CR>", mode = "v", desc = "find bugs" },
+        { "<leader>fc", "<Cmd>Fitten show_chat<CR>", mode = "v", desc = "show chat" },
+        { "<leader>fd", "<Cmd>Fitten document_code<CR>", mode = "v", desc = "document code" },
+        { "<leader>fe", "<Cmd>Fitten explain_code<CR>", mode = "v", desc = "explain code" },
+        { "<leader>fE", "<Cmd>Fitten edit_code<CR>", mode = "v", desc = "edit code" },
+        { "<leader>fo", "<Cmd>Fitten optimize_code<CR>", mode = "v", desc = "optimize code" },
+        { "<leader>fr", "<Cmd>Fitten refactor_code<CR>", mode = "v", desc = "refactor code" },
+        { "<leader>fs", "<Cmd>Fitten enable_completion<CR>", desc = "start fittencode" },
+    },
+    enabled = false,
+}
+
 config.gitsigns = {
     "lewis6991/gitsigns.nvim",
     event = "User IceLoad",
@@ -848,6 +894,7 @@ config["which-key"] = {
         spec = {
             { "<leader>b", group = "+buffer" },
             { "<leader>c", group = "+comment" },
+            { "<leader>f", group = "+fittencode" },
             { "<leader>g", group = "+git" },
             { "<leader>h", group = "+hop" },
             { "<leader>l", group = "+lsp" },

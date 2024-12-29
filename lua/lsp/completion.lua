@@ -44,6 +44,7 @@ Ice.plugins["nvim-cmp"] = {
                 Event = symbols.Event,
                 Operator = symbols.Operator,
                 TypeParameter = symbols.TypeParameter,
+                FittenCode = symbols.FittenCode,
             },
         }
 
@@ -96,6 +97,8 @@ Ice.plugins["nvim-cmp"] = {
             sources = cmp.config.sources({
                 { name = "nvim_lsp" },
                 { name = "luasnip" },
+                -- Turns out you can specify sources that are initially unknown
+                { name = "fittencode" },
             }, {
                 { name = "buffer" },
                 { name = "path" },

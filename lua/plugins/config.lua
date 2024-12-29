@@ -820,8 +820,8 @@ config.orgmode = {
         })
     end,
     keys = {
-        -- TODO: normal / visual mode
-        { "<leader>lf", "gqgq", desc = "format file", ft = "org", silent = true, noremap = true },
+        { "<leader>lf", "gggqG<C-o><C-o>", mode="n", desc = "format file", ft = "org", silent = true, noremap = true },
+        { "<leader>lf", "gq", mode="v", desc = "format selected", ft = "org", silent = true, noremap = true },
     },
 }
 

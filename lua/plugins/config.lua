@@ -428,7 +428,7 @@ config["markdown-preview"] = {
     build = "cd app && yarn install",
     keys = {
         {
-            "<A-b>",
+            require("core.utils").alt "b",
             "<Cmd>MarkdownPreviewToggle<CR>",
             desc = "markdown preview",
             ft = "markdown",
@@ -820,8 +820,8 @@ config.orgmode = {
         })
     end,
     keys = {
-        { "<leader>lf", "gggqG<C-o><C-o>", mode="n", desc = "format file", ft = "org", silent = true, noremap = true },
-        { "<leader>lf", "gq", mode="v", desc = "format selected", ft = "org", silent = true, noremap = true },
+        { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true, noremap = true },
+        { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true, noremap = true },
     },
 }
 

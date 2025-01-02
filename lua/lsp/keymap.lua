@@ -30,7 +30,7 @@ Ice.keymap.lsp.mapLsp = {
 }
 
 Ice.keymap.lsp.cmp = {
-    toggle_completion = "<A-c>",
+    toggle_completion = require("core.utils").alt "c",
     prev_item = "<C-k>",
     next_item = "<C-j>",
     confirm = "<Tab>",

@@ -52,7 +52,7 @@ Ice.plugins["typst-preview"] = {
     opts = {},
     keys = {
         {
-            "<A-b>",
+            require("core.utils").alt "b",
             "<Cmd>TypstPreviewToggle<CR>",
             desc = "typst preview toggle",
             ft = "typst",

@@ -80,6 +80,10 @@ Ice.colorschemes = {
         theme = "lotus",
         background = "light",
     },
+    miasma = {
+        name = "miasma",
+        background = "dark",
+    },
     nightfox = {
         name = "nightfox",
         background = "dark",

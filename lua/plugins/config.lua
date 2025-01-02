@@ -1004,6 +1004,11 @@ config["kanagawa"] = {
     lazy = true,
 }
 
+config["miasma"] = {
+    "xero/miasma.nvim",
+    lazy = true,
+}
+
 config["nightfox"] = {
     "EdenEast/nightfox.nvim",
     lazy = true,

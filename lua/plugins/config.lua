@@ -304,7 +304,7 @@ config.fittencode = {
         { "<leader>fE", "<Cmd>Fitten edit_code<CR>", mode = "v", desc = "edit code" },
         { "<leader>fo", "<Cmd>Fitten optimize_code<CR>", mode = "v", desc = "optimize code" },
         { "<leader>fr", "<Cmd>Fitten refactor_code<CR>", mode = "v", desc = "refactor code" },
-        { "<leader>fs", "<Cmd>Fitten enable_completion<CR>", desc = "start fittencode" },
+        { "<leader>fs", "<Cmd>Fitten enable_completion<CR><Cmd>lua vim.notify('FittenCode enabled')<CR>", desc = "start fittencode" },
     },
     enabled = false,
 }

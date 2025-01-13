@@ -6,8 +6,6 @@ Ice.ft = {
         vim.bo.comments = "s1:/*,ex:*/"
     end,
     dart = function()
-        vim.bo.shiftwidth = 2
-        vim.bo.softtabstop = 2
         vim.bo.tabstop = 2
     end,
     html = function()
@@ -27,9 +25,7 @@ Ice.ft = {
         vim.wo.linebreak = true
         vim.wo.breakindent = true
     end,
-    org = function ()
-        vim.bo.shiftwidth = 2
-        vim.bo.softtabstop = 2
+    org = function()
         vim.bo.tabstop = 2
     end,
     python = function()
@@ -42,8 +38,6 @@ Ice.ft = {
         vim.wo.wrap = true
         vim.wo.linebreak = true
         vim.wo.breakindent = true
-        vim.bo.shiftwidth = 2
-        vim.bo.softtabstop = 2
         vim.bo.tabstop = 2
     end,
     -- Convenience method for setting FileType callback
@@ -54,7 +48,7 @@ Ice.ft = {
     set = function(self, ft, callback)
         local default_callback = self[ft]
         if default_callback ~= nil then
-            self[ft] = function ()
+            self[ft] = function()
                 default_callback()
                 callback()
             end

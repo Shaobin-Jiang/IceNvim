@@ -24,14 +24,9 @@ opt.signcolumn = "yes"
 opt.colorcolumn = "80"
 
 opt.tabstop = 4
-opt.softtabstop = 4
-opt.shiftround = true
+opt.shiftwidth = 0
 opt.expandtab = true
-
-opt.shiftwidth = 4
-
-opt.autoindent = true
-opt.smartindent = true
+opt.shiftround = true
 
 -- Case insensitive searching when no upper case character is present
 opt.ignorecase = true

@@ -81,6 +81,7 @@ opt.pumheight = 16
 -- Always show tab line
 -- Otherwise, when bufferline is loaded, it will "flash" a bit initially
 opt.showtabline = 2
+opt.tabline = "%!''"
 
 opt.showmode = false
 

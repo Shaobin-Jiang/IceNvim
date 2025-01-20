@@ -96,19 +96,15 @@ config.bufferline = {
         }
     end,
     keys = {
-        { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true, noremap = true },
+        { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true },
         -- <esc> is added in case current buffer is the last
-        {
-            "<leader>bd",
-            "<Cmd>BufferLineClose 0<CR><ESC>",
-            desc = "close current buffer",
-            silent = true,
-            noremap = true,
-        },
-        { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true, noremap = true },
-        { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true, noremap = true },
-        { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true, noremap = true },
-        { "<leader>bp", "<Cmd>BufferLinePick<CR>", desc = "pick buffer", silent = true, noremap = true },
+        { "<leader>bd", "<Cmd>BufferLineClose 0<CR><ESC>", desc = "close current buffer", silent = true },
+        { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true },
+        { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true },
+        { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true },
+        { "<leader>bp", "<Cmd>BufferLinePick<CR>", desc = "pick buffer", silent = true },
+        { "<leader>bm", "<Cmd>IceRepeat BufferLineMoveNext<CR>", desc = "move right", silent = true },
+        { "<leader>bM", "<Cmd>IceRepeat BufferLineMovePrev<CR>", desc = "move left", silent = true },
     },
 }
 
@@ -304,7 +300,11 @@ config.fittencode = {
         { "<leader>fE", "<Cmd>Fitten edit_code<CR>", mode = "v", desc = "edit code" },
         { "<leader>fo", "<Cmd>Fitten optimize_code<CR>", mode = "v", desc = "optimize code" },
         { "<leader>fr", "<Cmd>Fitten refactor_code<CR>", mode = "v", desc = "refactor code" },
-        { "<leader>fs", "<Cmd>Fitten enable_completion<CR><Cmd>lua vim.notify('FittenCode enabled')<CR>", desc = "start fittencode" },
+        {
+            "<leader>fs",
+            "<Cmd>Fitten enable_completion<CR><Cmd>lua vim.notify('FittenCode enabled')<CR>",
+            desc = "start fittencode",
+        },
     },
     enabled = false,
 }
@@ -315,15 +315,15 @@ config.gitsigns = {
     main = "gitsigns",
     opts = {},
     keys = {
-        { "<leader>gn", "<Cmd>Gitsigns next_hunk<CR>", desc = "next hunk", silent = true, noremap = true },
-        { "<leader>gp", "<Cmd>Gitsigns prev_hunk<CR>", desc = "prev hunk", silent = true, noremap = true },
-        { "<leader>gP", "<Cmd>Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true, noremap = true },
-        { "<leader>gs", "<Cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true, noremap = true },
-        { "<leader>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true, noremap = true },
-        { "<leader>gr", "<Cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true, noremap = true },
-        { "<leader>gB", "<Cmd>Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true, noremap = true },
-        { "<leader>gb", "<Cmd>Gitsigns blame<CR>", desc = "git blame", silent = true, noremap = true },
-        { "<leader>gl", "<Cmd>Gitsigns blame_line<CR>", desc = "git blame line", silent = true, noremap = true },
+        { "<leader>gn", "<Cmd>Gitsigns next_hunk<CR>", desc = "next hunk", silent = true },
+        { "<leader>gp", "<Cmd>Gitsigns prev_hunk<CR>", desc = "prev hunk", silent = true },
+        { "<leader>gP", "<Cmd>Gitsigns preview_hunk<CR>", desc = "preview hunk", silent = true },
+        { "<leader>gs", "<Cmd>Gitsigns stage_hunk<CR>", desc = "stage hunk", silent = true },
+        { "<leader>gu", "<Cmd>Gitsigns undo_stage_hunk<CR>", desc = "undo stage", silent = true },
+        { "<leader>gr", "<Cmd>Gitsigns reset_hunk<CR>", desc = "reset hunk", silent = true },
+        { "<leader>gB", "<Cmd>Gitsigns stage_buffer<CR>", desc = "stage buffer", silent = true },
+        { "<leader>gb", "<Cmd>Gitsigns blame<CR>", desc = "git blame", silent = true },
+        { "<leader>gl", "<Cmd>Gitsigns blame_line<CR>", desc = "git blame line", silent = true },
     },
 }
 
@@ -335,7 +335,7 @@ config["grug-far"] = {
         windowCreationCommand = "tabnew %",
     },
     keys = {
-        { "<leader>ug", "<Cmd>GrugFar<CR>", desc = "find and replace", silent = true, noremap = true },
+        { "<leader>ug", "<Cmd>GrugFar<CR>", desc = "find and replace", silent = true },
     },
 }
 
@@ -349,7 +349,7 @@ config.hop = {
         keys = "fjghdksltyrueiwoqpvbcnxmza",
     },
     keys = {
-        { "<leader>hp", "<Cmd>HopWord<CR>", desc = "hop word", silent = true, noremap = true },
+        { "<leader>hp", "<Cmd>HopWord<CR>", desc = "hop word", silent = true },
     },
 }
 
@@ -433,7 +433,6 @@ config["markdown-preview"] = {
             desc = "markdown preview",
             ft = "markdown",
             silent = true,
-            noremap = true,
         },
     },
 }
@@ -453,7 +452,7 @@ config.neogit = {
         },
     },
     keys = {
-        { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true, noremap = true },
+        { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true },
     },
     config = function(_, opts)
         require("neogit").setup(opts)
@@ -685,7 +684,7 @@ config["nvim-tree"] = {
         },
     },
     keys = {
-        { "<leader>uf", "<Cmd>NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true, noremap = true },
+        { "<leader>uf", "<Cmd>NvimTreeToggle<CR>", desc = "toggle nvim tree", silent = true },
     },
 }
 
@@ -820,8 +819,8 @@ config.orgmode = {
         })
     end,
     keys = {
-        { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true, noremap = true },
-        { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true, noremap = true },
+        { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true },
+        { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true },
     },
 }
 
@@ -882,9 +881,9 @@ config.telescope = {
         telescope.load_extension "env"
     end,
     keys = {
-        { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true, noremap = true },
-        { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true, noremap = true },
-        { "<leader>te", "<Cmd>Telescope env<CR>", desc = "environment variables", silent = true, noremap = true },
+        { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true },
+        { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true },
+        { "<leader>te", "<Cmd>Telescope env<CR>", desc = "environment variables", silent = true },
     },
 }
 
@@ -897,7 +896,7 @@ config["todo-comments"] = {
     main = "todo-comments",
     opts = {},
     keys = {
-        { "<leader>ut", "<Cmd>TodoTelescope<CR>", desc = "todo list", silent = true, noremap = true },
+        { "<leader>ut", "<Cmd>TodoTelescope<CR>", desc = "todo list", silent = true },
     },
 }
 
@@ -908,7 +907,7 @@ config.undotree = {
         vim.g.undotree_TreeNodeShape = "-"
     end,
     keys = {
-        { "<leader>uu", "<Cmd>UndotreeToggle<CR>", desc = "undo tree toggle", silent = true, noremap = true },
+        { "<leader>uu", "<Cmd>UndotreeToggle<CR>", desc = "undo tree toggle", silent = true },
     },
 }
 
@@ -979,7 +978,7 @@ config["zen-mode"] = {
         require("zen-mode").setup(opts)
     end,
     keys = {
-        { "<leader>uz", "<Cmd>ZenMode<CR>", desc = "toggle zen mode", silent = true, noremap = true },
+        { "<leader>uz", "<Cmd>ZenMode<CR>", desc = "toggle zen mode", silent = true },
     },
 }
 

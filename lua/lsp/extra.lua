@@ -18,12 +18,6 @@ Ice.plugins.trouble = {
     opts = {},
     cmd = "Trouble",
     keys = {
-        {
-            "<leader>lt",
-            "<Cmd>Trouble diagnostics toggle focus=true<CR>",
-            desc = "trouble toggle",
-            silent = true,
-            noremap = true,
-        },
+        { "<leader>lt", "<Cmd>Trouble diagnostics toggle focus=true<CR>", desc = "trouble toggle", silent = true },
     },
 }

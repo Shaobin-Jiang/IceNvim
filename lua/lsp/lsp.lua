@@ -51,14 +51,7 @@ Ice.plugins["typst-preview"] = {
     end,
     opts = {},
     keys = {
-        {
-            "<A-b>",
-            "<Cmd>TypstPreviewToggle<CR>",
-            desc = "typst preview toggle",
-            ft = "typst",
-            silent = true,
-            noremap = true,
-        },
+        { "<A-b>", "<Cmd>TypstPreviewToggle<CR>", desc = "typst preview toggle", ft = "typst", silent = true },
     },
     enabled = Ice.lsp.tinymist.enabled,
 }

@@ -584,11 +584,7 @@ config["nvim-tree"] = {
     opts = {
         on_attach = function(bufnr)
             local api = require "nvim-tree.api"
-            local opt = {
-                buffer = bufnr,
-                noremap = true,
-                silent = true,
-            }
+            local opt = { buffer = bufnr, silent = true }
 
             api.config.mappings.default_on_attach(bufnr)
 

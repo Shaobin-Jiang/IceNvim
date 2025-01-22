@@ -60,7 +60,7 @@ utils.about = function()
                 break
             end
         end
-    end, { noremap = true, silent = true })
+    end, { silent = true })
 
     vim.api.nvim_set_option_value("modifiable", false, { buf = p.bufnr })
     vim.api.nvim_set_option_value("readonly", true, { buf = p.bufnr })
@@ -151,7 +151,7 @@ utils.check_icons = function()
                 break
             end
         end
-    end, { noremap = true, silent = true })
+    end, { silent = true })
 
     vim.api.nvim_set_option_value("modifiable", false, { buf = p.bufnr })
     vim.api.nvim_set_option_value("readonly", true, { buf = p.bufnr })

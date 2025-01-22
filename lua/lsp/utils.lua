@@ -44,7 +44,7 @@ utils.create_cmp_keymap = function()
 end
 
 utils.lsp_attach_keymap = function(bufnr)
-    require("core.utils").group_map(Ice.keymap.lsp.mapLsp, { noremap = true, silent = true, buffer = bufnr })
+    require("core.utils").group_map(Ice.keymap.lsp.mapLsp, { silent = true, buffer = bufnr })
 end
 
 -- Checks whether a lsp client is active in the current buffer

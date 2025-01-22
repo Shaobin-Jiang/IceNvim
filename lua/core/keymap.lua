@@ -54,7 +54,7 @@ Ice.keymap = {}
 Ice.keymap.general = {
     -- See `:h quote_`
     black_hole_register = { { "n", "v" }, "\\", '"_' },
-    clear_cmd_line = { { "n", "i", "v", "t" }, "<C-g>", "<Cmd>mode<CR>", { noremap = true } },
+    clear_cmd_line = { { "n", "i", "v", "t" }, "<C-g>", "<Cmd>mode<CR>" },
     cmd_forward = { "c", "<C-f>", "<Right>", { silent = false } },
     cmd_backward = { "c", "<C-b>", "<Left>", { silent = false } },
     cmd_home = { "c", "<C-a>", "<Home>", { silent = false } },

@@ -181,6 +181,10 @@ vim.api.nvim_create_autocmd("BufEnter"，{
 
 ## 可能的问题
 
+### Alt 相关的快捷键在 MacOS 的 Kitty 上不生效
+
+在 `kitty.conf` 中添加 `macos_option_as_alt yes`。
+
 ### 安装 Omnisharp / Csharpier
 
 安装 omnisharp 的时候需要确保你已经安装了 dotnet sdk。

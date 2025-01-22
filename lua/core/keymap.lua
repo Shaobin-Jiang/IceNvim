@@ -1,11 +1,10 @@
-local utils = require "core.utils"
-
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
 -- Open the current html file with the default browser.
 local function open_html_file()
     if vim.bo.filetype == "html" then
+        local utils = require "core.utils"
         local command
         if utils.is_linux() or utils.is_wsl() then
             command = "xdg-open"
@@ -14,7 +13,7 @@ local function open_html_file()
         else
             command = "open"
         end
-        if utils.is_windows() then
+        if require("core.utils").is_windows() then
             local old_shellslash = vim.opt.shellslash
             vim.opt.shellslash = false
             vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
@@ -39,11 +38,11 @@ end
 
 -- Determine in advance what shell to use for the <C-t> keymap
 local terminal_command
-if not utils.is_windows() then
+if not require("core.utils").is_windows() then
     terminal_command = "<Cmd>split | terminal<CR>" -- let $SHELL decide the default shell
 else
     local executables = { "pwsh", "powershell", "bash", "cmd" }
-    for _, executable in utils.ordered_pair(executables) do
+    for _, executable in require("core.utils").ordered_pair(executables) do
         if vim.fn.executable(executable) == 1 then
             terminal_command = "<Cmd>split term://" .. executable .. "<CR>"
             break
@@ -60,8 +59,8 @@ Ice.keymap.general = {
     cmd_backward = { "c", "<C-b>", "<Left>", { silent = false } },
     cmd_home = { "c", "<C-a>", "<Home>", { silent = false } },
     cmd_end = { "c", "<C-e>", "<End>", { silent = false } },
-    cmd_word_forward = { "c", utils.alt "f", "<S-Right>", { silent = false } },
-    cmd_word_backward = { "c", utils.alt "b", "<S-Left>", { silent = false } },
+    cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
+    cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
 
     disable_right_mouse = { { "n", "i", "v", "t" }, "<RightMouse>", "<LeftMouse>" },
 
@@ -88,26 +87,26 @@ Ice.keymap.general = {
 
     new_line_below_normal = {
         "n",
-        utils.alt "o",
+        "<A-o>",
         "o<Esc>",
     },
     new_line_above_normal = {
         "n",
-        utils.alt "O",
+        "<A-O>",
         "O<Esc>",
     },
     new_line_below_insert = {
         "i",
-        utils.alt "o",
+        "<A-o>",
         "<Esc>o",
     },
     new_line_above_insert = {
         "i",
-        utils.alt "O",
+        "<A-O>",
         "<Esc>O",
     },
 
-    open_html_file = { "n", utils.alt "b", open_html_file },
+    open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", terminal_command },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>" },

@@ -428,7 +428,7 @@ config["markdown-preview"] = {
     build = "cd app && yarn install",
     keys = {
         {
-            require("core.utils").alt "b",
+            "<A-b>",
             "<Cmd>MarkdownPreviewToggle<CR>",
             desc = "markdown preview",
             ft = "markdown",

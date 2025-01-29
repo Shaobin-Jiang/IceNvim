@@ -25,7 +25,9 @@ Ice.plugins["flutter-tools"] = {
             end,
         },
     },
-    enabled = Ice.lsp.flutter.enabled ~= nil,
+    enabled = function()
+        return Ice.lsp.flutter.enabled == true
+    end,
 }
 
 Ice.plugins["rust-tools"] = {
@@ -40,7 +42,9 @@ Ice.plugins["rust-tools"] = {
             end,
         },
     },
-    enabled = Ice.lsp.rust.enabled ~= nil,
+    enabled = function()
+        return Ice.lsp.rust.enabled == true
+    end,
 }
 
 Ice.plugins["typst-preview"] = {
@@ -53,7 +57,9 @@ Ice.plugins["typst-preview"] = {
     keys = {
         { "<A-b>", "<Cmd>TypstPreviewToggle<CR>", desc = "typst preview toggle", ft = "typst", silent = true },
     },
-    enabled = Ice.lsp.tinymist.enabled ~= nil,
+    enabled = function()
+        return Ice.lsp.tinymist.enabled == true
+    end,
 }
 
 Ice.plugins.mason = {

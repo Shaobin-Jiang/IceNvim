@@ -1,6 +1,66 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- Generates a comment function that can be used in a keymap
+--
+-- Uses the buffer's local commentstring to add a comment; the "%s" in the commentstring is removed
+-- Upon the addition of a comment, the user ends up in insert mode, with the cursor at the exact same position as the %s
+-- Adding a comment at the end of a line will have a blank before it only if the line is non-blank.
+--
+---@param pos string Can be one of "above" / "below" / "end"; indicates where the comment is to be inserted
+local function comment(pos)
+    return function()
+        local row = vim.api.nvim_win_get_cursor(0)[1]
+        local total_lines = vim.api.nvim_buf_line_count(0)
+        local commentstring = vim.bo.commentstring
+        local cmt = string.gsub(commentstring, "%%s", "")
+        local index = string.find(vim.bo.commentstring, "%%s")
+
+        local target_line
+        if pos == "below" then
+            -- Uses the same indentation as the next line if we are adding a comment below
+            -- We have to consider whether the current line is the last one in the buffer
+            if row == total_lines then
+                target_line = vim.api.nvim_buf_get_lines(0, row - 1, row, true)[1]
+            else
+                target_line = vim.api.nvim_buf_get_lines(0, row, row + 1, true)[1]
+            end
+        else
+            target_line = vim.api.nvim_get_current_line()
+        end
+
+        if pos == "end" then
+            -- Only insert a blank space before the comment if the current line is non-blank
+            if string.find(target_line, "%S") then
+                cmt = " " .. cmt
+            end
+            vim.api.nvim_buf_set_lines(0, row - 1, row, false, { target_line .. cmt })
+            vim.api.nvim_win_set_cursor(0, { row, #target_line + index - 1 })
+        else
+            -- Get the index of the first non blank character
+            local line_start = string.find(target_line, "%S") or 1
+            local blank = string.sub(target_line, 1, line_start - 1)
+
+            if pos == "above" then
+                vim.api.nvim_buf_set_lines(0, row - 1, row - 1, true, { blank .. cmt })
+                vim.api.nvim_win_set_cursor(0, { row, #blank + index - 1 })
+            end
+
+            if pos == "below" then
+                vim.api.nvim_buf_set_lines(0, row, row, true, { blank .. cmt })
+                vim.api.nvim_win_set_cursor(0, { row + 1, #blank + index - 1 })
+            end
+        end
+
+        -- If the commentstring ends with %s, like `// %s`, we can just jump straight to the end of the line
+        if string.sub(commentstring, #commentstring - 1, #commentstring) == "%s" then
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("A", true, false, true), "n", false)
+        else
+            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("i", true, false, true), "n", false)
+        end
+    end
+end
+
 -- <count>J joins <count> + 1 lines
 local function join_lines()
     local v_count = vim.v.count1 + 1
@@ -74,6 +134,10 @@ Ice.keymap.general = {
     cmd_end = { "c", "<C-e>", "<End>", { silent = false } },
     cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
     cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
+
+    comment_above = { "n", "gcO", comment "above" },
+    comment_below = { "n", "gco", comment "below" },
+    comment_end = { "n", "gcA", comment "end" },
 
     disable_right_mouse = { { "n", "i", "v", "t" }, "<RightMouse>", "<LeftMouse>" },
 

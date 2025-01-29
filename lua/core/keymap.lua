@@ -92,8 +92,6 @@ Ice.keymap.general = {
     open_terminal = { "n", "<C-t>", terminal_command },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>" },
-    shift_line_left = { "v", "<", "<gv" },
-    shift_line_right = { "v", ">", ">gv" },
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },
     visual_line = { "n", "V", "0v$" },
 }

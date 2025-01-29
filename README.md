@@ -4,9 +4,9 @@
 
 *Please consider starring the project ✨✨✨. Your support is much appreciated.*
 
-[![Minimum Neovim Version](https://img.shields.io/badge/Minimum_Neovim_Version-0.9.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
-[![Latest Supported Version](https://img.shields.io/badge/Latest_Supported_Version-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
-[![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
+[![Minimum Neovim Version](https://img.shields.io/badge/Minimum_Neovim_Version-0.10.0-blueviolet.svg?style=for-the-badge&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![Supported OS](https://img.shields.io/badge/Supported_OS-MacOS_/_Windows_/_Linux-blueviolet.svg?style=for-the-badge&color=violet&logoColor=white)](https://github.com/neovim/neovim)
+[![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=for-the-badge&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 
 </div>
 
@@ -49,7 +49,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
 
 ## Requirements
 
-- IceNvim requires neovim **0.9.0+**, but version **0.10.0+** is preferred
+- IceNvim requires neovim **0.10.0+** or newer
 - Additionally, you need to install these also:
   - A [nerd font](https://www.nerdfonts.com/font-downloads): this is optional, but things may look funny without one installed
   - git: almost all the plugin and lsp installations depend on it

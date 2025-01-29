@@ -1,6 +1,19 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = ","
 
+-- <count>J joins <count> + 1 lines
+local function join_lines()
+    local v_count = vim.v.count1 + 1
+    local mode = vim.api.nvim_get_mode().mode
+    local keys
+    if mode == "n" then
+        keys = v_count .. "J"
+    else
+        keys = "J"
+    end
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
+end
+
 -- Open the current html file with the default browser.
 local function open_html_file()
     if vim.bo.filetype == "html" then
@@ -64,21 +77,7 @@ Ice.keymap.general = {
 
     disable_right_mouse = { { "n", "i", "v", "t" }, "<RightMouse>", "<LeftMouse>" },
 
-    join_lines = {
-        { "n", "v" },
-        "J",
-        function()
-            local v_count = vim.v.count1 + 1
-            local mode = vim.api.nvim_get_mode().mode
-            local keys
-            if mode == "n" then
-                keys = v_count .. "J"
-            else
-                keys = "J"
-            end
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, false, true), "n", false)
-        end,
-    },
+    join_lines = { { "n", "v" }, "J", join_lines },
 
     -- Move the cursor through wrapped lines with j and k
     -- https://github.com/NvChad/NvChad/blob/b9963e29b21a672325af5b51f1d32a9191abcdaa/lua/core/mappings.lua#L40C5-L41C99

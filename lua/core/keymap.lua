@@ -85,26 +85,8 @@ Ice.keymap.general = {
     move_down = { "n", "j", 'v:count || mode(1)[0:1] == "no" ? "j" : "gj"', { expr = true } },
     move_up = { "n", "k", 'v:count || mode(1)[0:1] == "no" ? "k" : "gk"', { expr = true } },
 
-    new_line_below_normal = {
-        "n",
-        "<A-o>",
-        "o<Esc>",
-    },
-    new_line_above_normal = {
-        "n",
-        "<A-O>",
-        "O<Esc>",
-    },
-    new_line_below_insert = {
-        "i",
-        "<A-o>",
-        "<Esc>o",
-    },
-    new_line_above_insert = {
-        "i",
-        "<A-O>",
-        "<Esc>O",
-    },
+    new_line_below_normal = { "n", "<A-o>", "o<Esc>" },
+    new_line_above_normal = { "n", "<A-O>", "O<Esc>" },
 
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", terminal_command },

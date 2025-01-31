@@ -713,7 +713,6 @@ config["nvim-treesitter"] = {
 
 config.orgmode = {
     "nvim-orgmode/orgmode",
-    event = "VeryLazy",
     ft = { "org" },
     -- See https://github.com/nvim-orgmode/orgmode/blob/master/DOCS.md
     opts = {
@@ -737,6 +736,8 @@ config.orgmode = {
     keys = {
         { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true },
         { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true },
+        { "<leader>oa", "<Cmd>Org agenda<CR>", desc = "orgmode agenda" },
+        { "<leader>oc", "<Cmd>Org capture<CR>", desc = "orgmode capture" },
     },
 }
 

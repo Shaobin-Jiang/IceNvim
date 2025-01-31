@@ -227,6 +227,15 @@ config.fittencode = {
             max_size = 1,
         },
     },
+    config = function(_, opts)
+        require("blink.cmp").add_provider("fittencode", {
+            name = "fittencode",
+            module = "fittencode.sources.blink",
+            fallbacks = { "buffer" },
+        })
+        Ice.__FITTENCODE_SOURCE_ADDED = true
+        require("fittencode").setup(opts)
+    end,
     keys = {
         { "<leader>fb", "<Cmd>Fitten find_bugs<CR>", mode = "v", desc = "find bugs" },
         { "<leader>fc", "<Cmd>Fitten show_chat<CR>", mode = "v", desc = "show chat" },
@@ -733,6 +742,15 @@ config.orgmode = {
             },
         },
     },
+    config = function(_, opts)
+        require("blink.cmp").add_provider("orgmode", {
+            name = "Orgmode",
+            module = "orgmode.org.autocompletion.blink",
+            fallbacks = { "buffer" },
+        })
+        Ice.__ORGMODE_SOURCE_ADDED = true
+        require("orgmode").setup(opts)
+    end,
     keys = {
         { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true },
         { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true },

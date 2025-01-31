@@ -69,9 +69,6 @@ Ice.plugins["blink-cmp"] = {
             ["<C-u>"] = { "scroll_documentation_up", "fallback" },
         },
         sources = {
-            per_filetype = {
-                org = { "orgmode", "path", "snippets", "buffer" },
-            },
             default = function()
                 local cmdwin_type = vim.fn.getcmdwintype()
                 if cmdwin_type == "/" or cmdwin_type == "?" then
@@ -80,7 +77,15 @@ Ice.plugins["blink-cmp"] = {
                 if cmdwin_type == ":" or cmdwin_type == "@" then
                     return { "cmdline" }
                 end
-                return { "lsp", "path", "snippets", "buffer", "fittencode" }
+
+                local source = { "lsp", "path", "snippets", "buffer" }
+                if Ice.__FITTENCODE_SOURCE_ADDED then
+                    source[#source+1] = "fittencode"
+                end
+                if vim.bo.filetype == "org" and Ice.__ORGMODE_SOURCE_ADDED then
+                    source[#source+1] = "orgmode"
+                end
+                return source
             end,
             cmdline = function()
                 local cmd_type = vim.fn.getcmdtype()
@@ -97,16 +102,6 @@ Ice.plugins["blink-cmp"] = {
                     opts = {
                         search_paths = { vim.fn.stdpath "config" .. "/lua/custom/snippets" },
                     },
-                },
-                fittencode = {
-                    name = "fittencode",
-                    module = "fittencode.sources.blink",
-                    fallbacks = { "buffer" },
-                },
-                orgmode = {
-                    name = "Orgmode",
-                    module = "orgmode.org.autocompletion.blink",
-                    fallbacks = { "buffer" },
                 },
             },
         },

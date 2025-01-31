@@ -28,12 +28,3 @@ Ice.keymap.lsp.mapLsp = {
     next_diagnostic = { "n", "<leader>ln", "<Cmd>Lspsaga diagnostic_jump_next<CR>" },
     prev_diagnostic = { "n", "<leader>lp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>" },
 }
-
-Ice.keymap.lsp.cmp = {
-    toggle_completion = "<A-c>",
-    prev_item = "<C-k>",
-    next_item = "<C-j>",
-    confirm = "<Tab>",
-    doc_up = "<C-u>",
-    doc_down = "<C-d>",
-}

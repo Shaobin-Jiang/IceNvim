@@ -219,7 +219,7 @@ config.fittencode = {
         },
         source_completion = {
             enable = true,
-            engine = "cmp",
+            engine = "blink",
         },
         completion_mode = "source",
         log = {
@@ -734,21 +734,6 @@ config.orgmode = {
             },
         },
     },
-    config = function(_, opts)
-        require("orgmode").setup(opts)
-
-        local cmp = require "cmp"
-        cmp.setup.filetype("org", {
-            sources = cmp.config.sources {
-                { name = "orgmode" },
-                { name = "luasnip" },
-                { name = "nvim_lsp" },
-                { name = "buffer" },
-                { name = "path" },
-            },
-            mapping = require("lsp.utils").create_cmp_keymap(),
-        })
-    end,
     keys = {
         { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true },
         { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true },

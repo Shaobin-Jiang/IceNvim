@@ -254,6 +254,14 @@ config.fittencode = {
             "<Cmd>Fitten enable_completion<CR><Cmd>lua vim.notify('FittenCode enabled')<CR>",
             desc = "start fittencode",
         },
+        {
+            "<A-f>",
+            function()
+                require("blink.cmp").show { providers = { "fittencode" } }
+            end,
+            mode = "i",
+            desc = "show fittencode completion",
+        },
     },
     enabled = false,
 }

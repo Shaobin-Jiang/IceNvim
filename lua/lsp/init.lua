@@ -1,5 +1,5 @@
-require "lsp.config"
 require "lsp.lsp"
+require "lsp.plugins"
 require "lsp.keymap"
 require "lsp.completion"
 require "lsp.format"

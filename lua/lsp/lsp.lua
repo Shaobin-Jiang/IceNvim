@@ -1,166 +1,131 @@
-local symbols = Ice.symbols
+local lsp = {}
 
-Ice.plugins["flutter-tools"] = {
-    "akinsho/flutter-tools.nvim",
-    ft = "dart",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "stevearc/dressing.nvim",
+-- For instructions on configuration, see official wiki:
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/configs.md
+lsp = {
+    ["bash-language-server"] = {
+        formatter = "shfmt",
     },
-    main = "flutter-tools",
-    opts = {
-        ui = {
-            border = "rounded",
-            notification_style = "nvim-notify",
-        },
-        decorations = {
-            statusline = {
-                app_version = true,
-                device = true,
-            },
-        },
-        lsp = {
-            on_attach = function(_, bufnr)
-                require("lsp.utils").lsp_attach_keymap(bufnr)
-            end,
-        },
-    },
-    enabled = function()
-        return Ice.lsp.flutter.enabled == true
-    end,
-}
-
-Ice.plugins["rust-tools"] = {
-    "simrat39/rust-tools.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    ft = "rust",
-    main = "rust-tools",
-    opts = {
-        server = {
-            on_attach = function(_, bufnr)
-                require("lsp.utils").lsp_attach_keymap(bufnr)
-            end,
-        },
-    },
-    enabled = function()
-        return Ice.lsp.rust.enabled == true
-    end,
-}
-
-Ice.plugins["typst-preview"] = {
-    "chomosuke/typst-preview.nvim",
-    ft = "typst",
-    build = function()
-        require("typst-preview").update()
-    end,
-    opts = {},
-    keys = {
-        { "<A-b>", "<Cmd>TypstPreviewToggle<CR>", desc = "typst preview toggle", ft = "typst", silent = true },
-    },
-    enabled = function()
-        return Ice.lsp.tinymist.enabled == true
-    end,
-}
-
-Ice.plugins.mason = {
-    "williamboman/mason.nvim",
-    dependencies = {
-        "neovim/nvim-lspconfig",
-        "williamboman/mason-lspconfig.nvim",
-    },
-    event = "User IceLoad",
-    cmd = "Mason",
-    opts = {
-        ui = {
-            icons = {
-                package_installed = symbols.Affirmative,
-                package_pending = symbols.Pending,
-                package_uninstalled = symbols.Negative,
+    clangd = {},
+    ["css-lsp"] = {
+        formatter = "prettier",
+        setup = {
+            settings = {
+                css = {
+                    validate = true,
+                    lint = {
+                        unknownAtRules = "ignore",
+                    },
+                },
+                less = {
+                    validate = true,
+                    lint = {
+                        unknownAtRules = "ignore",
+                    },
+                },
+                scss = {
+                    validate = true,
+                    lint = {
+                        unknownAtRules = "ignore",
+                    },
+                },
             },
         },
     },
-    config = function(_, opts)
-        require("mason").setup(opts)
-
-        local registry = require "mason-registry"
-        local function install(package)
-            local s, p = pcall(registry.get_package, package)
-            if s and not p:is_installed() then
-                p:install()
-            end
-        end
-
-        local lspconfig = require "lspconfig"
-        local mason_lspconfig_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
-
-        local installed_packages = registry.get_installed_package_names()
-
-        for lsp, config in pairs(Ice.lsp) do
-            if not config.enabled then
-                goto continue
-            end
-
-            local formatter = config.formatter
-            install(lsp)
-            install(formatter)
-
-            if not vim.tbl_contains(installed_packages, lsp) then
-                goto continue
-            end
-
-            lsp = mason_lspconfig_mapping[lsp]
-            if not config.managed_by_plugin and lspconfig[lsp] ~= nil then
-                local setup = config.setup
-                if type(setup) == "function" then
-                    setup = setup()
-                elseif setup == nil then
-                    setup = {}
+    ["emmet-ls"] = {
+        setup = {
+            filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+        },
+    },
+    flutter = {
+        managed_by_plugin = true,
+    },
+    gopls = {
+        formatter = "gofumpt",
+        setup = {
+            settings = {
+                gopls = {
+                    analyses = {
+                        unusedparams = true,
+                    },
+                },
+            },
+        },
+    },
+    ["html-lsp"] = {
+        formatter = "prettier",
+    },
+    ["json-lsp"] = {
+        formatter = "prettier",
+    },
+    ["lua-language-server"] = {
+        formatter = "stylua",
+        setup = {
+            settings = {
+                Lua = {
+                    runtime = {
+                        version = "LuaJIT",
+                        path = (function()
+                            local runtime_path = vim.split(package.path, ";")
+                            table.insert(runtime_path, "lua/?.lua")
+                            table.insert(runtime_path, "lua/?/init.lua")
+                            return runtime_path
+                        end)(),
+                    },
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                    workspace = {
+                        library = {
+                            vim.env.VIMRUNTIME,
+                            "${3rd}/luv/library",
+                        },
+                        checkThirdParty = false,
+                    },
+                    telemetry = {
+                        enable = false,
+                    },
+                },
+            },
+        },
+        enabled = true,
+    },
+    omnisharp = {
+        formatter = "csharpier",
+        setup = {
+            cmd = {
+                "dotnet",
+                vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/Omnisharp.dll",
+            },
+            on_attach = function(client)
+                client.server_capabilities.semanticTokensProvider = nil
+            end,
+        },
+    },
+    pyright = {
+        formatter = "black",
+    },
+    rust = {
+        managed_by_plugin = true,
+    },
+    tinymist = {
+        formatter = "typstfmt",
+        setup = {
+            single_file_support = true,
+        },
+    },
+    ["typescript-language-server"] = {
+        formatter = "prettier",
+        setup = {
+            single_file_support = true,
+            flags = lsp.flags,
+            on_attach = function(client)
+                if #vim.lsp.get_clients { name = "denols" } > 0 then
+                    client.stop()
                 end
-
-                local user_on_attach = function() end
-                if type(setup.on_attach) == "function" then
-                    user_on_attach = setup.on_attach
-                end
-
-                local on_attach = function(client, bufnr)
-                    -- Only stop using lsp as format source if a formatter is set
-                    if config.formatter ~= nil then
-                        client.server_capabilities.documentFormattingProvider = false
-                        client.server_capabilities.documentRangeFormattingProvider = false
-                    end
-
-                    require("lsp.utils").lsp_attach_keymap(bufnr)
-
-                    user_on_attach(client, bufnr)
-                end
-
-                setup = vim.tbl_deep_extend("force", setup, {
-                    capabilities = require("blink.cmp").get_lsp_capabilities(),
-                    on_attach = on_attach,
-                })
-
-                lspconfig[lsp].setup(setup)
-            end
-            ::continue::
-        end
-
-        -- UI
-        vim.diagnostic.config {
-            virtual_text = true,
-            signs = true,
-            update_in_insert = true,
-        }
-        local signs = {
-            Error = symbols.Error,
-            Warn = symbols.Warn,
-            Hint = symbols.Hint,
-            Info = symbols.Info,
-        }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-        end
-
-        vim.api.nvim_command "LspStart"
-    end,
+            end,
+        },
+    },
 }
+
+Ice.lsp = lsp

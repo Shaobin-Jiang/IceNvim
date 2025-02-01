@@ -233,6 +233,11 @@ config.fittencode = {
             module = "fittencode.sources.blink",
             fallbacks = { "buffer" },
         })
+
+        -- The kind name has to be manually added to blink types
+        local kind_name = "FittenCode"
+        require("blink.cmp.types").CompletionItemKind[kind_name] = kind_name
+
         Ice.__FITTENCODE_SOURCE_ADDED = true
         require("fittencode").setup(opts)
     end,

@@ -104,10 +104,10 @@ Ice.plugins["blink-cmp"] = {
 
                 local source = { "lsp", "path", "snippets", "buffer" }
                 if Ice.__FITTENCODE_SOURCE_ADDED then
-                    source[#source+1] = "fittencode"
+                    source[#source + 1] = "fittencode"
                 end
                 if vim.bo.filetype == "org" and Ice.__ORGMODE_SOURCE_ADDED then
-                    source[#source+1] = "orgmode"
+                    source[#source + 1] = "orgmode"
                 end
                 return source
             end,

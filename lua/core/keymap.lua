@@ -61,6 +61,26 @@ local function comment(pos)
     end
 end
 
+-- If the line is not empty, apply gcc. Otherwise, add a comment to it
+-- This is necessary as the default gcc does not work on blank lines
+local function comment_line()
+    local line = vim.api.nvim_get_current_line()
+
+    local row = vim.api.nvim_win_get_cursor(0)[1]
+    local commentstring = vim.bo.commentstring
+    local cmt = string.gsub(commentstring, "%%s", "")
+    local index = string.find(vim.bo.commentstring, "%%s")
+
+    if not string.find(line, "%S") then
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { cmt })
+        vim.api.nvim_win_set_cursor(0, { row, index - 1 })
+    else
+        -- WARN: I have no clue as to why neovim is not including this in its official documentations
+        -- It is possible that the api will be renamed in future releases
+        require("vim._comment").toggle_lines(row, row, { row, 0 })
+    end
+end
+
 -- <count>J joins <count> + 1 lines
 local function join_lines()
     local v_count = vim.v.count1 + 1
@@ -145,6 +165,7 @@ Ice.keymap.general = {
     cmd_word_forward = { "c", "<A-f>", "<S-Right>", { silent = false } },
     cmd_word_backward = { "c", "<A-b>", "<S-Left>", { silent = false } },
 
+    comment_line = { "n", "gcc", comment_line },
     comment_above = { "n", "gcO", comment "above" },
     comment_below = { "n", "gco", comment "below" },
     comment_end = { "n", "gcA", comment "end" },

@@ -39,6 +39,7 @@ Ice.ft = {
         vim.wo.linebreak = true
         vim.wo.breakindent = true
         vim.bo.tabstop = 2
+        vim.bo.commentstring = "// %s"
     end,
     -- Convenience method for setting FileType callback
     -- Extends default callback if already set

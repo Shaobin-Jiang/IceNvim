@@ -135,4 +135,4 @@ vim.api.nvim_create_user_command("IceRepeat", function(args)
     for _ = 1, vim.v.count1 do
         vim.cmd(args.args)
     end
-end, { nargs = 1, complete = "command" })
+end, { nargs = "+", complete = "command" })

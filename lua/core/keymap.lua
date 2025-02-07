@@ -97,6 +97,16 @@ local function open_html_file()
     end
 end
 
+-- Save when the buffer is modified
+local function save_file()
+    local buffer_is_modified = vim.api.nvim_get_option_value("modified", { buf = 0 })
+    if buffer_is_modified then
+        vim.cmd "write"
+    else
+        print "Buffer not modified. No writing is done."
+    end
+end
+
 -- When evoked under normal / insert / visual mode, call vim's `undo` command and then go to normal mode.
 local function undo()
     local mode = vim.api.nvim_get_mode().mode
@@ -154,7 +164,7 @@ Ice.keymap.general = {
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", terminal_command },
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
-    save_file = { { "n", "i", "v" }, "<C-s>", "<Esc>:w<CR>" },
+    save_file = { { "n", "i", "v" }, "<C-s>", save_file },
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },
     visual_line = { "n", "V", "0v$" },
 }

@@ -1,26 +1,5 @@
 -- Predefined colorschemes
 Ice.colorschemes = {
-    ["ayu-light"] = {
-        name = "ayu",
-        setup = function()
-            vim.g.ayucolor = "light"
-        end,
-        background = "light",
-    },
-    ["ayu-mirage"] = {
-        name = "ayu",
-        setup = function()
-            vim.g.ayucolor = "mirage"
-        end,
-        background = "dark",
-    },
-    ["ayu-dark"] = {
-        name = "ayu",
-        setup = function()
-            vim.g.ayucolor = "dark"
-        end,
-        background = "dark",
-    },
     ["github-dark"] = {
         name = "github_dark",
         background = "dark",

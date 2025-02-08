@@ -927,11 +927,6 @@ config["zen-mode"] = {
 }
 
 -- Colorschemes
-config["ayu"] = {
-    "Luxed/ayu-vim",
-    lazy = true,
-}
-
 config["github"] = {
     "projekt0n/github-nvim-theme",
     lazy = true,

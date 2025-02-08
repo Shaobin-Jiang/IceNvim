@@ -125,6 +125,7 @@ local function save_file()
     else
         print "Buffer not modified. No writing is done."
     end
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
 end
 
 -- When evoked under normal / insert / visual mode, call vim's `undo` command and then go to normal mode.

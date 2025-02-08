@@ -144,11 +144,9 @@ Ice.plugins.mason = {
             ::continue::
         end
 
-        -- UI
         vim.diagnostic.config {
-            virtual_text = true,
-            signs = true,
             update_in_insert = true,
+            severity_sort = true, -- necessary for lspsaga's show_line_diagnostics to work
         }
         local signs = {
             Error = symbols.Error,

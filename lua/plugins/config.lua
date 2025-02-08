@@ -779,7 +779,6 @@ config.telescope = {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "LinArcX/telescope-env.nvim",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && "
@@ -827,7 +826,6 @@ config.telescope = {
     keys = {
         { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true },
         { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true },
-        { "<leader>te", "<Cmd>Telescope env<CR>", desc = "environment variables", silent = true },
     },
 }
 

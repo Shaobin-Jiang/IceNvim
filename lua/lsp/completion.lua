@@ -2,7 +2,6 @@ Ice.plugins["blink-cmp"] = {
     "saghen/blink.cmp",
     dependencies = {
         "rafamadriz/friendly-snippets",
-        "onsails/lspkind-nvim",
     },
     event = { "InsertEnter", "CmdlineEnter", "User IceLoad" },
     version = "*",

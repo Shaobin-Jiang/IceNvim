@@ -41,6 +41,10 @@ Ice.plugins["blink-cmp"] = {
             preset = "none",
             ["<Tab>"] = {
                 function(cmp)
+                    if not cmp.is_menu_visible() then
+                        return
+                    end
+
                     local completion_list = require "blink.cmp.completion.list"
                     local selected_id = completion_list.selected_item_idx or 1
                     local item = completion_list.items[selected_id]

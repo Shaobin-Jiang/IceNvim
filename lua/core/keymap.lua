@@ -72,8 +72,8 @@ local function comment_line()
     local index = string.find(vim.bo.commentstring, "%%s")
 
     if not string.find(line, "%S") then
-        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { cmt })
-        vim.api.nvim_win_set_cursor(0, { row, index - 1 })
+        vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line .. cmt })
+        vim.api.nvim_win_set_cursor(0, { row, #line + index - 1 })
     else
         -- WARN: I have no clue as to why neovim is not including this in its official documentations
         -- It is possible that the api will be renamed in future releases

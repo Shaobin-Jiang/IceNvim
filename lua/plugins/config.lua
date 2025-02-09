@@ -821,7 +821,6 @@ config.telescope = {
         local telescope = require "telescope"
         telescope.setup(opts)
         telescope.load_extension "fzf"
-        telescope.load_extension "env"
     end,
     keys = {
         { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true },

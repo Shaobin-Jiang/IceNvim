@@ -11,7 +11,6 @@ Ice.plugins["flutter-tools"] = {
     opts = {
         ui = {
             border = "rounded",
-            notification_style = "nvim-notify",
         },
         decorations = {
             statusline = {

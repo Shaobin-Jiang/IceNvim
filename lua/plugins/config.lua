@@ -194,6 +194,20 @@ config.dashboard = {
     end,
 }
 
+config.fidget = {
+    "j-hui/fidget.nvim",
+    event = "VeryLazy",
+    opts = {
+        notification = {
+            override_vim_notify = true,
+            window = {
+                x_padding = 2,
+                align = "top",
+            },
+        },
+    },
+}
+
 config.fittencode = {
     "luozhiya/fittencode.nvim",
     opts = {
@@ -330,7 +344,6 @@ config.lualine = {
     "nvim-lualine/lualine.nvim",
     dependencies = {
         "nvim-tree/nvim-web-devicons",
-        "arkav/lualine-lsp-progress",
     },
     event = "User IceLoad",
     main = "lualine",
@@ -346,17 +359,6 @@ config.lualine = {
             lualine_b = { "branch", "diff" },
             lualine_c = {
                 "filename",
-                {
-                    "lsp_progress",
-                    spinner_symbols = {
-                        symbols.Dice1,
-                        symbols.Dice2,
-                        symbols.Dice3,
-                        symbols.Dice4,
-                        symbols.Dice5,
-                        symbols.Dice6,
-                    },
-                },
             },
             lualine_x = {
                 "filesize",
@@ -457,21 +459,6 @@ config["nvim-autopairs"] = {
     event = "InsertEnter",
     main = "nvim-autopairs",
     opts = {},
-}
-
-config["nvim-notify"] = {
-    "rcarriga/nvim-notify",
-    event = "VeryLazy",
-    opts = {
-        timeout = 3000,
-        background_colour = "#000000",
-        stages = "static",
-    },
-    config = function(_, opts)
-        ---@diagnostic disable-next-line: undefined-field
-        require("notify").setup(opts)
-        vim.notify = require "notify"
-    end,
 }
 
 config["nvim-scrollview"] = {

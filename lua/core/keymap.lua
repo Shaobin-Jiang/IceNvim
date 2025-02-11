@@ -14,7 +14,7 @@ local function comment(pos)
         local total_lines = vim.api.nvim_buf_line_count(0)
         local commentstring = vim.bo.commentstring
         local cmt = string.gsub(commentstring, "%%s", "")
-        local index = string.find(vim.bo.commentstring, "%%s")
+        local index = string.find(commentstring, "%%s")
 
         local target_line
         if pos == "below" then
@@ -33,31 +33,27 @@ local function comment(pos)
             -- Only insert a blank space before the comment if the current line is non-blank
             if string.find(target_line, "%S") then
                 cmt = " " .. cmt
+                index = index + 1
             end
             vim.api.nvim_buf_set_lines(0, row - 1, row, false, { target_line .. cmt })
-            vim.api.nvim_win_set_cursor(0, { row, #target_line + index - 1 })
+            vim.api.nvim_win_set_cursor(0, { row, #target_line + index - 2 })
         else
             -- Get the index of the first non blank character
-            local line_start = string.find(target_line, "%S") or 1
+            local line_start = string.find(target_line, "%S") or (#target_line + 1)
             local blank = string.sub(target_line, 1, line_start - 1)
 
             if pos == "above" then
                 vim.api.nvim_buf_set_lines(0, row - 1, row - 1, true, { blank .. cmt })
-                vim.api.nvim_win_set_cursor(0, { row, #blank + index - 1 })
+                vim.api.nvim_win_set_cursor(0, { row, #blank + index - 2 })
             end
 
             if pos == "below" then
                 vim.api.nvim_buf_set_lines(0, row, row, true, { blank .. cmt })
-                vim.api.nvim_win_set_cursor(0, { row + 1, #blank + index - 1 })
+                vim.api.nvim_win_set_cursor(0, { row + 1, #blank + index - 2 })
             end
         end
 
-        -- If the commentstring ends with %s, like `// %s`, we can just jump straight to the end of the line
-        if string.sub(commentstring, #commentstring - 1, #commentstring) == "%s" then
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("A", true, false, true), "n", false)
-        else
-            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("i", true, false, true), "n", false)
-        end
+        vim.api.nvim_feedkeys("a", "n", false)
     end
 end
 
@@ -69,7 +65,7 @@ local function comment_line()
     local row = vim.api.nvim_win_get_cursor(0)[1]
     local commentstring = vim.bo.commentstring
     local cmt = string.gsub(commentstring, "%%s", "")
-    local index = string.find(vim.bo.commentstring, "%%s")
+    local index = string.find(commentstring, "%%s")
 
     if not string.find(line, "%S") then
         vim.api.nvim_buf_set_lines(0, row - 1, row, false, { line .. cmt })

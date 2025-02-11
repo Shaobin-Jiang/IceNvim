@@ -67,7 +67,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
     - npm
   - Required by markdown-preview.nvim:
     - yarn
-  - Required by rust-tools:
+  - Required by rustaceanvim:
     - rust-analyzer (NOT the rust-analyzer provided by Mason!!!)
   - python3 and pip3
   - Additional dependencies on Linux / WSL:

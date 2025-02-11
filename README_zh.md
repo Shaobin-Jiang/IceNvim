@@ -67,7 +67,7 @@ IceNvim 是一个美观、功能强大、支持高度自定义的 neovim 配置�
     - npm
   - markdown-preview.nvim 的依赖项
     - yarn
-  - rust-tools 的依赖项
+  - rustaceanvim 的依赖项
     - rust-analyzer （不是 Mason 提供的那个！！！）
   - python3 和 pip3
   - Linux / WSL 上的额外依赖

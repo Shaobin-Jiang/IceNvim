@@ -170,7 +170,7 @@ config.dashboard = {
                 {
                     icon = "  ",
                     desc = "About IceNvim",
-                    action = "lua require('plugins.utils').about()",
+                    action = "IceAbout",
                 },
             },
             footer = { "🧊 Hope that you enjoy using IceNvim 😀😀😀" },

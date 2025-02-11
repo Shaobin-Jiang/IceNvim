@@ -1,3 +1,43 @@
+vim.api.nvim_create_user_command("IceAbout", function()
+    local buf = vim.api.nvim_create_buf(false, true)
+    vim.keymap.set("n", "q", "<C-w>c", { buffer = buf })
+
+    local win_width = vim.fn.winwidth(0)
+    local win_height = vim.fn.winheight(0)
+    local width = 80
+    local height = math.floor(win_height * 0.3)
+    local left = math.floor((win_width - width) / 2)
+    local top = math.floor((win_height - height) / 2)
+
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {
+        "",
+        "A beautiful, powerful and highly customizable neovim config.",
+        "",
+        "Author: Shaobin Jiang",
+        "",
+        "Url: https://github.com/Shaobin-Jiang/IceNvim",
+        "",
+        string.format("Copyright © 2022-%s Shaobin Jiang", os.date "%Y"),
+    })
+
+    local win = vim.api.nvim_open_win(buf, true, {
+        relative = "win",
+        width = width,
+        height = height,
+        row = top,
+        col = left,
+        border = "rounded",
+        title = "About IceNvim",
+        title_pos = "center",
+        footer = "Press q to close window",
+        footer_pos = "center",
+    })
+
+    vim.api.nvim_set_option_value("number", false, { win = win })
+    vim.api.nvim_set_option_value("relativenumber", false, { win = win })
+    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+end, { nargs = 0 })
+
 vim.api.nvim_create_user_command("IceCheckIcons", function()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.keymap.set("n", "q", "<C-w>c", { buffer = buf })

@@ -213,28 +213,6 @@ string.findlast = function(s, pattern, last, plain)
     end
 end
 
--- Splits the string with the given pattern
--- WARN: this function does poorly with unicode characters!
----@param str string
----@param pattern string
----@return table
-string.split = function(str, pattern)
-    local start = 1
-    ---@diagnostic disable-next-line: redefined-local
-    local s, e = string.find(str, pattern, start)
-    local ret = {}
-    while s ~= nil do
-        ret[#ret + 1] = string.sub(str, start, s - 1)
-        ---@diagnostic disable-next-line: cast-local-type
-        start = e + 1
-        s, e = string.find(str, pattern, start)
-    end
-    if start <= #str then
-        ret[#ret + 1] = string.sub(str, start)
-    end
-    return ret
-end
-
 -- Finds the first occurence of the target in table and returns the key / index.
 -- If the target is not in the table, nil is returned.
 ---@param t table

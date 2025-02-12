@@ -94,6 +94,7 @@ vim.api.nvim_create_user_command("IceCheckIcons", function()
 
     vim.api.nvim_set_option_value("number", false, { win = win })
     vim.api.nvim_set_option_value("relativenumber", false, { win = win })
+    vim.api.nvim_set_option_value("wrap", false, { win = win })
     vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
 end, { nargs = 0 })
 

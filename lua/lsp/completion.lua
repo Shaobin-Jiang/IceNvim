@@ -114,16 +114,6 @@ Ice.plugins["blink-cmp"] = {
                 end
                 return source
             end,
-            cmdline = function()
-                local cmd_type = vim.fn.getcmdtype()
-                if cmd_type == "/" or cmd_type == "?" then
-                    return { "buffer" }
-                end
-                if cmd_type == ":" or cmd_type == "@" then
-                    return { "cmdline" }
-                end
-                return {}
-            end,
             providers = {
                 snippets = {
                     opts = {

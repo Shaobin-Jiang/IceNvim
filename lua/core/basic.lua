@@ -35,9 +35,6 @@ opt.smartcase = true
 -- Disable the ugly highlight during searches
 opt.hlsearch = false
 
--- Search when typing
-opt.incsearch = true
-
 opt.cmdheight = 1
 opt.cmdwinheight = 1
 

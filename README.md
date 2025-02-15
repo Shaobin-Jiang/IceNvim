@@ -124,16 +124,19 @@ Additionally, if you are using wsl, you might have to do this:
 chmod +x ~/.config/nvim/bin/im-select.exe
 ```
 
-### Install `im-select` (recommended for MacOS users)
+### Install `macism` (recommended for MacOS users)
 
-This is basically for the purpose as the previous session. The only difference is the installation process is not the same on MacOS.
-
-Just run this:
+Macism can be installed via the command below:
 
 ```bash
-brew tap daipeihust/tap
-brew install im-select
+brew tap laishulu/homebrew
+brew install macism
 ```
+
+Note that:
+
+- The first time you use this function, MacOS will popup a window asking you to grant permission of Accessibility
+- You need to enable the MacOS keyboard shortcut for "Select the previous input source", which can be found in "Preference -> Keyboard -> Shortcuts -> Input Source"
 
 ### Download `uclip.exe` (recommended for windows / wsl users)
 

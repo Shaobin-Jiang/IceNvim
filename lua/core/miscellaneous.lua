@@ -47,16 +47,16 @@ if utils.is_windows() or utils.is_wsl() then
         autocmd("VimLeavePre", 2052)
     end
 elseif utils.is_mac() then
-    if vim.fn.executable "im-select" == 1 then
+    if vim.fn.executable "macism" == 1 then
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 
         vim.api.nvim_create_autocmd("InsertLeave", {
             group = ime_autogroup,
             callback = function()
-                vim.system({ "im-select" }, { text = true }, function(out)
+                vim.system({ "macism" }, { text = true }, function(out)
                     Ice.__PREVIOUS_IM_CODE_MAC = string.gsub(out.stdout, "\n", "")
                 end)
-                vim.cmd ":silent :!im-select com.apple.keylayout.ABC"
+                vim.cmd ":silent :!macism com.apple.keylayout.ABC"
             end,
         })
 
@@ -64,7 +64,7 @@ elseif utils.is_mac() then
             group = ime_autogroup,
             callback = function()
                 if Ice.__PREVIOUS_IM_CODE_MAC then
-                    vim.cmd(":silent :!im-select " .. Ice.__PREVIOUS_IM_CODE_MAC)
+                    vim.cmd(":silent :!macism " .. Ice.__PREVIOUS_IM_CODE_MAC)
                 end
                 Ice.__PREVIOUS_IM_CODE_MAC = nil
             end,

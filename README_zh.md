@@ -124,16 +124,19 @@ git clone https://github.com/Shaobin-Jiang/IceNvim ~/.config/nvim
 chmod +x ~/.config/nvim/bin/im-select.exe
 ```
 
-### 安装 `im-select` （推荐 MacOS 用户安装）
+### 安装 `macism` （推荐 MacOS 用户安装）
 
-这和前一节内容大差不差，区别在于安装方式不太一样。
-
-你只需要运行以下命令：
+你可以通过下面的命令安装 macism：
 
 ```bash
-brew tap daipeihust/tap
-brew install im-select
+brew tap laishulu/homebrew
+brew install macism
 ```
+
+请注意：
+
+- 第一次使用这个功能的时候，MacOS 会弹出窗口请求相应权限
+- 你需要启用“选择上一个输入法”快捷键，启用选项在“系统设置 -> 键盘 -> 键盘快捷键 -> 输入法” 中可以找到
 
 ### 下载 `uclip.exe` （推荐 windows / wsl 用户安装）
 

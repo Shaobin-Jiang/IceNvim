@@ -205,6 +205,11 @@ config.fidget = {
                 align = "top",
             },
         },
+        integration = {
+            ["nvim-tree"] = {
+                enable = false,
+            },
+        },
     },
 }
 

@@ -31,6 +31,7 @@ Ice.plugins["flutter-tools"] = {
 
 Ice.plugins.rustaceanvim = {
     "mrcjkb/rustaceanvim",
+    ft = "rust",
     opts = {},
     config = function()
         vim.g.rustaceanvim = {

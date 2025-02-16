@@ -18,11 +18,6 @@ Ice.plugins["flutter-tools"] = {
                 device = true,
             },
         },
-        lsp = {
-            on_attach = function(_, bufnr)
-                require("lsp.utils").lsp_attach_keymap(bufnr)
-            end,
-        },
     },
     enabled = function()
         return Ice.lsp.flutter.enabled == true
@@ -33,15 +28,6 @@ Ice.plugins.rustaceanvim = {
     "mrcjkb/rustaceanvim",
     ft = "rust",
     opts = {},
-    config = function()
-        vim.g.rustaceanvim = {
-            server = {
-                on_attach = function(_, bufnr)
-                    require("lsp.utils").lsp_attach_keymap(bufnr)
-                end,
-            },
-        }
-    end,
     enabled = function()
         return Ice.lsp.rust.enabled == true
     end,
@@ -128,8 +114,6 @@ Ice.plugins.mason = {
                         client.server_capabilities.documentFormattingProvider = false
                         client.server_capabilities.documentRangeFormattingProvider = false
                     end
-
-                    require("lsp.utils").lsp_attach_keymap(bufnr)
 
                     user_on_attach(client, bufnr)
                 end

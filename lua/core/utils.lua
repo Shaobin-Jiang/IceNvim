@@ -11,6 +11,10 @@ for i = 3, #argv, 1 do
 end
 
 local utils = {
+    is_linux = vim.uv.os_uname().sysname == "Linux",
+    is_mac = vim.uv.os_uname().sysname == "Darwin",
+    is_windows = vim.uv.os_uname().sysname == "Windows_NT",
+    is_wsl = string.find(vim.uv.os_uname().release, "WSL") ~= nil,
     noplugin = noplugin,
     version = version,
 }
@@ -52,14 +56,14 @@ utils.get_parent = function(target)
     if target == nil then
         local parent = vim.fn.expand("%:p:h", true)
 
-        if utils.is_windows() then
+        if utils.is_windows then
             parent = string.gsub(parent, "\\", "/")
         end
 
         return parent
     end
 
-    if utils.is_windows() then
+    if utils.is_windows then
         target = string.gsub(target, "\\", "/")
     end
 
@@ -120,22 +124,6 @@ utils.get_root = function()
     end
 
     return root
-end
-
-utils.is_windows = function()
-    return vim.uv.os_uname().sysname == "Windows_NT"
-end
-
-utils.is_linux = function()
-    return vim.uv.os_uname().sysname == "Linux"
-end
-
-utils.is_wsl = function()
-    return string.find(vim.uv.os_uname().release, "WSL") ~= nil
-end
-
-utils.is_mac = function()
-    return vim.uv.os_uname().sysname == "Darwin"
 end
 
 -- Maps a group of keymaps with the same opt; if no opt is provided, the default opt is used.

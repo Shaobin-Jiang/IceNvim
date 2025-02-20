@@ -95,14 +95,14 @@ local function open_html_file()
     if vim.bo.filetype == "html" then
         local utils = require "core.utils"
         local command
-        if utils.is_linux() or utils.is_wsl() then
+        if utils.is_linux or utils.is_wsl then
             command = "xdg-open"
-        elseif utils.is_windows() then
+        elseif utils.is_windows then
             command = "explorer"
         else
             command = "open"
         end
-        if require("core.utils").is_windows() then
+        if require("core.utils").is_windows then
             local old_shellslash = vim.opt.shellslash
             vim.opt.shellslash = false
             vim.api.nvim_command(string.format('silent exec "!%s %%:p"', command))
@@ -138,7 +138,7 @@ end
 
 -- Determine in advance what shell to use for the <C-t> keymap
 local terminal_command
-if not require("core.utils").is_windows() then
+if not require("core.utils").is_windows then
     terminal_command = "<Cmd>split | terminal<CR>" -- let $SHELL decide the default shell
 else
     local executables = { "pwsh", "powershell", "bash", "cmd" }

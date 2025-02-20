@@ -6,7 +6,7 @@ local config_path = string.gsub(vim.fn.stdpath "config", "\\", "/")
 local clip_path = config_path .. "/bin/uclip.exe"
 if not require("core.utils").file_exists(clip_path) then
     local root
-    if utils.is_windows() then
+    if utils.is_windows then
         root = "C:"
     else
         root = "/mnt/c"
@@ -14,7 +14,7 @@ if not require("core.utils").file_exists(clip_path) then
     clip_path = root .. "/Windows/System32/clip.exe"
 end
 
-if utils.is_windows() or utils.is_wsl() then
+if utils.is_windows or utils.is_wsl then
     vim.api.nvim_create_autocmd("TextYankPost", {
         callback = function()
             if vim.v.event.operator == "y" then
@@ -27,7 +27,7 @@ else
 end
 
 -- IME switching on windows / wsl
-if utils.is_windows() or utils.is_wsl() then
+if utils.is_windows or utils.is_wsl then
     local im_select_path = config_path .. "/bin/im-select.exe"
 
     if require("core.utils").file_exists(im_select_path) then
@@ -46,7 +46,7 @@ if utils.is_windows() or utils.is_wsl() then
         autocmd("InsertEnter", 2052)
         autocmd("VimLeavePre", 2052)
     end
-elseif utils.is_mac() then
+elseif utils.is_mac then
     if vim.fn.executable "macism" == 1 then
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 
@@ -70,7 +70,7 @@ elseif utils.is_mac() then
             end,
         })
     end
-elseif utils.is_linux() then
+elseif utils.is_linux then
     vim.cmd [[
         let fcitx5state=system("fcitx5-remote")
         autocmd InsertLeave * :silent let fcitx5state=system("fcitx5-remote")[0] | silent !fcitx5-remote -c
@@ -108,7 +108,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
 })
 
 -- Clears redundant shada.tmp.X files (for windows only)
-if utils.is_windows() then
+if utils.is_windows then
     local remove_shada_tmp_group = vim.api.nvim_create_augroup("RemoveShadaTmp", { clear = true })
     vim.api.nvim_create_autocmd("VimLeavePre", {
         group = remove_shada_tmp_group,

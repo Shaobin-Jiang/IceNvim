@@ -34,7 +34,7 @@ M.check = function()
         vim.health.warn "For best experience with rust development, you should install rust-analyzer."
     end)
 
-    if require("core.utils").is_linux() then
+    if require("core.utils").is_linux then
         vim.health.start "IceNvim Prerequisites for Linux"
         vim.health.info "IceNvim does not check this for you, but you need a [python virtualenv]."
 
@@ -43,7 +43,7 @@ M.check = function()
         end
     end
 
-    if require("core.utils").is_windows() or require("core.utils").is_wsl() then
+    if require("core.utils").is_windows or require("core.utils").is_wsl then
         vim.health.start "IceNvim Optional Dependencies for Windows and WSL"
 
         check(vim.fn.stdpath "config" .. "/bin/im-select.exe", function()
@@ -55,7 +55,7 @@ M.check = function()
         end)
     end
 
-    if require("core.utils").is_mac() then
+    if require("core.utils").is_mac then
         vim.health.start "IceNvim Optional Dependencies for MacOS"
 
         check("im-select", function()

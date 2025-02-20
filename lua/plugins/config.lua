@@ -327,19 +327,22 @@ config.hop = {
 
 config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
-    event = "User IceLoad",
+    event = "User IceAfter nvim-treesitter",
     main = "ibl",
     opts = {
         exclude = {
-            filetypes = {
-                "dashboard",
-                "terminal",
-                "help",
-                "log",
-                "markdown",
-                "TelescopePrompt",
-                "lsp-installer",
-                "lspinfo",
+            filetypes = { "dashboard", "terminal", "help", "log", "markdown", "TelescopePrompt" },
+        },
+        indent = {
+            highlight = {
+                "IblIndent",
+                "RainbowDelimiterRed",
+                "RainbowDelimiterYellow",
+                "RainbowDelimiterBlue",
+                "RainbowDelimiterOrange",
+                "RainbowDelimiterGreen",
+                "RainbowDelimiterViolet",
+                "RainbowDelimiterCyan",
             },
         },
     },
@@ -713,11 +716,14 @@ config["nvim-treesitter"] = {
                 "RainbowDelimiterCyan",
             },
         }
+        rainbow_delimiters.enable()
 
         -- In markdown files, the rendered output would only display the correct highlight if the code is set to scheme
         -- However, this would result in incorrect highlight in neovim
         -- Therefore, the scheme language should be linked to query
         vim.treesitter.language.register("query", "scheme")
+
+        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter nvim-treesitter" })
     end,
 }
 

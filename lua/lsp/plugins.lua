@@ -27,7 +27,6 @@ Ice.plugins["flutter-tools"] = {
 Ice.plugins.rustaceanvim = {
     "mrcjkb/rustaceanvim",
     ft = "rust",
-    opts = {},
     enabled = function()
         return Ice.lsp.rust.enabled == true
     end,

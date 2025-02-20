@@ -104,7 +104,7 @@ vim.api.nvim_create_autocmd({ "CmdlineEnter", "CmdwinEnter" }, {
     callback = function()
         local shada = vim.fn.stdpath "state" .. "/shada/main.shada"
         vim.o.shadafile = shada
-        vim.api.nvim_command("rshada! " .. shada)
+        vim.cmd("rshada! " .. shada)
     end,
 })
 

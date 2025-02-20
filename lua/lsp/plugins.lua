@@ -126,6 +126,6 @@ Ice.plugins.mason = {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
 
-        vim.api.nvim_command "LspStart"
+        vim.cmd "LspStart"
     end,
 }

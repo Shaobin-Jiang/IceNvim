@@ -482,7 +482,7 @@ config["nvim-transparent"] = {
                 local normal_hl = vim.api.nvim_get_hl(0, { name = "Normal" })
                 local foreground = string.format("#%06x", normal_hl.fg)
                 local background = string.format("#%06x", normal_hl.bg)
-                vim.api.nvim_command("highlight default IceNormal guifg=" .. foreground .. " guibg=" .. background)
+                vim.cmd("highlight default IceNormal guifg=" .. foreground .. " guibg=" .. background)
 
                 require("transparent").clear()
             end,
@@ -855,7 +855,7 @@ config["zen-mode"] = {
         end,
     },
     config = function(_, opts)
-        vim.api.nvim_command "highlight link ZenBg IceNormal"
+        vim.cmd "highlight link ZenBg IceNormal"
         require("zen-mode").setup(opts)
     end,
     keys = {

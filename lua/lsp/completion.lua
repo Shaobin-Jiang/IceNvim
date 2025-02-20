@@ -1,8 +1,6 @@
 Ice.plugins["blink-cmp"] = {
     "saghen/blink.cmp",
-    dependencies = {
-        "rafamadriz/friendly-snippets",
-    },
+    dependencies = { "rafamadriz/friendly-snippets" },
     event = { "InsertEnter", "CmdlineEnter", "User IceLoad" },
     version = "*",
     opts = {

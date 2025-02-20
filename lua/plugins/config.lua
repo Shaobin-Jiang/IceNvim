@@ -3,11 +3,7 @@
 local config = {}
 local symbols = Ice.symbols
 local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", "/")
-local priority = {
-    LOW = 100,
-    MEDIUM = 200,
-    HIGH = 615,
-}
+local priority = { LOW = 100, MEDIUM = 200, HIGH = 615 }
 
 -- Add IceLoad event
 -- If user starts neovim but does not edit a file, i.e., entering Dashboard directly, the IceLoad event is hooked to the
@@ -20,11 +16,7 @@ vim.api.nvim_create_autocmd("User", {
         end
 
         if vim.bo.filetype == "dashboard" then
-            vim.api.nvim_create_autocmd("BufEnter", {
-                pattern = "*/*",
-                once = true,
-                callback = _trigger,
-            })
+            vim.api.nvim_create_autocmd("BufEnter", { pattern = "*/*", once = true, callback = _trigger })
         else
             _trigger()
         end
@@ -33,9 +25,7 @@ vim.api.nvim_create_autocmd("User", {
 
 config.bufferline = {
     "akinsho/bufferline.nvim",
-    dependencies = {
-        "nvim-tree/nvim-web-devicons",
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "User IceLoad",
     opts = {
         options = {
@@ -87,11 +77,7 @@ config.bufferline = {
 
         require("nvim-web-devicons").setup {
             override = {
-                typ = {
-                    icon = "󰰥",
-                    color = "#239dad",
-                    name = "typst",
-                },
+                typ = { icon = "󰰥", color = "#239dad", name = "typst" },
             },
         }
     end,
@@ -350,9 +336,7 @@ config["indent-blankline"] = {
 
 config.lualine = {
     "nvim-lualine/lualine.nvim",
-    dependencies = {
-        "nvim-tree/nvim-web-devicons",
-    },
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     event = "User IceLoad",
     main = "lualine",
     opts = {
@@ -402,7 +386,7 @@ config["markdown-preview"] = {
 
 config.neogit = {
     "NeogitOrg/neogit",
-    dependencies = "nvim-lua/plenary.nvim",
+    dependencies = { "nvim-lua/plenary.nvim" },
     main = "neogit",
     opts = {
         disable_hint = true,
@@ -528,7 +512,7 @@ config["nvim-transparent"] = {
 
 config["nvim-tree"] = {
     "nvim-tree/nvim-tree.lua",
-    dependencies = "nvim-tree/nvim-web-devicons",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {
         on_attach = function(bufnr)
             local api = require "nvim-tree.api"
@@ -547,37 +531,13 @@ config["nvim-tree"] = {
                             -- https://support.microsoft.com/en-us/windows/common-file-name-extensions-in-windows-da4a4430-8e76-89c5-59f7-1cdbbc75cb01
                             --
                             -- Not all are included for speed's sake
+                            -- stylua: ignore start
                             local extensions_opened_externally = {
-                                "avi",
-                                "bmp",
-                                "doc",
-                                "docx",
-                                "exe",
-                                "flv",
-                                "gif",
-                                "jpg",
-                                "jpeg",
-                                "m4a",
-                                "mov",
-                                "mp3",
-                                "mp4",
-                                "mpeg",
-                                "mpg",
-                                "pdf",
-                                "png",
-                                "ppt",
-                                "pptx",
-                                "psd",
-                                "pub",
-                                "rar",
-                                "rtf",
-                                "tif",
-                                "tiff",
-                                "wav",
-                                "xls",
-                                "xlsx",
-                                "zip",
+                                "avi", "bmp", "doc", "docx", "exe", "flv", "gif", "jpg", "jpeg", "m4a", "mov", "mp3",
+                                "mp4", "mpeg", "mpg", "pdf", "png", "ppt", "pptx", "psd", "pub", "rar", "rtf", "tif",
+                                "tiff", "wav", "xls", "xlsx", "zip",
                             }
+                            -- stylua: ignore end
                             if table.find(extensions_opened_externally, node.extension) then
                                 api.node.run.system()
                                 return
@@ -639,28 +599,12 @@ config["nvim-treesitter"] = {
     event = "VeryLazy",
     main = "nvim-treesitter",
     opts = {
+        -- stylua: ignore start
         ensure_installed = {
-            "bash",
-            "c",
-            "c_sharp",
-            "cpp",
-            "css",
-            "go",
-            "html",
-            "javascript",
-            "json",
-            "lua",
-            "markdown",
-            "markdown_inline",
-            "python",
-            "query",
-            "rust",
-            "typescript",
-            "typst",
-            "tsx",
-            "vim",
-            "vimdoc",
+            "bash", "c", "c_sharp", "cpp", "css", "go", "html", "javascript", "json", "lua", "markdown",
+            "markdown_inline", "python", "query", "rust", "typescript", "typst", "tsx", "vim", "vimdoc",
         },
+        -- stylua: ignore end
         highlight = {
             enable = true,
             additional_vim_regex_highlighting = false,
@@ -828,9 +772,7 @@ config.telescope = {
 
 config["todo-comments"] = {
     "folke/todo-comments.nvim",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
+    dependencies = { "nvim-lua/plenary.nvim" },
     event = "User IceLoad",
     main = "todo-comments",
     opts = {},
@@ -922,34 +864,11 @@ config["zen-mode"] = {
 }
 
 -- Colorschemes
-config["github"] = {
-    "projekt0n/github-nvim-theme",
-    lazy = true,
-}
-
-config["gruvbox"] = {
-    "ellisonleao/gruvbox.nvim",
-    lazy = true,
-}
-
-config["kanagawa"] = {
-    "rebelot/kanagawa.nvim",
-    lazy = true,
-}
-
-config["miasma"] = {
-    "xero/miasma.nvim",
-    lazy = true,
-}
-
-config["nightfox"] = {
-    "EdenEast/nightfox.nvim",
-    lazy = true,
-}
-
-config["tokyonight"] = {
-    "folke/tokyonight.nvim",
-    lazy = true,
-}
+config["github"] = { "projekt0n/github-nvim-theme", lazy = true }
+config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
+config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
+config["miasma"] = { "xero/miasma.nvim", lazy = true }
+config["nightfox"] = { "EdenEast/nightfox.nvim", lazy = true }
+config["tokyonight"] = { "folke/tokyonight.nvim", lazy = true }
 
 Ice.plugins = config

@@ -37,6 +37,17 @@ Ice.plugins["blink-cmp"] = {
                 },
             },
         },
+        enabled = function()
+            local filetype_is_allowed = not vim.tbl_contains({ "grug-far", "TelescopePrompt" }, vim.bo.filetype)
+
+            local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(0))
+            local filesize_is_allowed = true
+            if ok and stats then
+                ---@diagnostic disable-next-line: need-check-nil
+                filesize_is_allowed = stats.size < 100 * 1024
+            end
+            return filetype_is_allowed and filesize_is_allowed
+        end,
         keymap = {
             preset = "none",
             ["<Tab>"] = {

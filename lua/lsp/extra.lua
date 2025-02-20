@@ -15,8 +15,7 @@ Ice.plugins.lspsaga = {
         { "<leader>lr", "<Cmd>Lspsaga rename<CR>", desc = "rename", silent = true },
         { "<leader>lc", "<Cmd>Lspsaga code_action<CR>", desc = "code action", silent = true },
         { "<leader>ld", "<Cmd>Lspsaga goto_definition<CR>", desc = "go to definition", silent = true },
-        hover_doc = {
-            "n",
+        {
             "<leader>lh",
             function()
                 local win = require "lspsaga.window"

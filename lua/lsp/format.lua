@@ -25,30 +25,15 @@ Ice.plugins["null-ls"] = {
         {
             "<leader>lf",
             function()
-                local lsp_is_active = require("lsp.utils").lsp_is_active
+                local active_client = vim.lsp.get_clients { bufnr = 0, name = "null-ls" }
 
-                -- do not format if no lsp is attached to the buffer
-                if not lsp_is_active() then
-                    vim.notify("Cannot format as no lsp is attached!", vim.log.levels.WARN)
-                    return
+                local format_option = { async = true }
+                if #active_client > 0 then
+                    format_option.name = "null-ls"
                 end
-
-                if lsp_is_active "denols" then
-                    vim.cmd "w"
-                    vim.cmd "!deno fmt %"
-                    vim.cmd ""
-                    return
-                end
-
-                if lsp_is_active "rust_analyzer" then
-                    vim.cmd "w"
-                    vim.cmd "!cargo fmt"
-                    vim.cmd ""
-                    return
-                end
-
-                vim.lsp.buf.format { async = true }
+                vim.lsp.buf.format(format_option)
             end,
+            mode = { "n", "v" },
             desc = "format code",
         },
     },

@@ -102,24 +102,8 @@ Ice.plugins.mason = {
                     setup = {}
                 end
 
-                local user_on_attach = function() end
-                if type(setup.on_attach) == "function" then
-                    user_on_attach = setup.on_attach
-                end
-
-                local on_attach = function(client, bufnr)
-                    -- Only stop using lsp as format source if a formatter is set
-                    if config.formatter ~= nil then
-                        client.server_capabilities.documentFormattingProvider = false
-                        client.server_capabilities.documentRangeFormattingProvider = false
-                    end
-
-                    user_on_attach(client, bufnr)
-                end
-
                 setup = vim.tbl_deep_extend("force", setup, {
                     capabilities = require("blink.cmp").get_lsp_capabilities(),
-                    on_attach = on_attach,
                 })
 
                 lspconfig[lsp].setup(setup)

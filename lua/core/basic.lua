@@ -84,9 +84,6 @@ opt.showmode = false
 
 opt.nrformats = "bin,hex,alpha"
 
--- Disable python3 provider; otherwise it will significantly slow down opening of py files
-g.loaded_python3_provider = 0
-
 if require("core.utils").is_windows then
     opt.shellslash = true
 end

@@ -7,6 +7,19 @@ Ice.plugins["blink-cmp"] = {
         appearance = {
             kind_icons = Ice.symbols,
         },
+        cmdline = {
+            completion = {
+                menu = {
+                    auto_show = true,
+                }
+            },
+            keymap = {
+                preset = "none",
+                ["<Tab>"] = {"accept"},
+                ["<C-k>"] = { "select_prev", "fallback" },
+                ["<C-j>"] = { "select_next", "fallback" },
+            }
+        },
         completion = {
             accept = {
                 auto_brackets = { enabled = true },

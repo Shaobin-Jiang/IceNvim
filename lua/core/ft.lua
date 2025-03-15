@@ -19,6 +19,7 @@ Ice.ft = {
     end,
     javascript = function()
         vim.wo.colorcolumn = "120"
+        vim.bo.commentstring = "// %s"
     end,
     markdown = function()
         vim.wo.wrap = true
@@ -33,6 +34,7 @@ Ice.ft = {
     end,
     typescript = function()
         vim.wo.colorcolumn = "120"
+        vim.bo.commentstring = "// %s"
     end,
     typst = function()
         vim.wo.wrap = true

@@ -1,4 +1,7 @@
 Ice.ft = {
+    c = function ()
+        vim.bo.tabstop = 2
+    end,
     cs = function()
         vim.wo.colorcolumn = "100"
     end,

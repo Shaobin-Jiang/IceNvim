@@ -102,8 +102,13 @@ Ice.plugins.mason = {
                     setup = {}
                 end
 
+                local blink_capabilities = require("blink.cmp").get_lsp_capabilities()
+                blink_capabilities.textDocument.foldingRange = {
+                    dynamicRegistration = false,
+                    lineFoldingOnly = true,
+                }
                 setup = vim.tbl_deep_extend("force", setup, {
-                    capabilities = require("blink.cmp").get_lsp_capabilities(),
+                    capabilities = blink_capabilities,
                 })
 
                 lspconfig[lsp].setup(setup)

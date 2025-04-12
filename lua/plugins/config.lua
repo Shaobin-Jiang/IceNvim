@@ -233,7 +233,7 @@ config.fittencode = {
         },
     },
     config = function(_, opts)
-        require("blink.cmp").add_provider("fittencode", {
+        require("blink.cmp").add_source_provider("fittencode", {
             name = "fittencode",
             module = "fittencode.sources.blink",
             fallbacks = { "buffer" },
@@ -603,10 +603,6 @@ config["nvim-treesitter"] = {
         require("nvim-treesitter.install").prefer_git = true
         require("nvim-treesitter.configs").setup(opts)
 
-        vim.opt.foldmethod = "expr"
-        vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
-        vim.opt.foldenable = false
-
         local rainbow_delimiters = require "rainbow-delimiters"
 
         vim.g.rainbow_delimiters = {
@@ -662,7 +658,7 @@ config.orgmode = {
         },
     },
     config = function(_, opts)
-        require("blink.cmp").add_provider("orgmode", {
+        require("blink.cmp").add_source_provider("orgmode", {
             name = "Orgmode",
             module = "orgmode.org.autocompletion.blink",
             fallbacks = { "buffer" },

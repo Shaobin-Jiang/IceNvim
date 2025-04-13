@@ -84,6 +84,10 @@ opt.showmode = false
 
 opt.nrformats = "bin,hex,alpha"
 
+vim.opt.foldlevel = 99
+vim.opt.foldlevelstart = 99
+opt.foldenable = false
+
 if require("core.utils").is_windows then
     opt.shellslash = true
 end

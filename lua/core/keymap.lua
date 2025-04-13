@@ -167,6 +167,7 @@ Ice.keymap.general = {
     comment_below = { "n", "gco", comment "below" },
     comment_end = { "n", "gcA", comment "end" },
 
+    disable_ctrl_left_mouse = { "n", "<C-LeftMouse>", "" },
     disable_right_mouse = { { "n", "i", "v", "t" }, "<RightMouse>", "<LeftMouse>" },
 
     join_lines = { { "n", "v" }, "J", join_lines },

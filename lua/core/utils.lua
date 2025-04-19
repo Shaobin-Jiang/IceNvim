@@ -1,5 +1,6 @@
-local v = vim.version()
-local version = string.format("%d.%d.%d", v.major, v.minor, v.patch)
+-- Do not use vim.version as it loads the vim.version module
+-- Using vim.fn.api_info().version is no good either as api_info also consumes much time
+local version = vim.fn.matchstr(vim.fn.execute('version'), 'NVIM v\\zs[^\\n]*')
 
 local argv = vim.api.nvim_get_vvar "argv"
 local noplugin = false

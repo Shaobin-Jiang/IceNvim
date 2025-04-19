@@ -27,6 +27,25 @@ if not require("core.utils").noplugin then
     -- Load plugins
     require("lazy").setup(vim.tbl_values(Ice.plugins), Ice.lazy)
 
+    vim.api.nvim_create_autocmd("User", {
+        once = true,
+        pattern = "VeryLazy",
+        callback = function ()
+            local rtp_plugin_path = vim.opt.packpath:get()[1] .. "/plugin"
+            local dir = vim.uv.fs_scandir(rtp_plugin_path)
+            if dir ~= nil then
+                while true do
+                    local plugin = vim.uv.fs_scandir_next(dir)
+                    if plugin == nil then
+                        break
+                    else
+                        vim.cmd(string.format("source %s/%s", rtp_plugin_path, plugin))
+                    end
+                end
+            end
+        end
+    })
+
     require("core.utils").group_map(Ice.keymap.plugins)
 
     -- Define colorscheme

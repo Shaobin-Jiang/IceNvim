@@ -25,11 +25,7 @@ end
 -- Only load plugins and colorscheme when --noplugin arg is not present
 if not require("core.utils").noplugin then
     -- Load plugins
-    local config = {}
-    for _, plugin in pairs(Ice.plugins) do
-        config[#config + 1] = plugin
-    end
-    require("lazy").setup(config, Ice.lazy)
+    require("lazy").setup(vim.tbl_values(Ice.plugins), Ice.lazy)
 
     require("core.utils").group_map(Ice.keymap.plugins)
 

@@ -3,13 +3,7 @@
 local version = vim.fn.matchstr(vim.fn.execute('version'), 'NVIM v\\zs[^\\n]*')
 
 local argv = vim.api.nvim_get_vvar "argv"
-local noplugin = false
-for i = 3, #argv, 1 do
-    if argv[i] == "--noplugin" then
-        noplugin = true
-        break
-    end
-end
+local noplugin = vim.list_contains(argv, "--noplugin") or vim.list_contains(argv, "--noplugins")
 
 local utils = {
     is_linux = vim.uv.os_uname().sysname == "Linux",

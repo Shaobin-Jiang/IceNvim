@@ -81,12 +81,14 @@ utils.select_colorscheme = function()
                         local colorscheme = selection.value
                         local config = colorschemes[colorscheme]
 
-                        if config.background == "light" then
-                            ---@diagnostic disable-next-line: param-type-mismatch
-                            pcall(vim.cmd, "TransparentDisable")
-                        else
-                            ---@diagnostic disable-next-line: param-type-mismatch
-                            pcall(vim.cmd, "TransparentEnable")
+                        if Ice.plugins["nvim-transparent"].enabled ~= false then
+                            if config.background == "light" then
+                                ---@diagnostic disable-next-line: param-type-mismatch
+                                pcall(vim.cmd, "TransparentDisable")
+                            else
+                                ---@diagnostic disable-next-line: param-type-mismatch
+                                pcall(vim.cmd, "TransparentEnable")
+                            end
                         end
 
                         utils.colorscheme(selection.value)

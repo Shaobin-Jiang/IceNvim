@@ -66,6 +66,4 @@ if not require("core.utils").noplugin then
 end
 
 -- Prepend this to runtimepath last as it would be overridden by lazy otherwise
-if vim.uv.fs_scandir(custom_path) then
-    vim.opt.rtp:prepend(custom_path)
-end
+vim.opt.rtp:prepend(custom_path)

@@ -9,7 +9,8 @@ local priority = { LOW = 100, MEDIUM = 200, HIGH = 615 }
 -- If user starts neovim but does not edit a file, i.e., entering Dashboard directly, the IceLoad event is hooked to the
 -- next BufEnter event. Otherwise, the event is triggered right after the VeryLazy event.
 vim.api.nvim_create_autocmd("User", {
-    pattern = "VeryLazy",
+    pattern = "IceColorScheme",
+    once = true,
     callback = function()
         local function _trigger()
             vim.api.nvim_exec_autocmds("User", { pattern = "IceLoad" })

@@ -30,7 +30,7 @@ if not require("core.utils").noplugin then
     vim.api.nvim_create_autocmd("User", {
         once = true,
         pattern = "VeryLazy",
-        callback = function ()
+        callback = function()
             local rtp_plugin_path = vim.opt.packpath:get()[1] .. "/plugin"
             local dir = vim.uv.fs_scandir(rtp_plugin_path)
             if dir ~= nil then
@@ -43,26 +43,26 @@ if not require("core.utils").noplugin then
                     end
                 end
             end
-        end
+
+            require("core.utils").group_map(Ice.keymap.plugins)
+
+            -- Define colorscheme
+            if not Ice.colorscheme then
+                local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+                if require("core.utils").file_exists(colorscheme_cache) then
+                    local colorscheme_cache_file = io.open(colorscheme_cache, "r")
+                    ---@diagnostic disable: need-check-nil
+                    local colorscheme = colorscheme_cache_file:read "*a"
+                    colorscheme_cache_file:close()
+                    Ice.colorscheme = colorscheme
+                else
+                    Ice.colorscheme = "tokyonight"
+                end
+            end
+
+            require("plugins.utils").colorscheme(Ice.colorscheme)
+        end,
     })
-
-    require("core.utils").group_map(Ice.keymap.plugins)
-
-    -- Define colorscheme
-    if not Ice.colorscheme then
-        local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
-        if require("core.utils").file_exists(colorscheme_cache) then
-            local colorscheme_cache_file = io.open(colorscheme_cache, "r")
-            ---@diagnostic disable: need-check-nil
-            local colorscheme = colorscheme_cache_file:read "*a"
-            colorscheme_cache_file:close()
-            Ice.colorscheme = colorscheme
-        else
-            Ice.colorscheme = "tokyonight"
-        end
-    end
-
-    require("plugins.utils").colorscheme(Ice.colorscheme)
 end
 
 -- Prepend this to runtimepath last as it would be overridden by lazy otherwise

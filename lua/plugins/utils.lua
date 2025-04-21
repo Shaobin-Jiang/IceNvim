@@ -24,10 +24,13 @@ utils.colorscheme = function(colorscheme_name)
     elseif type(colorscheme.setup) == "function" then
         colorscheme.setup()
     end
+    require("lazy.core.loader").colorscheme(colorscheme.name)
     vim.cmd("colorscheme " .. colorscheme.name)
     vim.o.background = colorscheme.background
 
     vim.api.nvim_set_hl(0, "Visual", { reverse = true })
+
+    vim.api.nvim_exec_autocmds("User", { pattern = "IceColorScheme" })
 end
 
 -- Switch colorscheme

@@ -45,18 +45,15 @@ Ice.colorschemes = {
         background = "light",
     },
     ["kanagawa-wave"] = {
-        name = "kanagawa",
-        theme = "wave",
+        name = "kanagawa-wave",
         background = "dark",
     },
     ["kanagawa-dragon"] = {
-        name = "kanagawa",
-        theme = "dragon",
+        name = "kanagawa-dragon",
         background = "dark",
     },
     ["kanagawa-lotus"] = {
-        name = "kanagawa",
-        theme = "lotus",
+        name = "kanagawa-lotus",
         background = "light",
     },
     miasma = {

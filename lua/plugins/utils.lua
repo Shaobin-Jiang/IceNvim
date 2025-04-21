@@ -81,6 +81,10 @@ utils.select_colorscheme = function()
                         actions.close(prompt_bufnr)
 
                         local selection = action_state.get_selected_entry()
+                        if selection == nil then
+                            return
+                        end
+
                         local colorscheme = selection.value
                         local config = colorschemes[colorscheme]
 
@@ -178,11 +182,14 @@ utils.view_configuration = function()
                     actions.select_default:replace(function()
                         actions.close(prompt_bufnr)
 
-                        local selection = action_state.get_selected_entry()[1]
-                        selection = string.gsub(selection, picker_sep, sep)
-                        local full_path = config_root .. sep .. selection
+                        local selected_entry = action_state.get_selected_entry()
+                        if selected_entry ~= nil then
+                            local selection = selected_entry[1]
+                            selection = string.gsub(selection, picker_sep, sep)
+                            local full_path = config_root .. sep .. selection
 
-                        vim.cmd("edit " .. full_path)
+                            vim.cmd("edit " .. full_path)
+                        end
                     end)
                     return true
                 end,

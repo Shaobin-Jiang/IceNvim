@@ -84,8 +84,7 @@ config.bufferline = {
     end,
     keys = {
         { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true },
-        -- <esc> is added in case current buffer is the last
-        { "<leader>bd", "<Cmd>BufferLineClose 0<CR><ESC>", desc = "close current buffer", silent = true },
+        { "<leader>bd", "<Cmd>BufferLineClose 0<CR>", desc = "close current buffer", silent = true },
         { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true },
         { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true },
         { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true },

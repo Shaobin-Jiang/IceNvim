@@ -132,6 +132,8 @@ Ice.plugins.mason = {
             vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
         end
 
+        vim.lsp.inlay_hint.enable()
+
         vim.cmd "LspStart"
     end,
 }

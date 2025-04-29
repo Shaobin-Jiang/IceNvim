@@ -75,6 +75,9 @@ lsp = {
                     diagnostics = {
                         globals = { "vim" },
                     },
+                    hint = {
+                        enable = true,
+                    },
                     workspace = {
                         library = {
                             vim.env.VIMRUNTIME,

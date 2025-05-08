@@ -34,6 +34,7 @@ Ice.ft = {
     end,
     python = function()
         vim.bo.formatoptions = "tcqjor"
+        vim.wo.colorcolumn = "88" -- specified by black
     end,
     typescript = function()
         vim.wo.colorcolumn = "120"

@@ -48,10 +48,10 @@ Ice.plugins["typst-preview"] = {
 }
 
 Ice.plugins.mason = {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     dependencies = {
         "neovim/nvim-lspconfig",
-        "williamboman/mason-lspconfig.nvim",
+        "mason-org/mason-lspconfig.nvim",
     },
     event = "User IceLoad",
     cmd = "Mason",
@@ -76,7 +76,7 @@ Ice.plugins.mason = {
         end
 
         local lspconfig = require "lspconfig"
-        local mason_lspconfig_mapping = require("mason-lspconfig.mappings.server").package_to_lspconfig
+        local mason_lspconfig_mapping = require("mason-lspconfig").get_mappings().package_to_lspconfig
 
         local installed_packages = registry.get_installed_package_names()
 

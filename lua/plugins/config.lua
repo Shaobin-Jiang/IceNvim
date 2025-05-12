@@ -5,21 +5,31 @@ local symbols = Ice.symbols
 local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", "/")
 
 -- Add IceLoad event
--- If user starts neovim but does not edit a file, i.e., entering Dashboard directly, the IceLoad event is hooked to the
--- next BufEnter event. Otherwise, the event is triggered right after the VeryLazy event.
 vim.api.nvim_create_autocmd("User", {
     pattern = "IceColorScheme",
-    once = true,
     callback = function()
-        local function _trigger()
+        local function should_trigger()
+            return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
+        end
+
+        local function trigger()
             vim.api.nvim_exec_autocmds("User", { pattern = "IceLoad" })
         end
 
-        if vim.bo.filetype == "dashboard" then
-            vim.api.nvim_create_autocmd("BufEnter", { pattern = "*/*", once = true, callback = _trigger })
-        else
-            _trigger()
+        if should_trigger() then
+            trigger()
+            return
         end
+
+        local ice_load
+        ice_load = vim.api.nvim_create_autocmd("BufEnter", {
+            callback = function()
+                if should_trigger() then
+                    trigger()
+                    vim.api.nvim_del_autocmd(ice_load)
+                end
+            end,
+        })
     end,
 })
 
@@ -119,7 +129,7 @@ config.colorizer = {
 
 config.dashboard = {
     "nvimdev/dashboard-nvim",
-    lazy = false,
+    event = "User IceColorScheme",
     opts = {
         theme = "doom",
         config = {
@@ -164,18 +174,13 @@ config.dashboard = {
     config = function(_, opts)
         require("dashboard").setup(opts)
 
-        -- Force the footer to be non-italic
-        -- Dashboard loads before the colorscheme plugin, so we should defer the setting of the highlight group to when
-        -- all plugins are finished loading
-        vim.api.nvim_create_autocmd("User", {
-            pattern = "VeryLazy",
-            once = true,
-            callback = function()
-                -- Use the highlight command to replace instead of overriding the original highlight group
-                -- Much more convenient than using vim.api.nvim_set_hl()
-                vim.cmd "highlight DashboardFooter cterm=NONE gui=NONE"
-            end,
-        })
+        if vim.api.nvim_buf_get_name(0) == "" then
+            vim.cmd "Dashboard"
+        end
+
+        -- Use the highlight command to replace instead of overriding the original highlight group
+        -- Much more convenient than using vim.api.nvim_set_hl()
+        vim.cmd "highlight DashboardFooter cterm=NONE gui=NONE"
     end,
 }
 

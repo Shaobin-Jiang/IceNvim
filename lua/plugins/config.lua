@@ -3,7 +3,6 @@
 local config = {}
 local symbols = Ice.symbols
 local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", "/")
-local priority = { LOW = 100, MEDIUM = 200, HIGH = 615 }
 
 -- Add IceLoad event
 -- If user starts neovim but does not edit a file, i.e., entering Dashboard directly, the IceLoad event is hooked to the
@@ -843,32 +842,6 @@ config["which-key"] = {
             },
             zindex = 1000,
         },
-    },
-}
-
-config["zen-mode"] = {
-    "folke/zen-mode.nvim",
-    -- Set high priority to ensure this is loaded before nvim-transparent
-    priority = priority.HIGH,
-    opts = {
-        window = {
-            backdrop = 0.8,
-            width = vim.fn.winwidth(0) - 16,
-            height = vim.fn.winheight(0) + 1,
-        },
-        on_open = function()
-            vim.opt.cmdheight = 1
-        end,
-        on_close = function()
-            vim.opt.cmdheight = 2
-        end,
-    },
-    config = function(_, opts)
-        vim.cmd "highlight link ZenBg IceNormal"
-        require("zen-mode").setup(opts)
-    end,
-    keys = {
-        { "<leader>uz", "<Cmd>ZenMode<CR>", desc = "toggle zen mode", silent = true },
     },
 }
 

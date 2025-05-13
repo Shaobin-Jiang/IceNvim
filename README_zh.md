@@ -4,7 +4,7 @@
 
 *如果可以的话，可以点一个 star✨✨✨。谢谢您的支持～*
 
-[![最低neovim版本](https://img.shields.io/badge/Minimum_Neovim_Version-0.9.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
+[![最低neovim版本](https://img.shields.io/badge/Minimum_Neovim_Version-0.11.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![支持的最新版本](https://img.shields.io/badge/Latest_Supported_Version-0.10.0-blueviolet.svg?style=flat-square&color=90E59A&logoColor=white)](https://github.com/neovim/neovim)
 [![GitHub License](https://img.shields.io/github/license/Shaobin-Jiang/IceNvim?style=flat-square&color=EE999F&logoColor=white)](https://github.com/Shaobin-Jiang/IceNvim/blob/master/LICENSE)
 

@@ -41,8 +41,6 @@ opt.cmdwinheight = 1
 -- Auto load the file when modified externally
 opt.autoread = true
 
-opt.wrap = false
-
 -- Use left / right arrow to move to the previous / next line when at the start
 -- or end of a line.
 -- See doc (:help 'whichwrap')
@@ -116,3 +114,12 @@ vim.api.nvim_create_autocmd("CmdwinEnter", {
         vim.wo.relativenumber = false
     end,
 })
+
+vim.api.nvim_create_autocmd("WinNew", {
+    callback = function()
+        vim.wo.wrap = false
+    end
+})
+
+-- WinNew is not triggered for the first window
+vim.wo.wrap = false

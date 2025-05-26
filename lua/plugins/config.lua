@@ -591,10 +591,13 @@ config["nvim-treesitter"] = {
                 -- Needs restart to take effect
                 nvim_treesitter.install(parser)
             else
-                pattern = vim.tbl_extend("keep", pattern, vim.treesitter.language.get_filetypes(parser))
+                vim.list_extend(pattern, vim.treesitter.language.get_filetypes(parser))
             end
         end
+
+        local group = vim.api.nvim_create_augroup("NvimTreesitterFt", { clear = true })
         vim.api.nvim_create_autocmd("FileType", {
+            group = group,
             pattern = pattern,
             callback = function(ev)
                 local max_filesize = 100 * 1024
@@ -638,6 +641,7 @@ config["nvim-treesitter"] = {
         vim.treesitter.language.register("query", "scheme")
 
         vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter nvim-treesitter" })
+        vim.api.nvim_exec_autocmds("FileType", { group = "NvimTreesitterFt" })
     end,
 }
 

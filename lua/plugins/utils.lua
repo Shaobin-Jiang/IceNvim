@@ -30,7 +30,7 @@ utils.colorscheme = function(colorscheme_name)
 
     vim.api.nvim_set_hl(0, "Visual", { reverse = true })
 
-    vim.api.nvim_exec_autocmds("User", { pattern = "IceColorScheme" })
+    vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 end
 
 -- Switch colorscheme

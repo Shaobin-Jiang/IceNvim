@@ -6,7 +6,7 @@ local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", 
 
 -- Add IceLoad event
 vim.api.nvim_create_autocmd("User", {
-    pattern = "IceColorScheme",
+    pattern = "IceAfter colorscheme",
     callback = function()
         local function should_trigger()
             return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
@@ -129,7 +129,7 @@ config.colorizer = {
 
 config.dashboard = {
     "nvimdev/dashboard-nvim",
-    event = "User IceColorScheme",
+    event = "User IceAfter colorscheme",
     opts = {
         theme = "doom",
         config = {
@@ -568,44 +568,46 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    event = "VeryLazy",
-    main = "nvim-treesitter",
+    event = "User IceAfter colorscheme",
+    branch = "main",
     opts = {
+        -- Preserved for compatibility concerns
         -- stylua: ignore start
         ensure_installed = {
             "bash", "c", "c_sharp", "cpp", "css", "go", "html", "javascript", "json", "lua", "markdown",
             "markdown_inline", "python", "query", "rust", "toml", "typescript", "typst", "tsx", "vim", "vimdoc",
         },
         -- stylua: ignore end
-        highlight = {
-            enable = true,
-            additional_vim_regex_highlighting = false,
-            disable = function(_, buf)
-                local max_filesize = 100 * 1024
-                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
-                if ok and stats and stats.size > max_filesize then
-                    return true
-                end
-            end,
-        },
-        incremental_selection = {
-            enable = true,
-            keymaps = {
-                init_selection = "<CR>",
-                node_incremental = "<CR>",
-                node_decremental = "<BS>",
-                scope_incremental = "<TAB>",
-            },
-        },
-        indent = {
-            enable = true,
-            -- conflicts with flutter-tools.nvim, causing performance issues
-            disable = { "dart" },
-        },
     },
     config = function(_, opts)
-        require("nvim-treesitter.install").prefer_git = true
-        require("nvim-treesitter.configs").setup(opts)
+        local nvim_treesitter = require "nvim-treesitter"
+        nvim_treesitter.setup()
+
+        local pattern = {}
+        for _, parser in ipairs(opts.ensure_installed) do
+            local has_parser, _ = pcall(vim.treesitter.language.inspect, parser)
+
+            if not has_parser then
+                -- Needs restart to take effect
+                nvim_treesitter.install(parser)
+            else
+                pattern = vim.tbl_extend("keep", pattern, vim.treesitter.language.get_filetypes(parser))
+            end
+        end
+        vim.api.nvim_create_autocmd("FileType", {
+            pattern = pattern,
+            callback = function(ev)
+                local max_filesize = 100 * 1024
+                local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
+                if not (ok and stats and stats.size > max_filesize) then
+                    vim.treesitter.start()
+                    if vim.bo.filetype ~= "dart" then
+                        -- Conflicts with flutter-tools.nvim, causing performance issues
+                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+                    end
+                end
+            end,
+        })
 
         local rainbow_delimiters = require "rainbow-delimiters"
 

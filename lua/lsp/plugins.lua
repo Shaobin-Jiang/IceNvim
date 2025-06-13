@@ -111,7 +111,7 @@ Ice.plugins.mason = {
                     capabilities = blink_capabilities,
                 })
 
-                lspconfig[lsp].setup(setup)
+                vim.lsp.config(lsp, setup)
             end
             ::continue::
         end

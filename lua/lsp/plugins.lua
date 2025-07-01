@@ -134,6 +134,22 @@ Ice.plugins.mason = {
 
         vim.lsp.inlay_hint.enable()
 
-        vim.cmd "LspStart"
+        -- Do not directly call `LspStart` (although the code below is pretty much word-to-word copied from the command)
+        -- The reason is that `LspStart` would raise an error if no matching server is configured. This becomes an issue
+        -- when the first file we open does not have a matching server. Therefore, we gotta check whether a server
+        -- exists first.
+        local servers = {}
+        local filetype = vim.bo.filetype
+        ---@diagnostic disable-next-line: invisible
+        for name, _ in pairs(vim.lsp.config._configs) do
+            local filetypes = vim.lsp.config[name].filetypes
+            if filetypes and vim.tbl_contains(filetypes, filetype) then
+                table.insert(servers, name)
+            end
+        end
+
+        if #servers > 0 then
+            vim.lsp.enable(servers)
+        end
     end,
 }

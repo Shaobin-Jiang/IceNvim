@@ -120,17 +120,21 @@ Ice.plugins.mason = {
             update_in_insert = true,
             severity_sort = true, -- necessary for lspsaga's show_line_diagnostics to work
             virtual_text = true,
+            signs = {
+                text = {
+                    [vim.diagnostic.severity.ERROR] = symbols.Error,
+                    [vim.diagnostic.severity.WARN] = symbols.Warn,
+                    [vim.diagnostic.severity.HINT] = symbols.Hint,
+                    [vim.diagnostic.severity.INFO] = symbols.Info,
+                },
+                numhl = {
+                    [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
+                    [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
+                    [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
+                    [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
+                },
+            },
         }
-        local signs = {
-            Error = symbols.Error,
-            Warn = symbols.Warn,
-            Hint = symbols.Hint,
-            Info = symbols.Info,
-        }
-        for type, icon in pairs(signs) do
-            local hl = "DiagnosticSign" .. type
-            vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-        end
 
         vim.lsp.inlay_hint.enable()
 

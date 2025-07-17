@@ -58,8 +58,8 @@ M.check = function()
     if require("core.utils").is_mac then
         vim.health.start "IceNvim Optional Dependencies for MacOS"
 
-        check("im-select", function()
-            vim.health.warn "You need im-select to enable automatic IME switching for Chinese. Please refer to the wiki for instruction on how to install it."
+        check("macism", function()
+            vim.health.warn "You need macism to enable automatic IME switching for Chinese. Please refer to the wiki for instruction on how to install it."
         end)
     end
 end

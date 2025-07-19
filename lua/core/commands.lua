@@ -152,10 +152,10 @@ vim.api.nvim_create_user_command("IceCheckPlugins", function()
 
                 local ns_id = vim.api.nvim_create_namespace "out-of-date-plugins"
                 for line = 0, really_stale_plugin_count - 1 do
-                    vim.hl.range(report_buf, ns_id, "ErrorMsg", {line, 0}, {line, -1}, {})
+                    vim.hl.range(report_buf, ns_id, "ErrorMsg", { line, 0 }, { line, -1 }, {})
                 end
                 for line = really_stale_plugin_count, #stale_plugins - 1 do
-                    vim.hl.range(report_buf, ns_id, "WarningMsg", {line, 0}, {line, -1}, {})
+                    vim.hl.range(report_buf, ns_id, "WarningMsg", { line, 0 }, { line, -1 }, {})
                 end
 
                 local win = vim.api.nvim_open_win(report_buf, true, {

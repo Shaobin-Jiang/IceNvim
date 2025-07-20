@@ -17,7 +17,6 @@ Ice.symbols = {
     Event = " ",
     Field = "󰜢 ",
     File = "󰈙 ",
-    FittenCode = "",
     Folder = "󰉋 ",
     Fragment = " ",
     Function = "󰊕 ",

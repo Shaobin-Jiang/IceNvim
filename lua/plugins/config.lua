@@ -33,6 +33,74 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
+local function avante(win)
+    return function()
+        local windows = vim.api.nvim_list_wins()
+        local win_id = require("avante").current.sidebar.winids[win]
+        if vim.tbl_contains(windows, win_id) then
+            vim.api.nvim_set_current_win(win_id)
+        end
+    end
+end
+
+config.avante = {
+    "yetone/avante.nvim",
+    build = function()
+        if require("core.utils").is_windows then
+            return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+        else
+            return "make"
+        end
+    end,
+    event = "User IceLoad",
+    version = false,
+    opts = {
+        provider = "copilot",
+        providers = {
+            copilot = {
+                model = "claude-sonnet-4",
+                extra_request_body = {
+                    temperature = 0.75,
+                    max_tokens = 20480,
+                },
+            },
+        },
+        mappings = {
+            confirm = {
+                focus_window = "<leader>awf",
+            },
+        },
+        windows = {
+            width = 40,
+            sidebar_header = {
+                align = "left",
+                rounded = false,
+            },
+            input = {
+                height = 16,
+            },
+            ask = {
+                start_insert = false,
+            },
+        },
+    },
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        "MunifTanjim/nui.nvim",
+        "nvim-telescope/telescope.nvim",
+        "nvim-tree/nvim-web-devicons",
+        "zbirenbaum/copilot.lua",
+        { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
+    },
+    keys = {
+        { "<leader>awc", avante "code", desc = "focus code", silent = true },
+        { "<leader>awi", avante "input_container", desc = "focus input", silent = true },
+        { "<leader>awa", avante "result_container", desc = "focus result", silent = true },
+        { "<leader>aws", avante "selected_files_container", desc = "focus seleceted files", silent = true },
+        { "<leader>awt", avante "todos_container", desc = "focus seleceted files", silent = true },
+    },
+}
+
 config.bufferline = {
     "akinsho/bufferline.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
@@ -767,6 +835,7 @@ config["which-key"] = {
             },
         },
         spec = {
+            { "<leader>a", group = "+avante" },
             { "<leader>b", group = "+buffer" },
             { "<leader>c", group = "+comment" },
             { "<leader>f", group = "+fittencode" },

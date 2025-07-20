@@ -161,13 +161,12 @@ Ice.plugins.mason = {
 
             if #servers > 0 then
                 vim.lsp.enable(servers)
-            else
-                vim.api.nvim_create_autocmd("FileType", {
-                    once = true,
-                    callback = lsp_start,
-                })
             end
         end
+
+        vim.api.nvim_create_autocmd("FileType", {
+            callback = lsp_start,
+        })
 
         lsp_start()
     end,

@@ -68,6 +68,12 @@ Ice.plugins.mason = {
         require("mason").setup(opts)
 
         local registry = require "mason-registry"
+
+        local package_list = registry.get_all_package_names()
+        if #package_list == 0 then
+            registry.refresh()
+        end
+
         local function install(package)
             local s, p = pcall(registry.get_package, package)
             if s and not p:is_installed() then

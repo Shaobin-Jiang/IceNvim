@@ -45,6 +45,7 @@ end
 
 config.avante = {
     "yetone/avante.nvim",
+    enabled = false,
     build = function()
         if require("core.utils").is_windows then
             return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"

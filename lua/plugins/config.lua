@@ -35,9 +35,9 @@ vim.api.nvim_create_autocmd("User", {
 
 local function avante(win)
     return function()
-        local windows = vim.api.nvim_list_wins()
-        local win_id = require("avante").current.sidebar.winids[win]
-        if vim.tbl_contains(windows, win_id) then
+        local candidate = require("avante").current.sidebar.containers[win]
+        if win then
+            local win_id = candidate.winid
             vim.api.nvim_set_current_win(win_id)
         end
     end
@@ -94,11 +94,11 @@ config.avante = {
         { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
     },
     keys = {
-        { "<leader>awc", avante "code", desc = "focus code", silent = true },
-        { "<leader>awi", avante "input_container", desc = "focus input", silent = true },
-        { "<leader>awa", avante "result_container", desc = "focus result", silent = true },
-        { "<leader>aws", avante "selected_files_container", desc = "focus seleceted files", silent = true },
-        { "<leader>awt", avante "todos_container", desc = "focus seleceted files", silent = true },
+        { "<leader>awc", avante "selected_code", desc = "focus code", silent = true },
+        { "<leader>awi", avante "input", desc = "focus input", silent = true },
+        { "<leader>awa", avante "result", desc = "focus result", silent = true },
+        { "<leader>aws", avante "selected_files", desc = "focus selected files", silent = true },
+        { "<leader>awt", avante "todos", desc = "focus todo", silent = true },
     },
 }
 

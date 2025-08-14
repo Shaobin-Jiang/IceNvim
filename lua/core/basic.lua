@@ -86,6 +86,8 @@ opt.foldlevel = 99
 opt.foldlevelstart = 99
 opt.foldenable = false
 
+opt.laststatus = 3
+
 if require("core.utils").is_windows then
     opt.shellslash = true
 end

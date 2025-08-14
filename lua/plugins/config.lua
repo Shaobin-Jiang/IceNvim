@@ -858,6 +858,18 @@ config["which-key"] = {
     },
 }
 
+config.winsep = {
+    "nvim-zh/colorful-winsep.nvim",
+    event = "User IceAfter colorscheme",
+    opts = {
+        border = "single",
+        highlight = { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg },
+        animate = {
+            enabled = false,
+        },
+    },
+}
+
 -- Colorschemes
 config["github"] = { "projekt0n/github-nvim-theme", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }

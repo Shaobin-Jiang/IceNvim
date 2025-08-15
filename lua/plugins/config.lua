@@ -156,7 +156,7 @@ config.bufferline = {
 
         require("nvim-web-devicons").setup {
             override = {
-                typ = { icon = "󰰥", color = "#239dad", name = "typst" },
+                typ = { icon = "", color = "#239dad", name = "typst" },
             },
         }
     end,

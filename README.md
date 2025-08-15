@@ -65,6 +65,7 @@ For a detailed introduction on the various features of and on how to use IceNvim
     - cmake
     - node
     - npm
+    - tree-sitter-cli
   - Required by markdown-preview.nvim:
     - yarn
   - Required by rustaceanvim:
@@ -81,13 +82,13 @@ Note that some of the packages might have different names with different package
 Installing dependencies on MacOS:
 
 ```bash
-brew install wget fd ripgrep node yarn cmake
+brew install wget fd ripgrep node yarn cmake tree-sitter-cli
 ```
 
 Installing dependencies on Arch:
 
 ```bash
-sudo pacman -S --needed curl gzip wget fd ripgrep gcc nodejs npm python python-pip unzip zip xclip python-virtualenv
+sudo pacman -S --needed curl gzip wget fd ripgrep gcc nodejs npm python python-pip unzip zip xclip python-virtualenv tree-sitter-cli
 ```
 
 Installing dependencies on Windows (via scoop):

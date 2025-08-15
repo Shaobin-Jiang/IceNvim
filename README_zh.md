@@ -65,6 +65,7 @@ IceNvim 是一个美观、功能强大、支持高度自定义的 neovim 配置�
     - cmake
     - node
     - npm
+    - tree-sitter-cli
   - markdown-preview.nvim 的依赖项
     - yarn
   - rustaceanvim 的依赖项
@@ -81,13 +82,13 @@ IceNvim 是一个美观、功能强大、支持高度自定义的 neovim 配置�
 在 MacOS 上安装依赖：
 
 ```bash
-brew install wget fd ripgrep node yarn cmake
+brew install wget fd ripgrep node yarn cmake tree-sitter-cli
 ```
 
 在 Arch 上安装依赖：
 
 ```bash
-sudo pacman -S --needed curl gzip wget fd ripgrep gcc nodejs npm python python-pip unzip zip xclip python-virtualenv
+sudo pacman -S --needed curl gzip wget fd ripgrep gcc nodejs npm python python-pip unzip zip xclip python-virtualenv tree-sitter-cli
 ```
 
 在 Windows 上安装依赖（使用 scoop）：

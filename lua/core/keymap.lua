@@ -171,6 +171,8 @@ Ice.keymap = {
 
     join_lines = { { "n", "v" }, "J", join_lines },
 
+    lazy_profile = { "n", "<leader>ul", "<Cmd>Lazy profile<CR>" },
+
     new_line_below_normal = { "n", "<A-o>", "o<Esc>" },
     new_line_above_normal = { "n", "<A-O>", "O<Esc>" },
 
@@ -182,6 +184,6 @@ Ice.keymap = {
     visual_line = { "n", "V", "0v$" },
 }
 
-if not require("core.utils").noplugin then
-    Ice.keymap.lazy_profile = { "n", "<leader>ul", "<Cmd>Lazy profile<CR>" }
+if require("core.utils").noplugin then
+    Ice.keymap.lazy_profile[3] = ""
 end

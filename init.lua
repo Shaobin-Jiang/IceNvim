@@ -15,8 +15,7 @@ if require("core.utils").file_exists(custom_path .. "init.lua") then
 end
 
 -- Define keymap
-local keymap = Ice.keymap.general
-require("core.utils").group_map(keymap)
+require("core.utils").group_map(Ice.keymap)
 
 for filetype, config in pairs(Ice.ft) do
     require("core.utils").ft(filetype, config)
@@ -43,8 +42,6 @@ if not require("core.utils").noplugin then
                     end
                 end
             end
-
-            require("core.utils").group_map(Ice.keymap.plugins)
 
             -- Define colorscheme
             if not Ice.colorscheme then

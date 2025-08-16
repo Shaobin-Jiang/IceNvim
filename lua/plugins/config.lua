@@ -94,7 +94,7 @@ config.avante = {
         { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
     },
     keys = {
-        { "<leader>awc", avante "selected_code", desc = "focus code", silent = true },
+        { "<leader>awc", avante "selected_code", desc = "focus selected code", silent = true },
         { "<leader>awi", avante "input", desc = "focus input", silent = true },
         { "<leader>awa", avante "result", desc = "focus result", silent = true },
         { "<leader>aws", avante "selected_files", desc = "focus selected files", silent = true },
@@ -742,6 +742,8 @@ config.telescope = {
     keys = {
         { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true },
         { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true },
+        {"<C-k><C-t>", require("plugins.utils").select_colorscheme, desc = "select colorscheme" },
+        {"<leader>uc", require("plugins.utils").view_configuration, desc = "view configuration" },
     },
 }
 

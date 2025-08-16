@@ -150,8 +150,7 @@ else
     end
 end
 
-Ice.keymap = {}
-Ice.keymap.general = {
+Ice.keymap = {
     -- See `:h quote_`
     black_hole_register = { { "n", "v" }, "\\", '"_' },
     clear_cmd_line = { { "n", "i", "v", "t" }, "<C-g>", "<Cmd>mode<CR>" },
@@ -182,3 +181,7 @@ Ice.keymap.general = {
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },
     visual_line = { "n", "V", "0v$" },
 }
+
+if not require("core.utils").noplugin then
+    Ice.keymap.lazy_profile = { "n", "<leader>ul", "<Cmd>Lazy profile<CR>" }
+end

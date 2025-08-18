@@ -31,6 +31,16 @@ utils.colorscheme = function(colorscheme_name)
     vim.api.nvim_set_hl(0, "Visual", { reverse = true })
 
     vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
+
+    if Ice.plugins["nvim-transparent"].enabled ~= false then
+        if colorscheme.background == "light" then
+            ---@diagnostic disable-next-line: param-type-mismatch
+            pcall(vim.cmd, "TransparentDisable")
+        else
+            ---@diagnostic disable-next-line: param-type-mismatch
+            pcall(vim.cmd, "TransparentEnable")
+        end
+    end
 end
 
 -- Switch colorscheme
@@ -77,33 +87,51 @@ utils.select_colorscheme = function()
                 },
                 sorter = conf.generic_sorter(opts),
                 attach_mappings = function(prompt_bufnr, _)
-                    actions.select_default:replace(function()
-                        actions.close(prompt_bufnr)
+                    local original_colorscheme = Ice.colorscheme
+                    local should_restore_colorscheme = false
 
+                    local function set_colorscheme_by_selection()
                         local selection = action_state.get_selected_entry()
                         if selection == nil then
                             return
                         end
 
                         local colorscheme = selection.value
-                        local config = colorschemes[colorscheme]
+                        utils.colorscheme(colorscheme)
+                        return colorscheme
+                    end
 
-                        if Ice.plugins["nvim-transparent"].enabled ~= false then
-                            if config.background == "light" then
-                                ---@diagnostic disable-next-line: param-type-mismatch
-                                pcall(vim.cmd, "TransparentDisable")
-                            else
-                                ---@diagnostic disable-next-line: param-type-mismatch
-                                pcall(vim.cmd, "TransparentEnable")
+                    require("telescope.actions.set").shift_selection:enhance {
+                        post = function()
+                            local colorscheme = set_colorscheme_by_selection()
+                            if colorscheme ~= nil and colorscheme ~= original_colorscheme then
+                                should_restore_colorscheme = true
                             end
-                        end
+                        end,
+                    }
 
-                        utils.colorscheme(selection.value)
+                    actions.close:enhance {
+                        post = function()
+                            if should_restore_colorscheme then
+                                utils.colorscheme(original_colorscheme)
+                            end
+                        end,
+                    }
+
+                    actions.select_default:replace(function()
+                        local colorscheme = set_colorscheme_by_selection()
+                        if colorscheme == nil then
+                            return
+                        end
 
                         local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
                         local f = io.open(colorscheme_cache, "w")
                         f:write(colorscheme)
                         f:close()
+
+                        should_restore_colorscheme = false
+
+                        actions.close(prompt_bufnr)
                     end)
                     return true
                 end,

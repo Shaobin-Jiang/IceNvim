@@ -112,8 +112,13 @@ lsp = {
         managed_by_plugin = true,
     },
     tinymist = {
-        formatter = "typstfmt",
+        -- Does not need a formatter as it is included in tinymist
         setup = {
+            settings = {
+                formatterMode = "typstyle",
+                formatterPrintWidth = 120,
+                formatterProseWrap = true,
+            },
             single_file_support = true,
         },
     },

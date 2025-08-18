@@ -43,6 +43,7 @@ Ice.ft = {
     typst = function()
         vim.wo.wrap = true
         vim.wo.linebreak = true
+        vim.wo.colorcolumn = "120"
         vim.wo.breakindent = true
         vim.bo.tabstop = 2
         vim.bo.commentstring = "// %s"

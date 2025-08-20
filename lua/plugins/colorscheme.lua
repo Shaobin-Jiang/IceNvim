@@ -1,24 +1,20 @@
 -- Predefined colorschemes
 Ice.colorschemes = {
-    ["github-dark"] = {
-        name = "github_dark",
-        background = "dark",
-    },
-    ["github-light"] = {
-        name = "github_light",
+    ["cyberdream-light"] = {
+        name = "cyberdream",
         background = "light",
+        setup = {
+            variant = "light",
+            -- transparent = true,
+        }
     },
-    ["github-dark-dimmed"] = {
-        name = "github_dark_dimmed",
+    ["cyberdream-dark"] = {
+        name = "cyberdream",
         background = "dark",
-    },
-    ["github-dark-high-contrast"] = {
-        name = "github_dark_high_contrast",
-        background = "dark",
-    },
-    ["github-light-high-contrast"] = {
-        name = "github_light_high_contrast",
-        background = "light",
+        setup = {
+            variant = "dark",
+            -- transparent = true,
+        }
     },
     ["gruvbox-dark"] = {
         name = "gruvbox",

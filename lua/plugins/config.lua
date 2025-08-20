@@ -832,7 +832,7 @@ config.winsep = {
 }
 
 -- Colorschemes
-config["github"] = { "projekt0n/github-nvim-theme", lazy = true }
+config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
 config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
 config["miasma"] = { "xero/miasma.nvim", lazy = true }

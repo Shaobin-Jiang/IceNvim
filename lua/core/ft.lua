@@ -29,9 +29,6 @@ Ice.ft = {
         vim.wo.linebreak = true
         vim.wo.breakindent = true
     end,
-    org = function()
-        vim.bo.tabstop = 2
-    end,
     python = function()
         vim.bo.formatoptions = "tcqjor"
         vim.wo.colorcolumn = "88" -- specified by black

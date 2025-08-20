@@ -646,45 +646,6 @@ config["nvim-treesitter"] = {
     end,
 }
 
-config.orgmode = {
-    "nvim-orgmode/orgmode",
-    ft = { "org" },
-    -- See https://github.com/nvim-orgmode/orgmode/blob/master/DOCS.md
-    opts = {
-        org_agenda_files = "~/Documents/orgfiles/**/*",
-        org_default_notes_file = "~/Documents/orgfiles/refile.org",
-        org_todo_keywords = { "TODO(t)", "URGENT(u)", "PENDING(p)", "|", "DONE(d)" },
-        win_split_mode = { "float", 0.6 },
-        org_startup_folded = "inherit",
-        org_todo_keyword_faces = {
-            URGENT = ":foreground white :background red :weight bold",
-            PENDING = ":foreground white :background gray",
-        },
-        org_hide_leading_stars = true,
-        org_hide_emphasis_markers = true,
-        mappings = {
-            org = {
-                org_toggle_checkbox = "<leader>oT",
-            },
-        },
-    },
-    config = function(_, opts)
-        require("blink.cmp").add_source_provider("orgmode", {
-            name = "Orgmode",
-            module = "orgmode.org.autocompletion.blink",
-            fallbacks = { "buffer" },
-        })
-        Ice.__ORGMODE_SOURCE_ADDED = true
-        require("orgmode").setup(opts)
-    end,
-    keys = {
-        { "<leader>lf", "gggqG<C-o><C-o>", mode = "n", desc = "format file", ft = "org", silent = true },
-        { "<leader>lf", "gq", mode = "v", desc = "format selected", ft = "org", silent = true },
-        { "<leader>oa", "<Cmd>Org agenda<CR>", desc = "orgmode agenda" },
-        { "<leader>oc", "<Cmd>Org capture<CR>", desc = "orgmode capture" },
-    },
-}
-
 config.surround = {
     "kylechui/nvim-surround",
     version = "*",
@@ -841,11 +802,9 @@ config["which-key"] = {
             { "<leader>a", group = "+avante" },
             { "<leader>b", group = "+buffer" },
             { "<leader>c", group = "+comment" },
-            { "<leader>f", group = "+fittencode" },
             { "<leader>g", group = "+git" },
             { "<leader>h", group = "+hop" },
             { "<leader>l", group = "+lsp" },
-            { "<leader>o", group = "+orgmode" },
             { "<leader>t", group = "+telescope" },
             { "<leader>u", group = "+utils" },
         },

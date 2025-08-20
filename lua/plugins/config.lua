@@ -440,7 +440,7 @@ config["nvim-scrollview"] = {
 }
 
 config["nvim-transparent"] = {
-    "xiyaowong/nvim-transparent",
+    "xiyaowong/transparent.nvim",
     opts = {
         extra_groups = {
             "NvimTreeNormal",

@@ -824,7 +824,9 @@ config.winsep = {
     event = "User IceAfter colorscheme",
     opts = {
         border = "single",
-        highlight = { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg },
+        highlight = function()
+            vim.cmd "highlight link ColorfulWinsep IceNormal"
+        end,
         animate = {
             enabled = false,
         },

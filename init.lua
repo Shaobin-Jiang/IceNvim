@@ -28,7 +28,7 @@ if not require("core.utils").noplugin then
 
     vim.api.nvim_create_autocmd("User", {
         once = true,
-        pattern = "VeryLazy",
+        pattern = "IceAfter transparent",
         callback = function()
             local rtp_plugin_path = vim.opt.packpath:get()[1] .. "/plugin"
             local dir = vim.uv.fs_scandir(rtp_plugin_path)

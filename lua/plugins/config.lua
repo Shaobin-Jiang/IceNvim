@@ -441,10 +441,12 @@ config["nvim-scrollview"] = {
 
 config["nvim-transparent"] = {
     "xiyaowong/transparent.nvim",
+    event = "VeryLazy",
     opts = {
         extra_groups = {
             "NvimTreeNormal",
             "NvimTreeNormalNC",
+            "TelescopeNormal",
         },
     },
     config = function(_, opts)
@@ -470,7 +472,11 @@ config["nvim-transparent"] = {
 
         require("transparent").setup(opts)
 
+        -- Ensure that IceNormal is set
+        vim.api.nvim_exec_autocmds("ColorScheme", { group = "transparent" })
+
         local old_get_hl = vim.api.nvim_get_hl
+        ---@diagnostic disable-next-line: duplicate-set-field
         vim.api.nvim_get_hl = function(ns_id, opt)
             if opt.name == "Normal" then
                 local attempt = old_get_hl(0, { name = "IceNormal" })
@@ -480,6 +486,19 @@ config["nvim-transparent"] = {
             end
             return old_get_hl(ns_id, opt)
         end
+
+        -- The `nvim_set_hl` api allows setting `bg` to `"bg"` which then links to the Normal highlight group
+        -- This, however, would cause an error if Normal is not defined properly. Therefore, we should take care of this
+        -- as well.
+        local old_set_hl = vim.api.nvim_set_hl
+        ---@diagnostic disable-next-line: duplicate-set-field
+        vim.api.nvim_set_hl = function(ns_id, name, val)
+            if val.bg == "bg" then
+                val.bg = old_get_hl(0, { name = "IceNormal" }).bg
+            end
+            return old_set_hl(ns_id, name, val)
+        end
+        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter transparent" })
     end,
 }
 

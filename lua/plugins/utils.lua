@@ -32,13 +32,13 @@ utils.colorscheme = function(colorscheme_name)
 
     vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 
-    if Ice.plugins["nvim-transparent"] and Ice.plugins["nvim-transparent"].enabled ~= false then
-        if colorscheme.background == "light" then
-            ---@diagnostic disable-next-line: param-type-mismatch
-            pcall(vim.cmd, "TransparentDisable")
-        else
+    if Ice.plugins["nvim-transparent"] ~= nil and Ice.plugins["nvim-transparent"].enabled ~= false then
+        if colorscheme.transparent then
             ---@diagnostic disable-next-line: param-type-mismatch
             pcall(vim.cmd, "TransparentEnable")
+        else
+            ---@diagnostic disable-next-line: param-type-mismatch
+            pcall(vim.cmd, "TransparentDisable")
         end
     end
 end

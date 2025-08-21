@@ -3,9 +3,9 @@ Ice.colorschemes = {
     ["cyberdream-dark"] = {
         name = "cyberdream",
         background = "dark",
+        transparent = true,
         setup = {
             variant = "dark",
-            -- transparent = true,
         },
     },
     ["cyberdream-light"] = {
@@ -13,11 +13,11 @@ Ice.colorschemes = {
         background = "light",
         setup = {
             variant = "light",
-            -- transparent = true,
         },
     },
     ["gruvbox-dark"] = {
         name = "gruvbox",
+        transparent = true,
         setup = {
             italic = {
                 strings = true,
@@ -42,10 +42,12 @@ Ice.colorschemes = {
     },
     ["kanagawa-wave"] = {
         name = "kanagawa-wave",
+        transparent = true,
         background = "dark",
     },
     ["kanagawa-dragon"] = {
         name = "kanagawa-dragon",
+        transparent = true,
         background = "dark",
     },
     ["kanagawa-lotus"] = {
@@ -58,6 +60,7 @@ Ice.colorschemes = {
     },
     ["monet-dark"] = {
         name = "monet",
+        transparent = true,
         setup = function()
             local palette = require "monet.palette"
             setmetatable(palette, { __index = palette.defaults })
@@ -74,10 +77,12 @@ Ice.colorschemes = {
     },
     nightfox = {
         name = "nightfox",
+        transparent = true,
         background = "dark",
     },
     ["nightfox-carbon"] = {
         name = "carbonfox",
+        transparent = true,
         background = "dark",
     },
     ["nightfox-day"] = {
@@ -90,18 +95,22 @@ Ice.colorschemes = {
     },
     ["nightfox-dusk"] = {
         name = "duskfox",
+        transparent = true,
         background = "dark",
     },
     ["nightfox-nord"] = {
         name = "nordfox",
+        transparent = true,
         background = "dark",
     },
     ["nightfox-tera"] = {
         name = "terafox",
+        transparent = true,
         background = "dark",
     },
     tokyonight = {
         name = "tokyonight",
+        background = "dark",
         setup = {
             style = "moon",
             styles = {
@@ -109,6 +118,5 @@ Ice.colorschemes = {
                 keywords = { italic = false },
             },
         },
-        background = "dark",
     },
 }

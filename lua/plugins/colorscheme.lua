@@ -1,20 +1,20 @@
 -- Predefined colorschemes
 Ice.colorschemes = {
-    ["cyberdream-light"] = {
-        name = "cyberdream",
-        background = "light",
-        setup = {
-            variant = "light",
-            -- transparent = true,
-        }
-    },
     ["cyberdream-dark"] = {
         name = "cyberdream",
         background = "dark",
         setup = {
             variant = "dark",
             -- transparent = true,
-        }
+        },
+    },
+    ["cyberdream-light"] = {
+        name = "cyberdream",
+        background = "light",
+        setup = {
+            variant = "light",
+            -- transparent = true,
+        },
     },
     ["gruvbox-dark"] = {
         name = "gruvbox",
@@ -55,6 +55,22 @@ Ice.colorschemes = {
     miasma = {
         name = "miasma",
         background = "dark",
+    },
+    ["monet-dark"] = {
+        name = "monet",
+        setup = function()
+            local palette = require "monet.palette"
+            setmetatable(palette, { __index = palette.defaults })
+        end,
+        background = "dark",
+    },
+    ["monet-light"] = {
+        name = "monet",
+        setup = function()
+            local palette = require "monet.palette"
+            setmetatable(palette, { __index = palette.light_mode })
+        end,
+        background = "light",
     },
     nightfox = {
         name = "nightfox",

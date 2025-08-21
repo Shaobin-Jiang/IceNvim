@@ -703,8 +703,8 @@ config.telescope = {
     keys = {
         { "<leader>tf", "<Cmd>Telescope find_files<CR>", desc = "find file", silent = true },
         { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true },
-        {"<C-k><C-t>", require("plugins.utils").select_colorscheme, desc = "select colorscheme" },
-        {"<leader>uc", require("plugins.utils").view_configuration, desc = "view configuration" },
+        { "<C-k><C-t>", require("plugins.utils").select_colorscheme, desc = "select colorscheme" },
+        { "<leader>uc", require("plugins.utils").view_configuration, desc = "view configuration" },
     },
 }
 
@@ -838,6 +838,7 @@ config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
 config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
 config["miasma"] = { "xero/miasma.nvim", lazy = true }
+config["monet"] = { "fynnfluegge/monet.nvim", lazy = true }
 config["nightfox"] = { "EdenEast/nightfox.nvim", lazy = true }
 config["tokyonight"] = { "folke/tokyonight.nvim", lazy = true }
 

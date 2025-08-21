@@ -43,6 +43,20 @@ utils.colorscheme = function(colorscheme_name)
     end
 end
 
+vim.api.nvim_create_user_command("IceColorscheme", function(args)
+    local colorscheme = args.args
+    utils.colorscheme(colorscheme)
+    local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+    local f = io.open(colorscheme_cache, "w")
+    f:write(colorscheme)
+    f:close()
+end, {
+    nargs = 1,
+    complete = function(_, _)
+        return vim.tbl_keys(Ice.colorschemes)
+    end,
+})
+
 -- Switch colorscheme
 utils.select_colorscheme = function()
     local status, _ = pcall(require, "telescope")

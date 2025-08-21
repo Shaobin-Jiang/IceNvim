@@ -1,6 +1,6 @@
 -- Do not use vim.version as it loads the vim.version module
 -- Using vim.fn.api_info().version is no good either as api_info also consumes much time
-local version = vim.fn.matchstr(vim.fn.execute('version'), 'NVIM v\\zs[^\\n]*')
+local version = vim.fn.matchstr(vim.fn.execute "version", "NVIM v\\zs[^\\n]*")
 
 local argv = vim.api.nvim_get_vvar "argv"
 local noplugin = vim.list_contains(argv, "--noplugin") or vim.list_contains(argv, "--noplugins")
@@ -49,7 +49,8 @@ end
 ---@return string?
 utils.get_parent = function(target)
     if target == nil then
-        local parent = vim.fn.expand("%:p:h", true)
+        -- Do not simply use vim.fn.expand as it does not take symbolic links into account
+        local parent = vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand("%:p", true)), ":h")
 
         if utils.is_windows then
             parent = string.gsub(parent, "\\", "/")

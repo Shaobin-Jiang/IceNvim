@@ -57,7 +57,7 @@ if not require("core.utils").noplugin then
                 end
             end
 
-            require("plugins.utils").colorscheme(Ice.colorscheme)
+            require("plugins.utils").colorscheme(Ice.colorscheme, false)
         end,
     })
 end

@@ -10,7 +10,7 @@ local utils = {}
 --   - background: "light" / "dark"
 --   - lualine_theme: optional
 ---@param colorscheme_name string
-utils.colorscheme = function(colorscheme_name)
+utils.colorscheme = function(colorscheme_name, transparent)
     Ice.colorscheme = colorscheme_name
 
     local colorscheme = Ice.colorschemes[colorscheme_name]
@@ -32,7 +32,7 @@ utils.colorscheme = function(colorscheme_name)
 
     vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 
-    if Ice.plugins["nvim-transparent"] ~= nil and Ice.plugins["nvim-transparent"].enabled ~= false then
+    if transparent ~= false and Ice.plugins["nvim-transparent"] ~= nil and Ice.plugins["nvim-transparent"].enabled ~= false then
         if colorscheme.transparent then
             ---@diagnostic disable-next-line: param-type-mismatch
             pcall(vim.cmd, "TransparentEnable")

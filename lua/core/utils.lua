@@ -20,9 +20,7 @@ local ft_group = vim.api.nvim_create_augroup("IceFt", { clear = true })
 ---@param file string
 ---@return boolean
 utils.file_exists = function(file)
-    local fid = io.open(file, "r")
-    if fid ~= nil then
-        io.close(fid)
+    if vim.uv.fs_stat(file) then
         return true
     else
         return false

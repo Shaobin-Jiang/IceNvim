@@ -594,7 +594,7 @@ config["nvim-treesitter"] = {
         -- Preserved for compatibility concerns
         -- stylua: ignore start
         ensure_installed = {
-            "bash", "c", "c_sharp", "cpp", "css", "go", "html", "javascript", "json", "lua", "markdown",
+            "bash", "c", "c_sharp", "cpp", "css", "fish", "go", "html", "javascript", "json", "lua", "markdown",
             "markdown_inline", "python", "query", "rust", "toml", "typescript", "typst", "tsx", "vim", "vimdoc",
         },
         -- stylua: ignore end

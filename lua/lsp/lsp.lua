@@ -124,7 +124,6 @@ lsp = {
     ["typescript-language-server"] = {
         formatter = "prettier",
         setup = {
-            -- Modification over the default root_dir function
             root_dir = function(_, on_dir)
                 on_dir(require("core.utils").get_root())
             end,

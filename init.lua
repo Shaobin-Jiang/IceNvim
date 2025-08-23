@@ -5,9 +5,9 @@ require "plugins.init"
 
 -- Load user configuration files
 local config_root = vim.fn.stdpath "config"
-local custom_path = vim.fs.joinpath(config_root, 'lua/custom"')
+local custom_path = vim.fs.joinpath(config_root, 'lua/custom')
 if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
-    os.execute('mkdir "' .. custom_path)
+    os.execute('mkdir "' .. custom_path .. '"')
 end
 
 if require("core.utils").file_exists(vim.fs.joinpath(custom_path, "init.lua")) then

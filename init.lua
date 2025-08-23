@@ -4,13 +4,13 @@ require "core.init"
 require "plugins.init"
 
 -- Load user configuration files
-local config_root = string.gsub(vim.fn.stdpath "config", "\\", "/")
+local config_root = vim.fn.stdpath "config"
+local custom_path = vim.fs.joinpath(config_root, 'lua/custom"')
 if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
-    os.execute('mkdir "' .. config_root .. '/lua/custom"')
+    os.execute('mkdir "' .. custom_path)
 end
 
-local custom_path = config_root .. "/lua/custom/"
-if require("core.utils").file_exists(custom_path .. "init.lua") then
+if require("core.utils").file_exists(vim.fs.joinpath(custom_path, "init.lua")) then
     require "custom.init"
 end
 
@@ -30,7 +30,7 @@ if not require("core.utils").noplugin then
         once = true,
         pattern = "IceAfter transparent",
         callback = function()
-            local rtp_plugin_path = vim.opt.packpath:get()[1] .. "/plugin"
+            local rtp_plugin_path = vim.fs.joinpath(vim.opt.packpath:get()[1], "plugin")
             local dir = vim.uv.fs_scandir(rtp_plugin_path)
             if dir ~= nil then
                 while true do
@@ -45,7 +45,7 @@ if not require("core.utils").noplugin then
 
             -- Define colorscheme
             if not Ice.colorscheme then
-                local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+                local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
                 if require("core.utils").file_exists(colorscheme_cache) then
                     local colorscheme_cache_file = io.open(colorscheme_cache, "r")
                     ---@diagnostic disable: need-check-nil

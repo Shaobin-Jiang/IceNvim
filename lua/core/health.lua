@@ -46,11 +46,11 @@ M.check = function()
     if require("core.utils").is_windows or require("core.utils").is_wsl then
         vim.health.start "IceNvim Optional Dependencies for Windows and WSL"
 
-        check(vim.fn.stdpath "config" .. "/bin/im-select.exe", function()
+        check(vim.fs.joinpath(vim.fn.stdpath "config", "bin/im-select.exe"), function()
             vim.health.warn "You need im-select.exe to enable automatic IME switching for Chinese. Consider downloading it at https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe"
         end)
 
-        check(vim.fn.stdpath "config" .. "/bin/uclip.exe", function()
+        check(vim.fs.joinpath(vim.fn.stdpath "config", "bin/uclip.exe"), function()
             vim.health.warn "You need uclip.exe for correct unicode copy / paste. Consider downloading it at https://github.com/suzusime/uclip/releases/download/v0.1.0/uclip.exe"
         end)
     end

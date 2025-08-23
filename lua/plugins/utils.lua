@@ -46,7 +46,7 @@ end
 vim.api.nvim_create_user_command("IceColorscheme", function(args)
     local colorscheme = args.args
     utils.colorscheme(colorscheme)
-    local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+    local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
     local f = io.open(colorscheme_cache, "w")
     f:write(colorscheme)
     f:close()
@@ -138,7 +138,7 @@ utils.select_colorscheme = function()
                             return
                         end
 
-                        local colorscheme_cache = vim.fn.stdpath "data" .. "/colorscheme"
+                        local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
                         local f = io.open(colorscheme_cache, "w")
                         f:write(colorscheme)
                         f:close()
@@ -206,7 +206,7 @@ utils.view_configuration = function()
                             return from_entry.path(entry, false)
                         end,
                         define_preview = function(self, entry)
-                            local p = config_root .. "/" .. entry.filename
+                            local p = vim.fs.joinpath(config_root, entry.filename)
                             if p == nil or p == "" then
                                 return
                             end
@@ -228,7 +228,7 @@ utils.view_configuration = function()
                         if selected_entry ~= nil then
                             local selection = selected_entry[1]
                             selection = string.gsub(selection, picker_sep, sep)
-                            local full_path = config_root .. sep .. selection
+                            local full_path = vim.fs.joinpath(config_root, selection)
 
                             vim.cmd("edit " .. full_path)
                         end

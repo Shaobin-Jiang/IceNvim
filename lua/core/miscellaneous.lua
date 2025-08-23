@@ -1,9 +1,9 @@
 local utils = require "core.utils"
 
-local config_path = string.gsub(vim.fn.stdpath "config", "\\", "/")
+local config_path = vim.fn.stdpath "config"
 
 -- Yanking on windows / wsl
-local clip_path = config_path .. "/bin/uclip.exe"
+local clip_path = vim.fs.joinpath(config_path, "bin/uclip.exe")
 if not require("core.utils").file_exists(clip_path) then
     local root
     if utils.is_windows then
@@ -11,7 +11,7 @@ if not require("core.utils").file_exists(clip_path) then
     else
         root = "/mnt/c"
     end
-    clip_path = root .. "/Windows/System32/clip.exe"
+    clip_path = vim.fs.joinpath(root, "Windows/System32/clip.exe")
 end
 
 if utils.is_windows or utils.is_wsl then
@@ -28,7 +28,7 @@ end
 
 -- IME switching on windows / wsl
 if utils.is_windows or utils.is_wsl then
-    local im_select_path = config_path .. "/bin/im-select.exe"
+    local im_select_path = vim.fs.joinpath(config_path, "bin/im-select.exe")
 
     if require("core.utils").file_exists(im_select_path) then
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
@@ -113,13 +113,13 @@ if utils.is_windows then
     vim.api.nvim_create_autocmd("VimLeavePre", {
         group = remove_shada_tmp_group,
         callback = function()
-            local dir = vim.fn.stdpath "data" .. "/shada/"
+            local dir = vim.fs.joinpath(vim.fn.stdpath "data", "shada")
             local shada_dir = vim.uv.fs_scandir(dir)
 
             local shada_temp = ""
             while shada_temp ~= nil do
                 if string.find(shada_temp, ".tmp.") then
-                    local full_path = dir .. shada_temp
+                    local full_path = vim.fs.joinpath(dir, shada_temp)
                     os.remove(full_path)
                 end
                 shada_temp = vim.uv.fs_scandir_next(shada_dir)

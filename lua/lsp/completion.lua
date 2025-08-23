@@ -108,7 +108,7 @@ Ice.plugins["blink-cmp"] = {
             providers = {
                 snippets = {
                     opts = {
-                        search_paths = { vim.fn.stdpath "config" .. "/lua/custom/snippets" },
+                        search_paths = { vim.fs.joinpath(vim.fn.stdpath "config", "lua/custom/snippets") },
                     },
                 },
             },

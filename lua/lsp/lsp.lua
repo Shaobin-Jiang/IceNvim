@@ -98,7 +98,7 @@ lsp = {
         setup = {
             cmd = {
                 "dotnet",
-                vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/Omnisharp.dll",
+                vim.fs.joinpath(vim.fn.stdpath "data", "mason/packages/omnisharp/libexec/Omnisharp.dll"),
             },
             on_attach = function(client, _)
                 client.server_capabilities.semanticTokensProvider = nil

@@ -107,7 +107,7 @@ vim.api.nvim_create_user_command("IceCheckIcons", function()
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("IceCheckPlugins", function()
-    local plugins_path = vim.fn.stdpath "data" .. "/lazy/"
+    local plugins_path = vim.fs.joinpath(vim.fn.stdpath "data", "lazy")
     local dir = vim.uv.fs_scandir(plugins_path)
 
     local stale_plugins = {}
@@ -190,7 +190,7 @@ vim.api.nvim_create_user_command("IceCheckPlugins", function()
                 plugin_count = plugin_count + 1
                 vim.system(
                     { "git", "log", "-1", "--format=%cd", "--date=short" },
-                    { cwd = plugins_path .. item },
+                    { cwd = vim.fs.joinpath(plugins_path, item) },
                     function(obj)
                         local date = string.gsub(obj.stdout, "\n", "") -- e.g., "2000-06-15"
                         local year = string.sub(date, 1, 4)
@@ -223,7 +223,7 @@ end, { nargs = "+", complete = "command" })
 
 -- View the output of a command in an external buffer
 vim.api.nvim_create_user_command("IceView", function(args)
-    local path = vim.fn.stdpath "data" .. "/ice-view.txt"
+    local path = vim.fs.joinpath(vim.fn.stdpath "data", "ice-view.txt")
     if args.args == "" then
         vim.cmd("edit " .. path)
     else

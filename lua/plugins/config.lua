@@ -2,7 +2,7 @@
 ---@diagnostic disable: need-check-nil
 local config = {}
 local symbols = Ice.symbols
-local config_root = string.gsub(vim.fn.stdpath "config" --[[@as string]], "\\", "/")
+local config_root = vim.fn.stdpath "config"
 
 -- Add IceLoad event
 vim.api.nvim_create_autocmd("User", {
@@ -463,7 +463,7 @@ config["nvim-transparent"] = {
             end,
         })
         -- Enable transparent by default
-        local transparent_cache = vim.fn.stdpath "data" .. "/transparent_cache"
+        local transparent_cache = vim.fs.joinpath(vim.fn.stdpath "data", "transparent_cache")
         if not require("core.utils").file_exists(transparent_cache) then
             local f = io.open(transparent_cache, "w")
             f:write "true"

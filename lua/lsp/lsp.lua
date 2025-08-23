@@ -125,14 +125,8 @@ lsp = {
         formatter = "prettier",
         setup = {
             -- Modification over the default root_dir function
-            root_dir = function(bufnr, on_dir)
-                local root_markers = { "package-lock.json", "yarn.lock", "pnpm-lock.yaml", "bun.lockb", "bun.lock" }
-                local project_root = vim.fs.root(bufnr, root_markers)
-                if not project_root then
-                    project_root = require("core.utils").get_root()
-                end
-
-                on_dir(project_root)
+            root_dir = function(_, on_dir)
+                on_dir(require("core.utils").get_root())
             end,
             flags = lsp.flags,
             on_attach = function(client)

@@ -38,44 +38,8 @@ utils.ft = function(filetype, config)
     })
 end
 
--- Get the parent directory of target. If target is nil, the parent directory of the current file will be looked for,
--- suffixed with a "/" (which is because this function is intended to be used together with fs_scandir, where errors
--- would occur sometimes should a path without an ending "/" be passed to it, such as "C:" instead of "C:/").
---
--- If the target has no parent directory, such as "/" on Linux or "C:" on Windows, nil will be returned.
----@param target string?
----@return string?
-utils.get_parent = function(target)
-    if target == nil then
-        -- Do not simply use vim.fn.expand as it does not take symbolic links into account
-        local parent = vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand("%:p", true)), ":h")
-
-        if utils.is_windows then
-            parent = string.gsub(parent, "\\", "/")
-        end
-
-        return parent
-    end
-
-    if utils.is_windows then
-        target = string.gsub(target, "\\", "/")
-    end
-
-    -- removes trailing slash
-    if string.sub(target, #target, #target) == "/" then
-        target = string.sub(target, 1, #target - 1)
-    end
-
-    if string.find(target, "/") == nil then
-        return nil
-    end
-
-    return string.sub(target, 1, string.findlast(target, "/"))
-end
-
+-- Gets the root dir of the current buffer
 utils.get_root = function()
-    local uv = vim.uv
-
     local default_pattern = {
         ".git",
         "package.json",
@@ -92,30 +56,8 @@ utils.get_root = function()
         pattern = default_pattern
     end
 
-    local parent = utils.get_parent()
-    local root = parent
-    local has_found_root = false
-
-    while not (has_found_root or parent == nil) do
-        local dir = uv.fs_scandir(parent)
-
-        if dir == nil then
-            break
-        end
-
-        local file = ""
-
-        while file ~= nil do
-            file = uv.fs_scandir_next(dir)
-            if table.find(pattern, file) then
-                root = parent
-                has_found_root = true
-                break
-            end
-        end
-
-        parent = utils.get_parent(parent)
-    end
+    local filename = vim.fn.resolve(vim.fn.expand("%:p", true))
+    local root = vim.fs.root(filename, pattern) or vim.fs.dirname(filename)
 
     return root
 end

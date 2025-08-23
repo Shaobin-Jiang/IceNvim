@@ -164,8 +164,27 @@ Ice.plugins.mason = {
             end
         end
 
+        local augroup = vim.api.nvim_create_augroup("IceLsp", { clear = true })
         vim.api.nvim_create_autocmd("FileType", {
+            group = augroup,
             callback = lsp_start,
+        })
+
+        vim.api.nvim_create_autocmd("LspAttach", {
+            group = augroup,
+            callback = function(args)
+                local client = vim.lsp.get_client_by_id(args.data.client_id)
+                if not client or client.name == "null-ls" then
+                    return
+                end
+                local lspconfig_mapping = require("mason-lspconfig").get_mappings().lspconfig_to_package
+
+                local cfg = Ice.lsp[lspconfig_mapping[client.name]]
+                if type(cfg) == "table" and type(cfg.setup) == "table" and type(cfg.setup.on_attach) == "function" then
+                    Ice.aaa = cfg.setup.on_attach
+                    cfg.setup.on_attach(client, args.buf)
+                end
+            end,
         })
 
         lsp_start()

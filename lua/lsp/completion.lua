@@ -47,6 +47,9 @@ Ice.plugins["blink-cmp"] = {
                     treesitter = { "lsp" },
                 },
             },
+            trigger = {
+                show_on_backspace_in_keyword = true,
+            },
         },
         enabled = function()
             local filetype_is_allowed = not vim.tbl_contains({ "grug-far", "TelescopePrompt" }, vim.bo.filetype)

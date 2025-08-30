@@ -260,6 +260,7 @@ config.fidget = {
         notification = {
             override_vim_notify = true,
             window = {
+                winblend = 0,
                 x_padding = 2,
                 align = "top",
             },

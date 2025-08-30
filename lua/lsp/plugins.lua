@@ -1,7 +1,7 @@
 local symbols = Ice.symbols
 
 Ice.plugins["flutter-tools"] = {
-    "akinsho/flutter-tools.nvim",
+    "nvim-flutter/flutter-tools.nvim",
     ft = "dart",
     dependencies = {
         "nvim-lua/plenary.nvim",

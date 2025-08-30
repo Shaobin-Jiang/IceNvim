@@ -104,28 +104,6 @@ utils.update = function()
     end)
 end
 
--- Looks for the last match of `pattern`
--- WARN: this function does poorly with unicode characters!
----@param s string | number
----@param pattern string | number
----@param last integer?
----@param plain boolean?
----@return integer | nil, integer | nil, ... | any
-string.findlast = function(s, pattern, last, plain)
-    local reverse = string.reverse(s)
-
-    if last == nil then
-        last = #s
-    end
-
-    local start, finish = string.find(reverse, string.reverse(pattern), #s + 1 - last, plain)
-    if start == nil then
-        return nil
-    else
-        return #s + 1 - finish, #s + 1 - start
-    end
-end
-
 -- Finds the first occurence of the target in table and returns the key / index.
 -- If the target is not in the table, nil is returned.
 ---@param t table

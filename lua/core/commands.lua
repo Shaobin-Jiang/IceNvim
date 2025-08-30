@@ -1,6 +1,16 @@
+local function config_window(win, buf)
+    vim.keymap.set("n", "q", "<C-w>c", { buffer = buf })
+    vim.api.nvim_set_option_value("number", false, { win = win })
+    vim.api.nvim_set_option_value("relativenumber", false, { win = win })
+    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
+    vim.api.nvim_set_option_value("signcolumn", "no", { win = win })
+    vim.api.nvim_set_option_value("cursorline", false, { win = win })
+    vim.api.nvim_set_option_value("colorcolumn", "", { win = win })
+    vim.api.nvim_set_option_value("fillchars", "eob: ", { win = win })
+end
+
 vim.api.nvim_create_user_command("IceAbout", function()
     local buf = vim.api.nvim_create_buf(false, true)
-    vim.keymap.set("n", "q", "<C-w>c", { buffer = buf })
 
     local win_width = vim.fn.winwidth(0)
     local win_height = vim.fn.winheight(0)
@@ -33,18 +43,11 @@ vim.api.nvim_create_user_command("IceAbout", function()
         footer_pos = "center",
     })
 
-    vim.api.nvim_set_option_value("number", false, { win = win })
-    vim.api.nvim_set_option_value("relativenumber", false, { win = win })
-    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-    vim.api.nvim_set_option_value("signcolumn", "no", { win = win })
-    vim.api.nvim_set_option_value("cursorline", false, { win = win })
-    vim.api.nvim_set_option_value("colorcolumn", "", { win = win })
-    vim.api.nvim_set_option_value("fillchars", "eob: ", { win = win })
+    config_window(win, buf)
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("IceCheckIcons", function()
     local buf = vim.api.nvim_create_buf(false, true)
-    vim.keymap.set("n", "q", "<C-w>c", { buffer = buf })
 
     local item_width = 24
     local item_name_width = 18
@@ -96,14 +99,8 @@ vim.api.nvim_create_user_command("IceCheckIcons", function()
         footer_pos = "center",
     })
 
-    vim.api.nvim_set_option_value("number", false, { win = win })
-    vim.api.nvim_set_option_value("relativenumber", false, { win = win })
+    config_window(win, buf)
     vim.api.nvim_set_option_value("wrap", false, { win = win })
-    vim.api.nvim_set_option_value("modifiable", false, { buf = buf })
-    vim.api.nvim_set_option_value("signcolumn", "no", { win = win })
-    vim.api.nvim_set_option_value("cursorline", false, { win = win })
-    vim.api.nvim_set_option_value("colorcolumn", "", { win = win })
-    vim.api.nvim_set_option_value("fillchars", "eob: ", { win = win })
 end, { nargs = 0 })
 
 vim.api.nvim_create_user_command("IceCheckPlugins", function()
@@ -138,7 +135,6 @@ vim.api.nvim_create_user_command("IceCheckPlugins", function()
             -- We have to wrap it with a `vim.schedule` call
             vim.schedule(function()
                 local report_buf = vim.api.nvim_create_buf(false, true)
-                vim.keymap.set("n", "q", "<C-w>c", { buffer = report_buf })
 
                 local win_width = vim.fn.winwidth(0)
                 local win_height = vim.fn.winheight(0)
@@ -169,13 +165,7 @@ vim.api.nvim_create_user_command("IceCheckPlugins", function()
                     title_pos = "center",
                 })
 
-                vim.api.nvim_set_option_value("number", false, { win = win })
-                vim.api.nvim_set_option_value("relativenumber", false, { win = win })
-                vim.api.nvim_set_option_value("modifiable", false, { buf = report_buf })
-                vim.api.nvim_set_option_value("signcolumn", "no", { win = win })
-                vim.api.nvim_set_option_value("cursorline", false, { win = win })
-                vim.api.nvim_set_option_value("colorcolumn", "", { win = win })
-                vim.api.nvim_set_option_value("fillchars", "eob: ", { win = win })
+                config_window(win, report_buf)
             end)
         end)
 

@@ -4,7 +4,7 @@ local config_path = vim.fn.stdpath "config"
 
 -- Yanking on windows / wsl
 local clip_path = vim.fs.joinpath(config_path, "bin/uclip.exe")
-if not require("core.utils").file_exists(clip_path) then
+if not vim.uv.fs_stat(clip_path) then
     local root
     if utils.is_windows then
         root = "C:"
@@ -30,7 +30,7 @@ end
 if utils.is_windows or utils.is_wsl then
     local im_select_path = vim.fs.joinpath(config_path, "bin/im-select.exe")
 
-    if require("core.utils").file_exists(im_select_path) then
+    if vim.uv.fs_stat(im_select_path) then
         local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 
         local function autocmd(event, code)

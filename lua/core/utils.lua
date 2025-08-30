@@ -16,17 +16,6 @@ local utils = {
 
 local ft_group = vim.api.nvim_create_augroup("IceFt", { clear = true })
 
--- Checks if a file exists
----@param file string
----@return boolean
-utils.file_exists = function(file)
-    if vim.uv.fs_stat(file) then
-        return true
-    else
-        return false
-    end
-end
-
 -- Add callback to filetype
 ---@param filetype string
 ---@param config function

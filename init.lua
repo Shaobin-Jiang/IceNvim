@@ -3,7 +3,6 @@ Ice = {}
 require "core.init"
 require "plugins.init"
 
--- Load user configuration files
 local config_root = vim.fn.stdpath "config"
 local custom_path = vim.fs.joinpath(config_root, "lua/custom")
 if not vim.api.nvim_get_runtime_file("lua/custom/", false)[1] then
@@ -14,7 +13,6 @@ if vim.uv.fs_stat(vim.fs.joinpath(custom_path, "init.lua")) then
     require "custom.init"
 end
 
--- Define keymap
 require("core.utils").group_map(Ice.keymap)
 
 for filetype, config in pairs(Ice.ft) do
@@ -23,7 +21,6 @@ end
 
 -- Only load plugins and colorscheme when --noplugin arg is not present
 if not require("core.utils").noplugin then
-    -- Load plugins
     require("lazy").setup(vim.tbl_values(Ice.plugins), Ice.lazy)
 
     vim.api.nvim_create_autocmd("User", {
@@ -43,8 +40,8 @@ if not require("core.utils").noplugin then
                 end
             end
 
-            -- Define colorscheme
             if not Ice.colorscheme then
+                Ice.colorscheme = "tokyonight"
                 local colorscheme_cache = vim.fs.joinpath(vim.fn.stdpath "data", "colorscheme")
                 if vim.uv.fs_stat(colorscheme_cache) then
                     local colorscheme_cache_file = io.open(colorscheme_cache, "r")
@@ -52,8 +49,6 @@ if not require("core.utils").noplugin then
                     local colorscheme = colorscheme_cache_file:read "*a"
                     colorscheme_cache_file:close()
                     Ice.colorscheme = colorscheme
-                else
-                    Ice.colorscheme = "tokyonight"
                 end
             end
 

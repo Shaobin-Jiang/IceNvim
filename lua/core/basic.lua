@@ -49,7 +49,6 @@ opt.whichwrap = "<,>,[,]"
 -- Allow hiding modified buffer
 opt.hidden = true
 
--- Add mouse support for all modes
 opt.mouse = "a"
 opt.mousemodel = "extend"
 
@@ -60,7 +59,6 @@ opt.swapfile = false
 -- Time to wait for a sequence of key combination
 opt.timeoutlen = 500
 
--- Split window from below and right
 opt.splitbelow = true
 opt.splitright = true
 

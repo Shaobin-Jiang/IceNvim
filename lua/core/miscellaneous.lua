@@ -26,13 +26,12 @@ else
     vim.cmd "set clipboard+=unnamedplus"
 end
 
--- IME switching on windows / wsl
+-- IME switching
+local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
 if utils.is_windows or utils.is_wsl then
     local im_select_path = vim.fs.joinpath(config_path, "bin/im-select.exe")
 
     if vim.uv.fs_stat(im_select_path) then
-        local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
-
         local function autocmd(event, code)
             vim.api.nvim_create_autocmd(event, {
                 group = ime_autogroup,
@@ -48,8 +47,6 @@ if utils.is_windows or utils.is_wsl then
     end
 elseif utils.is_mac then
     if vim.fn.executable "macism" == 1 then
-        local ime_autogroup = vim.api.nvim_create_augroup("ImeAutoGroup", { clear = true })
-
         vim.api.nvim_create_autocmd("InsertLeave", {
             group = ime_autogroup,
             callback = function()

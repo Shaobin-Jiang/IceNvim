@@ -20,7 +20,7 @@ M.check = function()
     vim.health.start "IceNvim Prerequisites"
     vim.health.info "IceNvim does not check this for you, but at least one [nerd font] should be installed."
 
-    for _, cmd in ipairs { "curl", "wget", "fd", "rg", "gcc", "cmake", "node", "npm", "yarn", "python3", "pip3" } do
+    for _, cmd in ipairs { "curl", "wget", "fd", "rg", "gcc", "cmake", "node", "npm", "yarn", "python3", "pip3", "tree-sitter" } do
         check(cmd)
     end
 

@@ -81,7 +81,6 @@ Ice.plugins.mason = {
             end
         end
 
-        local lspconfig = require "lspconfig"
         local mason_lspconfig_mapping = require("mason-lspconfig").get_mappings().package_to_lspconfig
 
         local installed_packages = registry.get_installed_package_names()
@@ -100,7 +99,7 @@ Ice.plugins.mason = {
             end
 
             lsp = mason_lspconfig_mapping[lsp]
-            if not config.managed_by_plugin and lspconfig[lsp] ~= nil then
+            if not config.managed_by_plugin and vim.lsp.config[lsp] ~= nil then
                 local setup = config.setup
                 if type(setup) == "function" then
                     setup = setup()

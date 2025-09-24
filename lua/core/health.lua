@@ -20,7 +20,20 @@ M.check = function()
     vim.health.start "IceNvim Prerequisites"
     vim.health.info "IceNvim does not check this for you, but at least one [nerd font] should be installed."
 
-    for _, cmd in ipairs { "curl", "wget", "fd", "rg", "gcc", "cmake", "node", "npm", "yarn", "python3", "pip3", "tree-sitter" } do
+    for _, cmd in ipairs {
+        "curl",
+        "wget",
+        "fd",
+        "rg",
+        "gcc",
+        "cmake",
+        "node",
+        "npm",
+        "yarn",
+        "python3",
+        "pip3",
+        "tree-sitter",
+    } do
         check(cmd)
     end
 
@@ -45,6 +58,12 @@ M.check = function()
 
     if require("core.utils").is_windows or require("core.utils").is_wsl then
         vim.health.start "IceNvim Optional Dependencies for Windows and WSL"
+
+        if require("core.utils").is_windows then
+            check("cl", function()
+                vim.health.error "You need msvc for treesitter to work properly. Specifically, you need cl.exe to be in your PATH."
+            end)
+        end
 
         check(vim.fs.joinpath(vim.fn.stdpath "config", "bin/im-select.exe"), function()
             vim.health.warn "You need im-select.exe to enable automatic IME switching for Chinese. Consider downloading it at https://github.com/daipeihust/im-select/raw/master/win/out/x86/im-select.exe"

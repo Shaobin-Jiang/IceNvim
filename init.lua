@@ -23,9 +23,13 @@ end
 if not require("core.utils").noplugin then
     require("lazy").setup(vim.tbl_values(Ice.plugins), Ice.lazy)
 
+    local pattern = "IceAfter transparent"
+    if Ice.plugins["nvim-transparent"].enabled == false then
+        pattern = "VeryLazy"
+    end
     vim.api.nvim_create_autocmd("User", {
         once = true,
-        pattern = "IceAfter transparent",
+        pattern = pattern,
         callback = function()
             local rtp_plugin_path = vim.fs.joinpath(vim.opt.packpath:get()[1], "plugin")
             local dir = vim.uv.fs_scandir(rtp_plugin_path)

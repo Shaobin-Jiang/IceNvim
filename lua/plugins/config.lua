@@ -858,6 +858,21 @@ config.winsep = {
     },
 }
 
+config.showkeys = {
+    "nvzone/showkeys",
+    cmd = "ShowkeysToggle",
+    event = "VeryLazy",
+    opts = {
+        timeout = 5,
+        maxkeys = 5,
+        show_count = true,
+        position = "bottom-center",
+    },
+    keys = {
+        { "<leader>uk", "<Cmd>ShowkeysToggle<CR>", desc = "toggle showkeys", silent = true },
+    },
+}
+
 -- Colorschemes
 config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }

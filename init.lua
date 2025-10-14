@@ -35,8 +35,8 @@ if not require("core.utils").noplugin then
             local dir = vim.uv.fs_scandir(rtp_plugin_path)
             if dir ~= nil then
                 while true do
-                    local plugin = vim.uv.fs_scandir_next(dir)
-                    if plugin == nil then
+                    local plugin, entry_type = vim.uv.fs_scandir_next(dir)
+                    if plugin == nil or entry_type == "directory" then
                         break
                     else
                         vim.cmd(string.format("source %s/%s", rtp_plugin_path, plugin))

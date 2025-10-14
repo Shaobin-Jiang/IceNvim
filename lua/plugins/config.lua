@@ -621,7 +621,7 @@ config["nvim-treesitter"] = {
             group = group,
             pattern = pattern,
             callback = function(ev)
-                local max_filesize = 100 * 1024
+                local max_filesize = 1024 * 1024
                 local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
                 if not (ok and stats and stats.size > max_filesize) then
                     vim.treesitter.start()

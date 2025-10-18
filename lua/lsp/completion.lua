@@ -58,7 +58,7 @@ Ice.plugins["blink-cmp"] = {
             local filesize_is_allowed = true
             if ok and stats then
                 ---@diagnostic disable-next-line: need-check-nil
-                filesize_is_allowed = stats.size < 100 * 1024
+                filesize_is_allowed = stats.size < (Ice.max_file_size or (1024 * 1024))
             end
             return filetype_is_allowed and filesize_is_allowed
         end,

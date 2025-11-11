@@ -85,6 +85,18 @@ config.avante = {
             },
         },
     },
+    config = function(_, opts)
+        require("avante").setup(opts)
+        local utils = require "avante.utils"
+        local old_icon = utils.icon
+        function utils.icon(string_with_icon, utf8_fallback)
+            if string_with_icon == "󱜸 " then
+                return string.format("󱜸 (%s) ", require("avante.config").get_provider_config("copilot").model)
+            else
+                return old_icon(string_with_icon, utf8_fallback)
+            end
+        end
+    end,
     dependencies = {
         "nvim-lua/plenary.nvim",
         "MunifTanjim/nui.nvim",

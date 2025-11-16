@@ -2,20 +2,29 @@
 -- See extra.lua
 Ice.plugins["null-ls"] = {
     "nvimtools/none-ls.nvim",
-    dependencies = { "nvim-lua/plenary.nvim" },
+    dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" },
     event = "User IceLoad",
     opts = {
         debug = false,
     },
     config = function(_, opts)
         local null_ls = require "null-ls"
-        local formatting = null_ls.builtins.formatting
+        local builtins = require("null-ls.builtins._meta.formatting")
 
         local sources = {}
         for _, config in pairs(Ice.lsp) do
-            if config.formatter then
-                local source = formatting[config.formatter]
-                sources[#sources + 1] = source
+            local formatter = config.formatter
+            if formatter then
+                local base
+                if builtins[formatter] ~= nil then
+                    base = "null-ls.builtins.formatting."
+                else
+                    base = "none-ls.formatting."
+                end
+                local source = require(base .. formatter)
+                if source then
+                    sources[#sources + 1] = source
+                end
             end
         end
 

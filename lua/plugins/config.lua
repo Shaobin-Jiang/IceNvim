@@ -461,6 +461,9 @@ config["nvim-transparent"] = {
             "NvimTreeNormalNC",
             "TelescopeNormal",
         },
+        exclude_groups = {
+            "CursorLine",
+        },
     },
     config = function(_, opts)
         local autogroup = vim.api.nvim_create_augroup("transparent", { clear = true })

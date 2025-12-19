@@ -29,6 +29,7 @@ Ice.plugins["null-ls"] = {
         end
 
         null_ls.setup(vim.tbl_deep_extend("keep", opts, { sources = sources }))
+        vim.lsp.config("null-ls", {})
     end,
     keys = {
         {

@@ -285,3 +285,16 @@ vim.api.nvim_create_user_command("IceView", function(args)
         ))
     end
 end, { nargs = "*", complete = "command" })
+
+-- Yank the output of a command
+vim.api.nvim_create_user_command("IceYank", function(args)
+    vim.cmd(string.format(
+        [[
+            redir @+>
+            silent %s
+            redir END
+            lua vim.notify("Content yanked to system clipboard")
+        ]],
+        args.args
+    ))
+end, { nargs = "+", complete = "command" })

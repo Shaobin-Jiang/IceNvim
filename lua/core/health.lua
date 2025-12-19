@@ -47,6 +47,10 @@ M.check = function()
         vim.health.warn "For best experience with rust development, you should install rust-analyzer."
     end)
 
+    check("tokei", function()
+        vim.health.warn "To enable code counting, you mightwant to install tokei."
+    end)
+
     if require("core.utils").is_linux then
         vim.health.start "IceNvim Prerequisites for Linux"
         vim.health.info "IceNvim does not check this for you, but you need a [python virtualenv]."

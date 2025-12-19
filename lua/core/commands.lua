@@ -219,6 +219,66 @@ vim.api.nvim_create_user_command("IceRepeat", function(args)
     end
 end, { nargs = "+", complete = "command" })
 
+-- Use tokei to count code lines in pwd
+vim.api.nvim_create_user_command("IceTokei", function()
+    if vim.fn.executable "tokei" == 0 then
+        vim.notify("Tokei is not installed!", vim.log.levels.WARN)
+        return
+    end
+
+    local pwd = require("core.utils").get_root()
+
+    local function callback()
+        if Ice.__tokei_result == nil then
+            vim.schedule(callback)
+            return
+        end
+
+        local out = Ice.__tokei_result
+        Ice.__tokei_result = nil
+        if out.code ~= 0 then
+            vim.notify("Tokei encountered an unexpected error: " .. out.stderr, vim.log.levels.WARN)
+            return
+        end
+
+        local content = vim.split(out.stdout, "\n")
+        local buf = vim.api.nvim_create_buf(false, true)
+
+        local win_width = vim.fn.winwidth(0)
+        local win_height = vim.fn.winheight(0)
+        local width = 80
+        local min_height = math.floor(win_height * 0.3)
+        local max_height = math.floor(win_height * 0.8)
+        local line_num = #content
+        local height = math.min(math.max(line_num, min_height), max_height)
+        local left = math.floor((win_width - width) / 2)
+        local top = math.floor((win_height - height) / 2)
+
+        vim.api.nvim_buf_set_lines(buf, 0, -1, false, content)
+
+        local win = vim.api.nvim_open_win(buf, true, {
+            relative = "win",
+            width = width,
+            height = height,
+            row = top,
+            col = left,
+            border = "rounded",
+            title = "Tokei " .. pwd,
+            title_pos = "center",
+            footer = "Press q to close window",
+            footer_pos = "center",
+        })
+
+        config_window(win, buf)
+    end
+
+    vim.system({ "tokei" }, { cwd = pwd, text = true }, function(out)
+        Ice.__tokei_result = out
+    end)
+
+    vim.schedule(callback)
+end, { nargs = 0 })
+
 -- View the output of a command in an external buffer
 vim.api.nvim_create_user_command("IceView", function(args)
     local path = vim.fs.joinpath(vim.fn.stdpath "data", "ice-view.txt")

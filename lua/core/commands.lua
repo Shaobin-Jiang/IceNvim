@@ -228,14 +228,7 @@ vim.api.nvim_create_user_command("IceTokei", function()
 
     local pwd = require("core.utils").get_root()
 
-    local function callback()
-        if Ice.__tokei_result == nil then
-            vim.schedule(callback)
-            return
-        end
-
-        local out = Ice.__tokei_result
-        Ice.__tokei_result = nil
+    require("core.utils").system({ "tokei" }, { cwd = pwd, text = true }, function(out)
         if out.code ~= 0 then
             vim.notify("Tokei encountered an unexpected error: " .. out.stderr, vim.log.levels.WARN)
             return
@@ -270,13 +263,7 @@ vim.api.nvim_create_user_command("IceTokei", function()
         })
 
         config_window(win, buf)
-    end
-
-    vim.system({ "tokei" }, { cwd = pwd, text = true }, function(out)
-        Ice.__tokei_result = out
     end)
-
-    vim.schedule(callback)
 end, { nargs = 0 })
 
 -- View the output of a command in an external buffer

@@ -93,6 +93,34 @@ utils.ordered_pair = function(t)
     end
 end
 
+-- Wrapper of the vim.system function that allows using api functions in callback
+---@param cmd string[]
+---@param opts vim.SystemOpts?
+---@param on_exit (fun(out: vim.SystemCompleted))?
+---@return vim.SystemObj
+utils.system = function(cmd, opts, on_exit)
+    if on_exit == nil then
+        return vim.system(cmd, opts)
+    end
+
+    local now = os.time()
+    local index =  "__Ice_system_" .. now .. "-" .. math.random(0, now)
+
+    local function callback ()
+        if Ice[index] ~= nil then
+            ---@diagnostic disable-next-line: param-type-mismatch
+            on_exit(Ice[index])
+            Ice[index] = nil
+        else
+            vim.schedule(callback)
+        end
+    end
+    vim.schedule(callback)
+    return vim.system(cmd, opts, function (out)
+        Ice[index] = out
+    end)
+end
+
 -- Finds the first occurence of the target in table and returns the key / index.
 -- If the target is not in the table, nil is returned.
 ---@param t table

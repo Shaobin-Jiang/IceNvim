@@ -53,7 +53,6 @@ config.avante = {
             return "make"
         end
     end,
-    event = "User IceLoad",
     version = false,
     opts = {
         provider = "copilot",
@@ -105,7 +104,10 @@ config.avante = {
         "zbirenbaum/copilot.lua",
         { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
     },
+    cmd = {"AvanteHistory", "AvanteModels"},
     keys = {
+        { "<leader>aa", ":AvanteAsk<CR>", desc = "avante: ask", silent = true},
+        { "<leader>at", ":AvanteToggle<CR>", desc = "avante: toggle", silent = true},
         { "<leader>awc", avante "selected_code", desc = "focus selected code", silent = true },
         { "<leader>awi", avante "input", desc = "focus input", silent = true },
         { "<leader>awa", avante "result", desc = "focus result", silent = true },

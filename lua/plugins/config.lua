@@ -686,12 +686,6 @@ config["nvim-treesitter"] = {
 config.surround = {
     "kylechui/nvim-surround",
     version = "*",
-    opts = {
-        keymaps = {
-            insert = "<C-c>s",
-            insert_line = "<C-c>S",
-        },
-    },
     event = "User IceLoad",
 }
 

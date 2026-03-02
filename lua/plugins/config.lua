@@ -191,16 +191,17 @@ config.colorizer = {
     main = "colorizer",
     event = "User IceLoad",
     opts = {
-        filetypes = {
-            "*",
-            css = {
-                names = true,
+        lazy_load = true,
+        options = {
+            parsers = {
+                css = true,
+                css_fn = true,
+                names = false,
             },
-        },
-        user_default_options = {
-            css = true,
-            css_fn = true,
-            names = false,
+            display = {
+                mode = "virtualtext",
+                virtualtext = { position = "after" },
+            },
             always_update = true,
         },
     },

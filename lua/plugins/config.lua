@@ -365,7 +365,7 @@ config.lualine = {
             theme = "auto",
             component_separators = { left = "", right = "" },
             section_separators = { left = "", right = "" },
-            disabled_filetypes = { "undotree", "diff" },
+            disabled_filetypes = { "nvim-undotree", "diff" },
         },
         extensions = { "nvim-tree" },
         sections = {
@@ -798,17 +798,6 @@ config.ufo = {
             end,
             desc = "Preview folded content",
         },
-    },
-}
-
-config.undotree = {
-    "mbbill/undotree",
-    config = function()
-        vim.g.undotree_WindowLayout = 2
-        vim.g.undotree_TreeNodeShape = "-"
-    end,
-    keys = {
-        { "<leader>uu", "<Cmd>UndotreeToggle<CR>", desc = "undo tree toggle", silent = true },
     },
 }
 

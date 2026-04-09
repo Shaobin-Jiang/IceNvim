@@ -136,6 +136,21 @@ local function undo()
     end
 end
 
+local function undotree_toggle()
+    local ok, undotree = pcall(require, "undotree")
+    if not ok then
+        vim.cmd "packadd nvim.undotree"
+        undotree = require "undotree"
+    end
+    if Ice.__UNDOTREE_BUFFER == nil then
+        undotree.open()
+        Ice.__UNDOTREE_BUFFER = vim.api.nvim_get_current_buf()
+    else
+        vim.api.nvim_buf_delete(Ice.__UNDOTREE_BUFFER, {})
+        Ice.__UNDOTREE_BUFFER = nil
+    end
+end
+
 -- Determine in advance what shell to use for the <C-t> keymap
 local terminal_command
 if not require("core.utils").is_windows then
@@ -181,6 +196,7 @@ Ice.keymap = {
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", save_file },
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },
+    undotree = { "n", "<leader>uu", undotree_toggle },
     visual_line = { "n", "V", "0v$" },
 }
 

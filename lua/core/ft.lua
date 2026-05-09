@@ -1,5 +1,5 @@
 Ice.ft = {
-    c = function ()
+    c = function()
         vim.bo.tabstop = 2
     end,
     cs = function()
@@ -24,14 +24,25 @@ Ice.ft = {
         vim.wo.colorcolumn = "120"
         vim.bo.commentstring = "// %s"
     end,
+    lua = function()
+        vim.wo.colorcolumn = "120"
+    end,
     markdown = function()
+        vim.wo.conceallevel = 2
         vim.wo.wrap = true
-        vim.wo.linebreak = true
-        vim.wo.breakindent = true
+        vim.wo.colorcolumn = "120"
+        vim.bo.shiftwidth = 2
+        vim.bo.softtabstop = 2
+        vim.bo.tabstop = 2
+        vim.bo.matchpairs = vim.bo.matchpairs .. ",“:”"
+        vim.wo.linebreak = false
     end,
     python = function()
         vim.bo.formatoptions = "tcqjor"
         vim.wo.colorcolumn = "88" -- specified by black
+
+        vim.cmd "compiler python"
+        vim.keymap.set("n", "<F9>", ":silent make | copen<CR>", { buffer = 0 })
     end,
     typescript = function()
         vim.wo.colorcolumn = "120"
@@ -44,6 +55,9 @@ Ice.ft = {
         vim.wo.breakindent = true
         vim.bo.tabstop = 2
         vim.bo.commentstring = "// %s"
+    end,
+    zsh = function()
+        vim.treesitter.start(0, "bash")
     end,
     -- Convenience method for setting FileType callback
     -- Extends default callback if already set

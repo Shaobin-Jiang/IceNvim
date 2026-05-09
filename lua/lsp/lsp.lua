@@ -37,6 +37,20 @@ lsp = {
             filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
         },
     },
+    -- This needs the `emmylua_ls` command
+    --
+    -- Installation:
+    -- cargo install emmylua_ls
+    -- adding `~/.cargo/bin` to $PATH
+    --
+    -- Config resides in ~/.config/nvim/.emmyrc.json
+    -- Reference: https://www.reddit.com/r/neovim/comments/1mdtr4g/emmylua_ls_is_supersnappy/
+    --
+    -- Probably needs to: git clone https://github.com/LuaCATS/luv
+    emmylua_ls = {
+        formatter = "stylua",
+        setup = {},
+    },
     flutter = {
         managed_by_plugin = true,
     },

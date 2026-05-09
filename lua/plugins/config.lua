@@ -142,6 +142,9 @@ config.bufferline = {
                 end
                 return s
             end,
+            custom_filter = function(buf, _)
+                return vim.api.nvim_get_option_value("buftype", { buf = buf }) ~= "quickfix"
+            end,
         },
     },
     config = function(_, opts)

@@ -427,6 +427,9 @@ config.neogit = {
         Ice.ft.NeogitCommitMessage = function()
             vim.api.nvim_win_set_cursor(0, { 1, 0 })
         end
+        Ice.ft["Neogit*"] = function()
+            vim.wo.colorcolumn = ""
+        end
     end,
 }
 

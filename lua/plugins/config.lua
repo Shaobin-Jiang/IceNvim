@@ -831,6 +831,7 @@ config["which-key"] = {
             { "<leader>g", group = "+git" },
             { "<leader>h", group = "+hop" },
             { "<leader>l", group = "+lsp" },
+            { "<leader>q", group = "+quickfix" },
             { "<leader>t", group = "+telescope" },
             { "<leader>u", group = "+utils" },
         },

@@ -193,6 +193,12 @@ Ice.keymap = {
 
     open_html_file = { "n", "<A-b>", open_html_file },
     open_terminal = { "n", "<C-t>", terminal_command },
+
+    quickfix_next = { "n", "<leader>qn", ":cnext<CR>" },
+    quickfix_prev = { "n", "<leader>qp", ":cprevious<CR>" },
+    quickfix_open = { "n", "<leader>qo", ":copen<CR>" },
+    quickfix_close = { "n", "<leader>qc", ":cclose<CR>" },
+
     normal_mode_in_terminal = { "t", "<Esc>", "<C-\\><C-n>" },
     save_file = { { "n", "i", "v" }, "<C-s>", save_file },
     undo = { { "n", "i", "v", "t", "c" }, "<C-z>", undo },

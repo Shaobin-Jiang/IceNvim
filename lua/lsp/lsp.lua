@@ -111,6 +111,10 @@ lsp = {
     rust = {
         managed_by_plugin = true,
     },
+    texlab = {
+        formatter = "tex_fmt",
+        setup = {},
+    },
     tinymist = {
         -- Does not need a formatter as it is included in tinymist
         setup = {

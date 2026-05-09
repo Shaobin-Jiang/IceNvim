@@ -44,6 +44,9 @@ Ice.ft = {
         vim.cmd "compiler python"
         vim.keymap.set("n", "<F9>", ":silent make | copen<CR>", { buffer = 0 })
     end,
+    tex = function()
+        vim.wo.wrap = true
+    end,
     typescript = function()
         vim.wo.colorcolumn = "120"
         vim.bo.commentstring = "// %s"

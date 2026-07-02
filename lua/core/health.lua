@@ -43,10 +43,6 @@ M.check = function()
         vim.health.error "You must install one of gzip or 7zip."
     end
 
-    check("rust-analyzer", function()
-        vim.health.warn "For best experience with rust development, you should install rust-analyzer."
-    end)
-
     check("tokei", function()
         vim.health.warn "To enable code counting, you mightwant to install tokei."
     end)
@@ -84,6 +80,65 @@ M.check = function()
         check("macism", function()
             vim.health.warn "You need macism to enable automatic IME switching for Chinese. Please refer to the wiki for instruction on how to install it."
         end)
+    end
+
+    vim.health.start "IceNvim Lsp Support"
+
+    if Ice.lsp.rust.enabled == true then
+        vim.health.info "Rust"
+        check("rust-analyzer", function()
+            vim.health.error "You have rust support enabled, which requires rust-analyzer."
+        end)
+        vim.health.info "----------------------------------------"
+    end
+
+    if Ice.lsp.emmylua_ls.enabled == true then
+        vim.health.info "Emmylua"
+        check("emmylua_ls", function()
+            vim.health.error "You have emmylua_ls support enabled, which requires emmylua_ls."
+        end)
+
+        local has_luv, _ = pcall(require, "luv")
+        if not has_luv then
+            vim.health.warn "For best experience with emmylua, you should add luv to your runtimepath."
+        end
+
+        if Ice.lsp["lua-language-server"].enabled == true then
+            vim.health.warn "You have lua-language-server and emmylua_ls both enabled."
+        end
+    end
+
+    vim.health.start "IceNvim Icons"
+
+    vim.health.info "Take a look at whether the icons below render properly."
+    vim.health.info "If they do not display properly, you probably need to have a NERD FONT installed."
+    
+    local item_width = 20
+    local item_name_width = 15
+    local win_width = vim.fn.winwidth(0)
+    local columns = math.floor(win_width / item_width) - 1
+
+    local items_in_row = 0
+    local line = ""
+    local item_number = 0
+    for name, icon in require("core.utils").ordered_pair(Ice.symbols) do
+        item_number = item_number + 1
+        line = string.format(
+            "%s%s%s%s%s",
+            line,
+            name,
+            string.rep(" ", item_name_width - #name),
+            icon,
+            string.rep(" ", item_width - item_name_width - vim.fn.strdisplaywidth(icon))
+        )
+
+        items_in_row = items_in_row + 1
+
+        if items_in_row == columns then
+            vim.health.info(line)
+            items_in_row = 0
+            line = ""
+        end
     end
 end
 

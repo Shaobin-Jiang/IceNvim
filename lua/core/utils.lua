@@ -14,6 +14,32 @@ local utils = {
     version = version,
 }
 
+-- Deletes buffer with a confirmation
+---@param bufnr integer
+---@return boolean buf_is_deleted whether the buffer is actually removed
+utils.bdelete = function(bufnr)
+    local buf_is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
+
+    local bdelete_arg
+    if bufnr == 0 then
+        bdelete_arg = ""
+    else
+        bdelete_arg = " " .. bufnr
+    end
+    local command = "bdelete!" .. bdelete_arg
+    if buf_is_modified then
+        local option = vim.fn.confirm("File is not saved. Close anyway?", "&Yes\n&No", 2)
+        if option == 1 then
+            vim.cmd(command)
+        else
+            return false
+        end
+    else
+        vim.cmd(command)
+    end
+    return true
+end
+
 local ft_group = vim.api.nvim_create_augroup("IceFt", { clear = true })
 
 -- Add callback to filetype
@@ -104,9 +130,9 @@ utils.system = function(cmd, opts, on_exit)
     end
 
     local now = os.time()
-    local index =  "__Ice_system_" .. now .. "-" .. math.random(0, now)
+    local index = "__Ice_system_" .. now .. "-" .. math.random(0, now)
 
-    local function callback ()
+    local function callback()
         if Ice[index] ~= nil then
             ---@diagnostic disable-next-line: param-type-mismatch
             on_exit(Ice[index])
@@ -116,7 +142,7 @@ utils.system = function(cmd, opts, on_exit)
         end
     end
     vim.schedule(callback)
-    return vim.system(cmd, opts, function (out)
+    return vim.system(cmd, opts, function(out)
         Ice[index] = out
     end)
 end

@@ -71,10 +71,9 @@ opt.shortmess = vim.o.shortmess .. "s"
 -- This affects both neovim's native completion and that of nvim-cmp
 opt.pumheight = 16
 
--- Always show tab line
--- Otherwise, when bufferline is loaded, it will "flash" a bit initially
-opt.showtabline = 2
-opt.tabline = "%!''"
+-- Never show tabline, even if there are multiple tabs
+-- Because bufferline is removed and the default tabline is hedious
+opt.showtabline = 0
 
 opt.showmode = false
 

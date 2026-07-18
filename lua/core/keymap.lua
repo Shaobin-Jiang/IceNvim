@@ -168,6 +168,8 @@ end
 Ice.keymap = {
     -- See `:h quote_`
     black_hole_register = { { "n", "v" }, "\\", '"_' },
+    buffer_next = { "n", "<leader>bl", "<Cmd>bnext<CR>" },
+    buffer_prev = { "n", "<leader>bh", "<Cmd>bprevious<CR>" },
     clear_cmd_line = { { "n", "i", "v", "t" }, "<C-g>", "<Cmd>mode<CR>" },
     cmd_forward = { "c", "<C-f>", "<Right>", { silent = false } },
     cmd_backward = { "c", "<C-b>", "<Left>", { silent = false } },

@@ -116,79 +116,6 @@ config.avante = {
     },
 }
 
-config.bufferline = {
-    "akinsho/bufferline.nvim",
-    dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "User IceLoad",
-    opts = {
-        options = {
-            close_command = ":BufferLineClose %d",
-            right_mouse_command = ":BufferLineClose %d",
-            separator_style = "thin",
-            offsets = {
-                {
-                    filetype = "NvimTree",
-                    text = "File Explorer",
-                    highlight = "Directory",
-                    text_align = "left",
-                },
-            },
-            diagnostics = "nvim_lsp",
-            diagnostics_indicator = function(_, _, diagnostics_dict, _)
-                local s = " "
-                for e, n in pairs(diagnostics_dict) do
-                    local sym = e == "error" and symbols.Error or (e == "warning" and symbols.Warn or symbols.Info)
-                    s = s .. n .. sym
-                end
-                return s
-            end,
-            custom_filter = function(buf, _)
-                return vim.api.nvim_get_option_value("buftype", { buf = buf }) ~= "quickfix"
-            end,
-        },
-    },
-    config = function(_, opts)
-        vim.api.nvim_create_user_command("BufferLineClose", function(buffer_line_opts)
-            local bufnr = 1 * buffer_line_opts.args
-            local buf_is_modified = vim.api.nvim_get_option_value("modified", { buf = bufnr })
-
-            local bdelete_arg
-            if bufnr == 0 then
-                bdelete_arg = ""
-            else
-                bdelete_arg = " " .. bufnr
-            end
-            local command = "bdelete!" .. bdelete_arg
-            if buf_is_modified then
-                local option = vim.fn.confirm("File is not saved. Close anyway?", "&Yes\n&No", 2)
-                if option == 1 then
-                    vim.cmd(command)
-                end
-            else
-                vim.cmd(command)
-            end
-        end, { nargs = 1 })
-
-        require("bufferline").setup(opts)
-
-        require("nvim-web-devicons").setup {
-            override = {
-                typ = { icon = "", color = "#239dad", name = "typst" },
-            },
-        }
-    end,
-    keys = {
-        { "<leader>bc", "<Cmd>BufferLinePickClose<CR>", desc = "pick close", silent = true },
-        { "<leader>bd", "<Cmd>BufferLineClose 0<CR>", desc = "close current buffer", silent = true },
-        { "<leader>bh", "<Cmd>BufferLineCyclePrev<CR>", desc = "prev buffer", silent = true },
-        { "<leader>bl", "<Cmd>BufferLineCycleNext<CR>", desc = "next buffer", silent = true },
-        { "<leader>bo", "<Cmd>BufferLineCloseOthers<CR>", desc = "close others", silent = true },
-        { "<leader>bp", "<Cmd>BufferLinePick<CR>", desc = "pick buffer", silent = true },
-        { "<leader>bm", "<Cmd>IceRepeat BufferLineMoveNext<CR>", desc = "move right", silent = true },
-        { "<leader>bM", "<Cmd>IceRepeat BufferLineMovePrev<CR>", desc = "move left", silent = true },
-    },
-}
-
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
@@ -312,7 +239,6 @@ config.gitsigns = {
 config["grug-far"] = {
     "MagicDuck/grug-far.nvim",
     opts = {
-        disableBufferLineNumbers = true,
         startInInsertMode = true,
         windowCreationCommand = "tabnew %",
     },
@@ -373,15 +299,10 @@ config.lualine = {
         extensions = { "nvim-tree" },
         sections = {
             lualine_b = { "branch", "diff" },
-            lualine_c = {
-                "filename",
-            },
+            lualine_c = { { "filename", symbols = { modified = "[●]" } }, { "diagnostics", update_in_insert = true } },
             lualine_x = {
                 "filesize",
-                {
-                    "fileformat",
-                    symbols = { unix = symbols.Unix, dos = symbols.Dos, mac = symbols.Mac },
-                },
+                { "fileformat", symbols = { unix = symbols.Unix, dos = symbols.Dos, mac = symbols.Mac } },
                 "encoding",
                 "filetype",
             },
@@ -726,8 +647,28 @@ config.telescope = {
             },
         },
         pickers = {
-            find_files = {
-                winblend = 20,
+            buffers = {
+                mappings = {
+                    i = {
+                        ["<M-d>"] = function(...)
+                            local actions = require "telescope.actions"
+
+                            local old_buf_delete = vim.api.nvim_buf_delete
+                            vim.api.nvim_buf_delete = function(bufnr)
+                                local result = require("core.utils").bdelete(bufnr)
+                                vim.api.nvim_buf_delete = old_buf_delete
+                                if not result then
+                                    -- Telescope delete_buffer decides whether to remove the entry in the picker based
+                                    -- on whether the `nvim_buf_delete` call is successful.
+                                    error "Buffer not deleted"
+                                end
+                            end
+
+                            actions.delete_buffer(...)
+                            actions.move_to_top(...)
+                        end,
+                    },
+                },
             },
         },
         extensions = {
@@ -749,6 +690,7 @@ config.telescope = {
         { "<leader>t<C-f>", "<Cmd>Telescope live_grep<CR>", desc = "live grep", silent = true },
         { "<C-k><C-t>", require("plugins.utils").select_colorscheme, desc = "select colorscheme" },
         { "<leader>uc", require("plugins.utils").view_configuration, desc = "view configuration" },
+        { "<leader>bi", "<Cmd>Telescope buffers<CR>", desc = "manage buffers" },
     },
 }
 

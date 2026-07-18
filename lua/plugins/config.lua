@@ -665,7 +665,6 @@ config.telescope = {
                             end
 
                             actions.delete_buffer(...)
-                            actions.move_to_top(...)
                         end,
                     },
                 },

@@ -299,7 +299,10 @@ config.lualine = {
         extensions = { "nvim-tree" },
         sections = {
             lualine_b = { "branch", "diff" },
-            lualine_c = { { "filename", symbols = { modified = "[●]" } }, { "diagnostics", update_in_insert = true } },
+            lualine_c = {
+                { "filename", symbols = { modified = "%#WarningMsg#●" } },
+                { "diagnostics", update_in_insert = true },
+            },
             lualine_x = {
                 "filesize",
                 { "fileformat", symbols = { unix = symbols.Unix, dos = symbols.Dos, mac = symbols.Mac } },

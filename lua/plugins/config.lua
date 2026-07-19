@@ -816,5 +816,6 @@ config["miasma"] = { "xero/miasma.nvim", lazy = true }
 config["monet"] = { "fynnfluegge/monet.nvim", lazy = true }
 config["nightfox"] = { "EdenEast/nightfox.nvim", lazy = true }
 config["tokyonight"] = { "folke/tokyonight.nvim", lazy = true }
+config["vague"] = { "vague-theme/vague.nvim", lazy = true }
 
 Ice.plugins = config

@@ -119,4 +119,9 @@ Ice.colorschemes = {
             },
         },
     },
+    vague = {
+        name = "vague",
+        transparent = true,
+        background = "dark",
+    },
 }

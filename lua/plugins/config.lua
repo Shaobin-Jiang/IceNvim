@@ -514,8 +514,8 @@ config["nvim-tree"] = {
         view = {
             width = 30,
             side = "left",
-            number = false,
-            relativenumber = false,
+            number = true,
+            relativenumber = true,
             signcolumn = "yes",
         },
         actions = {

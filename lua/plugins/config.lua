@@ -398,14 +398,23 @@ config["nvim-transparent"] = {
             "CursorLine",
         },
     },
+    init = function()
+        Ice.__TRANSPARET_AUGROUP = vim.api.nvim_create_augroup("transparent", { clear = true })
+        Ice.__FORCE_TRANSPARENT_AUTOCMD = vim.api.nvim_create_autocmd("ColorScheme", {
+            group = Ice.__TRANSPARET_AUGROUP,
+            callback = function()
+                vim.api.nvim_set_hl(0, "Normal", {fg = vim.api.nvim_get_hl(0, {name = "Normal"}).fg})
+            end
+        })
+    end,
     config = function(_, opts)
-        local autogroup = vim.api.nvim_create_augroup("transparent", { clear = true })
+        vim.api.nvim_del_autocmd(Ice.__FORCE_TRANSPARENT_AUTOCMD)
         vim.api.nvim_create_autocmd("ColorScheme", {
-            group = autogroup,
+            group = Ice.__TRANSPARET_AUGROUP,
             callback = function()
                 local normal_hl = vim.api.nvim_get_hl(0, { name = "Normal" })
                 local foreground = string.format("#%06x", normal_hl.fg)
-                local background = string.format("#%06x", normal_hl.bg)
+                local background = string.format("#%06x", normal_hl.bg or 0)
                 vim.cmd("highlight default IceNormal guifg=" .. foreground .. " guibg=" .. background)
 
                 require("transparent").clear()

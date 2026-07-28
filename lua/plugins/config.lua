@@ -403,8 +403,8 @@ config["nvim-transparent"] = {
         Ice.__FORCE_TRANSPARENT_AUTOCMD = vim.api.nvim_create_autocmd("ColorScheme", {
             group = Ice.__TRANSPARET_AUGROUP,
             callback = function()
-                vim.api.nvim_set_hl(0, "Normal", {fg = vim.api.nvim_get_hl(0, {name = "Normal"}).fg})
-            end
+                vim.api.nvim_set_hl(0, "Normal", { fg = vim.api.nvim_get_hl(0, { name = "Normal" }).fg })
+            end,
         })
     end,
     config = function(_, opts)
@@ -678,6 +678,36 @@ config.telescope = {
 
                             actions.delete_buffer(...)
                         end,
+                        ["<M-v>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "buffers", "vsplit | buffer")
+                        end,
+                        ["<M-s>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "buffers", "split | buffer")
+                        end,
+                    },
+                },
+            },
+            live_grep = {
+                mappings = {
+                    i = {
+                        ["<M-v>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "live_grep", "vsplit")
+                        end,
+                        ["<M-s>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "live_grep", "split")
+                        end,
+                    },
+                },
+            },
+            find_files = {
+                mappings = {
+                    i = {
+                        ["<M-v>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "find_files", "vsplit")
+                        end,
+                        ["<M-s>"] = function(bufnr)
+                            Ice._telescope_split(bufnr, "find_files", "split")
+                        end,
                     },
                 },
             },
@@ -693,6 +723,29 @@ config.telescope = {
     },
     config = function(_, opts)
         local telescope = require "telescope"
+
+        Ice._telescope_split = function(prompt_bufnr, prompt_buf_type, split_cmd)
+            local selection = require("telescope.actions.state").get_selected_entry()
+            local target = ""
+            if selection ~= nil then
+                if prompt_buf_type == "buffers" then
+                    -- Do not use path because the buffer might not be written as a file yet
+                    target = selection.bufnr
+                end
+                if prompt_buf_type == "live_grep" then
+                    target = selection.cwd .. "/" .. selection.filename
+                end
+                if prompt_buf_type == "find_files" then
+                    target = selection.cwd .. "/" .. selection[1]
+                end
+            end
+            target = string.gsub(target, " ", "\\ ")
+            require("telescope.actions").close(prompt_bufnr)
+            if target ~= "" then
+                vim.cmd(split_cmd .. " " .. target)
+            end
+        end
+
         telescope.setup(opts)
         telescope.load_extension "fzf"
     end,

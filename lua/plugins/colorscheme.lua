@@ -8,6 +8,14 @@ Ice.colorschemes = {
             variant = "dark",
         },
     },
+    ["cyberdream-muted"] = {
+        name = "cyberdream",
+        background = "dark",
+        transparent = true,
+        setup = {
+            variant = "muted",
+        },
+    },
     ["cyberdream-light"] = {
         name = "cyberdream",
         background = "light",

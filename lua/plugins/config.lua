@@ -727,13 +727,18 @@ config.telescope = {
         Ice._telescope_split = function(prompt_bufnr, prompt_buf_type, split_cmd)
             local selection = require("telescope.actions.state").get_selected_entry()
             local target = ""
+            local lnum = 1
+            local col = 0
             if selection ~= nil then
                 if prompt_buf_type == "buffers" then
                     -- Do not use path because the buffer might not be written as a file yet
                     target = selection.bufnr
+                    lnum = selection.lnum
                 end
                 if prompt_buf_type == "live_grep" then
                     target = selection.cwd .. "/" .. selection.filename
+                    lnum = selection.lnum
+                    col = selection.col
                 end
                 if prompt_buf_type == "find_files" then
                     target = selection.cwd .. "/" .. selection[1]
@@ -743,6 +748,7 @@ config.telescope = {
             require("telescope.actions").close(prompt_bufnr)
             if target ~= "" then
                 vim.cmd(split_cmd .. " " .. target)
+                vim.api.nvim_win_set_cursor(0, {lnum, col})
             end
         end
 

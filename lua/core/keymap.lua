@@ -176,6 +176,20 @@ Ice.keymap = {
             require("core.utils").bdelete(0)
         end,
     },
+    buffer_delete_others = {
+        "n",
+        "<leader>bo",
+        function()
+            local all_buffers = vim.fn.getbufinfo()
+            ---@diagnostic disable-next-line: need-check-nil
+            local current_buffer = vim.fn.bufnr()
+            for _, buffer in ipairs(all_buffers) do
+                if buffer.listed == 1 and buffer.bufnr ~= current_buffer then
+                    require("core.utils").bdelete(buffer.bufnr)
+                end
+            end
+        end
+    },
     buffer_next = { "n", "<leader>bl", "<Cmd>bnext<CR>" },
     buffer_prev = { "n", "<leader>bh", "<Cmd>bprevious<CR>" },
 

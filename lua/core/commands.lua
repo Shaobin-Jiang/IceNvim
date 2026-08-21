@@ -241,3 +241,8 @@ vim.api.nvim_create_user_command("IceYank", function(args)
         args.args
     ))
 end, { nargs = "+", complete = "command" })
+
+-- Replacement for the old `LspInfo` command that is dropped in 0.12
+vim.api.nvim_create_user_command("LspInfo", function()
+    vim.cmd "checkhealth vim.lsp"
+end, { nargs = 0 })

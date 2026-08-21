@@ -188,7 +188,7 @@ Ice.keymap = {
                     require("core.utils").bdelete(buffer.bufnr)
                 end
             end
-        end
+        end,
     },
     buffer_next = { "n", "<leader>bl", "<Cmd>bnext<CR>" },
     buffer_prev = { "n", "<leader>bh", "<Cmd>bprevious<CR>" },

@@ -121,6 +121,7 @@ Ice.colorschemes = {
         background = "dark",
         setup = {
             style = "moon",
+            transparent = true,
             styles = {
                 comments = { italic = true },
                 keywords = { italic = false },

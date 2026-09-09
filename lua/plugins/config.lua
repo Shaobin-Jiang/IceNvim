@@ -881,6 +881,7 @@ config.winsep = {
 
 -- Colorschemes
 config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
+config["everforest"] = { "sainnhe/everforest", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
 config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
 config["miasma"] = { "xero/miasma.nvim", lazy = true }

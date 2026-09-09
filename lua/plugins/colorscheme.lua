@@ -23,6 +23,20 @@ Ice.colorschemes = {
             variant = "light",
         },
     },
+    ["everforest-dark 👀💚"] = {
+        name = "everforest",
+        background = "dark",
+        setup = function()
+            vim.g.everforest_background = "soft"
+        end,
+    },
+    ["everforest-light 👀💚"] = {
+        name = "everforest",
+        background = "light",
+        setup = function()
+            vim.g.everforest_background = "soft"
+        end,
+    },
     ["gruvbox-dark"] = {
         name = "gruvbox",
         transparent = true,

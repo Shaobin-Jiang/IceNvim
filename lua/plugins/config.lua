@@ -748,7 +748,7 @@ config.telescope = {
             require("telescope.actions").close(prompt_bufnr)
             if target ~= "" then
                 vim.cmd(split_cmd .. " " .. target)
-                vim.api.nvim_win_set_cursor(0, {lnum, col})
+                vim.api.nvim_win_set_cursor(0, { lnum, col })
             end
         end
 

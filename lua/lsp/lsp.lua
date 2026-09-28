@@ -121,6 +121,33 @@ lsp = {
     },
     pyright = {
         formatter = "black",
+        setup = {
+            settings = {
+                pyright = { disableTaggedHints = false },
+            },
+            on_attach = function(client, bufnr)
+                local candidates = { require("core.utils").get_root() }
+                local level = 0
+                for dir in vim.fs.parents(vim.api.nvim_buf_get_name(bufnr)) do
+                    candidates[#candidates + 1] = dir
+                    level = level + 1
+                    if level >= 3 then
+                        break
+                    end
+                end
+                for _, candidate in ipairs(candidates) do
+                    local python = vim.fs.joinpath(candidate, ".venv", "bin", "python3")
+                    if vim.uv.fs_stat(python) then
+                        client.settings.python = vim.tbl_deep_extend(
+                            "force",
+                            client.settings.python --[[@as table]],
+                            { pythonPath = python }
+                        )
+                        break
+                    end
+                end
+            end,
+        },
     },
     rust = {
         managed_by_plugin = true,

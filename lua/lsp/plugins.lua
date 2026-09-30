@@ -5,7 +5,6 @@ Ice.plugins["flutter-tools"] = {
     ft = "dart",
     dependencies = {
         "nvim-lua/plenary.nvim",
-        "stevearc/dressing.nvim",
     },
     main = "flutter-tools",
     opts = {

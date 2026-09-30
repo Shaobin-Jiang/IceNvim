@@ -360,11 +360,6 @@ config.neogit = {
     end,
 }
 
-config.nui = {
-    "MunifTanjim/nui.nvim",
-    lazy = true,
-}
-
 config["nvim-autopairs"] = {
     "windwp/nvim-autopairs",
     event = "InsertEnter",

@@ -33,89 +33,6 @@ vim.api.nvim_create_autocmd("User", {
     end,
 })
 
-local function avante(win)
-    return function()
-        local candidate = require("avante").current.sidebar.containers[win]
-        if win then
-            local win_id = candidate.winid
-            vim.api.nvim_set_current_win(win_id)
-        end
-    end
-end
-
-config.avante = {
-    "yetone/avante.nvim",
-    enabled = false,
-    build = function()
-        if require("core.utils").is_windows then
-            return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-        else
-            return "make"
-        end
-    end,
-    version = false,
-    opts = {
-        provider = "copilot",
-        providers = {
-            copilot = {
-                model = "gpt-5 mini",
-                extra_request_body = {
-                    temperature = 0.75,
-                    max_tokens = 20480,
-                },
-            },
-        },
-        mappings = {
-            confirm = {
-                focus_window = "<leader>awf",
-            },
-        },
-        windows = {
-            width = 40,
-            sidebar_header = {
-                align = "left",
-                rounded = false,
-            },
-            input = {
-                height = 16,
-            },
-            ask = {
-                start_insert = false,
-            },
-        },
-    },
-    config = function(_, opts)
-        require("avante").setup(opts)
-        local utils = require "avante.utils"
-        local old_icon = utils.icon
-        function utils.icon(string_with_icon, utf8_fallback)
-            if string_with_icon == "󱜸 " then
-                return string.format("󱜸 (%s) ", require("avante.config").get_provider_config("copilot").model)
-            else
-                return old_icon(string_with_icon, utf8_fallback)
-            end
-        end
-    end,
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        "nvim-telescope/telescope.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "zbirenbaum/copilot.lua",
-        { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
-    },
-    cmd = { "AvanteHistory", "AvanteModels" },
-    keys = {
-        { "<leader>aa", ":AvanteAsk<CR>", desc = "avante: ask", silent = true },
-        { "<leader>at", ":AvanteToggle<CR>", desc = "avante: toggle", silent = true },
-        { "<leader>awc", avante "selected_code", desc = "focus selected code", silent = true },
-        { "<leader>awi", avante "input", desc = "focus input", silent = true },
-        { "<leader>awa", avante "result", desc = "focus result", silent = true },
-        { "<leader>aws", avante "selected_files", desc = "focus selected files", silent = true },
-        { "<leader>awt", avante "todos", desc = "focus todo", silent = true },
-    },
-}
-
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
@@ -542,7 +459,6 @@ config["nvim-treesitter"] = {
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
     event = "User IceAfter colorscheme",
-    branch = "main",
     opts = {
         -- Preserved for compatibility concerns
         -- stylua: ignore start
@@ -839,7 +755,6 @@ config["which-key"] = {
             },
         },
         spec = {
-            { "<leader>a", group = "+avante" },
             { "<leader>b", group = "+buffer" },
             { "<leader>c", group = "+comment" },
             { "<leader>g", group = "+git" },

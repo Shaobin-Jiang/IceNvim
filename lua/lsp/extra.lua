@@ -40,6 +40,22 @@ Ice.plugins.lspsaga = {
         { "<leader>lP", "<Cmd>Lspsaga show_line_diagnostics<CR>", desc = "show_line_diagnostic", silent = true },
         { "<leader>ln", "<Cmd>Lspsaga diagnostic_jump_next<CR>", desc = "next_diagnostic", silent = true },
         { "<leader>lp", "<Cmd>Lspsaga diagnostic_jump_prev<CR>", desc = "prev_diagnostic", silent = true },
+        {
+            "<leader>le",
+            function()
+                require("lspsaga.diagnostic"):goto_next { severity = vim.diagnostic.severity.ERROR }
+            end,
+            desc = "next_error",
+            silent = true,
+        },
+        {
+            "<leader>lE",
+            function()
+                require("lspsaga.diagnostic"):goto_prev { severity = vim.diagnostic.severity.ERROR }
+            end,
+            desc = "next_error",
+            silent = true,
+        },
     },
 }
 

@@ -7,7 +7,7 @@ local config_root = vim.fn.stdpath "config"
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
-    event = "User IceLoad",
+    event = "IceLoad",
     opts = {
         lazy_load = true,
         options = {
@@ -31,7 +31,7 @@ config.colorizer = {
 
 config.dashboard = {
     "nvimdev/dashboard-nvim",
-    event = "User IceAfter colorscheme",
+    event = "IceAfter colorscheme",
     opts = {
         theme = "doom",
         config = {
@@ -108,7 +108,7 @@ config.fidget = {
 
 config.gitsigns = {
     "lewis6991/gitsigns.nvim",
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "gitsigns",
     opts = {},
     keys = {
@@ -151,7 +151,7 @@ config.hop = {
 
 config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
-    event = "User IceAfter nvim-treesitter",
+    event = "IceAfter nvim-treesitter",
     main = "ibl",
     opts = {
         exclude = {
@@ -175,7 +175,7 @@ config["indent-blankline"] = {
 config.lualine = {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "lualine",
     opts = {
         options = {
@@ -257,7 +257,7 @@ config["nvim-autopairs"] = {
 
 config["nvim-scrollview"] = {
     "dstein64/nvim-scrollview",
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "scrollview",
     opts = {
         excluded_filetypes = { "nvimtree" },
@@ -428,7 +428,7 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    event = "User IceAfter colorscheme",
+    event = "IceAfter colorscheme",
     opts = {
         -- Preserved for compatibility concerns
         -- stylua: ignore start
@@ -506,7 +506,7 @@ config["nvim-treesitter"] = {
 
 config.surround = {
     "kylechui/nvim-surround",
-    event = "User IceLoad",
+    event = "IceLoad",
 }
 
 config.telescope = {
@@ -646,7 +646,7 @@ config.telescope = {
 config["todo-comments"] = {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "todo-comments",
     opts = {},
     keys = {
@@ -745,7 +745,7 @@ config["which-key"] = {
 
 config.winsep = {
     "nvim-zh/colorful-winsep.nvim",
-    event = "User IceAfter colorscheme",
+    event = "IceAfter colorscheme",
     opts = {
         border = "single",
         highlight = function()

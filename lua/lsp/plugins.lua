@@ -52,7 +52,7 @@ Ice.plugins.mason = {
         "neovim/nvim-lspconfig",
         "mason-org/mason-lspconfig.nvim",
     },
-    event = "User IceLoad",
+    event = "IceAfter blink-cmp",
     cmd = "Mason",
     opts = {
         ui = {

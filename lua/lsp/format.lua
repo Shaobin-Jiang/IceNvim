@@ -3,7 +3,7 @@
 Ice.plugins["null-ls"] = {
     "nvimtools/none-ls.nvim",
     dependencies = { "nvim-lua/plenary.nvim", "nvimtools/none-ls-extras.nvim" },
-    event = "User IceLoad",
+    event = "IceLoad",
     opts = {
         debug = false,
     },

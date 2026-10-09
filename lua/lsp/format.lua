@@ -7,7 +7,7 @@ Ice.plugins["null-ls"] = {
     opts = {
         debug = false,
     },
-    config = function(_, opts)
+    config = function(opts)
         local null_ls = require "null-ls"
         local builtins = require("null-ls.builtins._meta.formatting")
 

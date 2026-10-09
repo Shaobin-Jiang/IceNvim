@@ -4,35 +4,6 @@ local config = {}
 local symbols = Ice.symbols
 local config_root = vim.fn.stdpath "config"
 
--- Add IceLoad event
-vim.api.nvim_create_autocmd("User", {
-    pattern = "IceAfter colorscheme",
-    callback = function()
-        local function should_trigger()
-            return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
-        end
-
-        local function trigger()
-            vim.api.nvim_exec_autocmds("User", { pattern = "IceLoad" })
-        end
-
-        if should_trigger() then
-            trigger()
-            return
-        end
-
-        local ice_load
-        ice_load = vim.api.nvim_create_autocmd("BufEnter", {
-            callback = function()
-                if should_trigger() then
-                    trigger()
-                    vim.api.nvim_del_autocmd(ice_load)
-                end
-            end,
-        })
-    end,
-})
-
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
@@ -52,7 +23,7 @@ config.colorizer = {
             always_update = true,
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("colorizer").setup(opts)
         vim.cmd "ColorizerToggle"
     end,
@@ -102,7 +73,7 @@ config.dashboard = {
             footer = { "🧊 Hope that you enjoy using IceNvim 😀😀😀" },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("dashboard").setup(opts)
 
         if vim.api.nvim_buf_get_name(0) == "" then
@@ -266,7 +237,7 @@ config.neogit = {
     keys = {
         { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("neogit").setup(opts)
         Ice.ft.NeogitCommitMessage = function()
             vim.api.nvim_win_set_cursor(0, { 1, 0 })
@@ -319,7 +290,7 @@ config["nvim-transparent"] = {
             end,
         })
     end,
-    config = function(_, opts)
+    config = function(opts)
         vim.api.nvim_del_autocmd(Ice.__FORCE_TRANSPARENT_AUTOCMD)
         vim.api.nvim_create_autocmd("ColorScheme", {
             group = Ice.__TRANSPARET_AUGROUP,
@@ -368,7 +339,6 @@ config["nvim-transparent"] = {
             end
             return old_set_hl(ns_id, name, val)
         end
-        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter transparent" })
     end,
 }
 
@@ -469,7 +439,7 @@ config["nvim-treesitter"] = {
         },
         -- stylua: ignore end
     },
-    config = function(_, opts)
+    config = function(opts)
         local nvim_treesitter = require "nvim-treesitter"
         nvim_treesitter.setup()
 
@@ -530,14 +500,12 @@ config["nvim-treesitter"] = {
         -- Therefore, the scheme language should be linked to query
         vim.treesitter.language.register("query", "scheme")
 
-        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter nvim-treesitter" })
         vim.api.nvim_exec_autocmds("FileType", { group = "NvimTreesitterFt" })
     end,
 }
 
 config.surround = {
     "kylechui/nvim-surround",
-    version = "*",
     event = "User IceLoad",
 }
 
@@ -632,7 +600,7 @@ config.telescope = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         local telescope = require "telescope"
 
         Ice._telescope_split = function(prompt_bufnr, prompt_buf_type, split_cmd)
@@ -701,7 +669,7 @@ config.ufo = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         vim.opt.foldenable = true
 
         require("ufo").setup(opts)

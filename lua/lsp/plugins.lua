@@ -63,7 +63,7 @@ Ice.plugins.mason = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("mason").setup(opts)
 
         local registry = require "mason-registry"

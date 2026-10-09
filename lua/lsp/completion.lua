@@ -1,8 +1,12 @@
 Ice.plugins["blink-cmp"] = {
     "saghen/blink.cmp",
-    dependencies = { "rafamadriz/friendly-snippets" },
-    event = { "InsertEnter", "CmdlineEnter", "User IceLoad" },
-    version = "*",
+    dependencies = { "rafamadriz/friendly-snippets", "saghen/blink.lib" },
+    event = { "InsertEnter", "CmdlineEnter", "IceLoad" },
+    build = function()
+        local cmp = require "blink.cmp"
+        cmp.build():pwait()
+    end,
+    main = "blink.cmp",
     opts = {
         appearance = {
             kind_icons = Ice.symbols,

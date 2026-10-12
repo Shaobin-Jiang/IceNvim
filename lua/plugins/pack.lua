@@ -1,3 +1,5 @@
+vim.go.loadplugins = false
+
 local specs = {}
 Ice.__COLORSCHME_PLUGINS = {}
 

@@ -51,7 +51,7 @@ config.dashboard = {
             center = {
                 {
                     icon = "  ",
-                    desc = "Lazy Profile",
+                    desc = "IceNvim Plugin Profile",
                     action = "IceProfile",
                 },
                 {

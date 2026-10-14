@@ -23,6 +23,8 @@ utils.colorscheme = function(colorscheme_name, transparent)
     local plugin = Ice.__COLORSCHME_PLUGINS[colorscheme.name]
     if plugin ~= nil then
         vim.cmd.packadd(plugin)
+        Ice.__PROFILE.plugins[plugin] = "loaded"
+        Ice.__PROFILE.plugins_trigger[plugin] = { type = "colorscheme" }
     end
 
     if type(colorscheme.setup) == "table" then

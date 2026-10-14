@@ -2,6 +2,10 @@ vim.go.loadplugins = false
 
 local specs = {}
 Ice.__COLORSCHME_PLUGINS = {}
+Ice.__PROFILE = {
+    plugins = {},
+    plugins_trigger = {},
+}
 
 ---@type table<string, any>
 local pack_changed_autocmd = {}
@@ -19,7 +23,10 @@ end
 local function packadd(plugin, is_dependency, name)
     local enabled = plugin.enabled
     if (type(enabled) == "boolean" and enabled == false) or (type(enabled) == "function" and enabled() == false) then
+        Ice.__PROFILE.plugins[get_spec_name(plugin[1])] = "disabled"
         return
+    else
+        Ice.__PROFILE.plugins[get_spec_name(plugin[1])] = "not loaded"
     end
 
     -- INFO: breaking change: fields like `branch` should all be renamed to `version`
@@ -64,7 +71,12 @@ local function packadd_all_dependencies(source)
             if type(dependency) == "table" then
                 dependency = dependency[1]
             end
-            vim.cmd.packadd(get_spec_name(dependency))
+            local name = get_spec_name(dependency)
+            Ice.__PROFILE.plugins[name] = "loaded"
+            if Ice.__PROFILE.plugins_trigger[name] == nil then
+                Ice.__PROFILE.plugins_trigger[name] = { type = "dependency", value = get_spec_name(source[1]) }
+            end
+            vim.cmd.packadd(name)
         end
     end
 end
@@ -218,6 +230,7 @@ vim.pack.add(specs, {
             end
 
             vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter " .. data.pretty_name })
+            Ice.__PROFILE.plugins[name] = "loaded"
         end
 
         -- Do not lazy load if:
@@ -235,6 +248,9 @@ vim.pack.add(specs, {
             )
         then
             load_function()
+            if Ice.__PROFILE.plugins_trigger[name] == nil then
+                Ice.__PROFILE.plugins_trigger[name] = { type = "init" }
+            end
             return
         end
 
@@ -306,6 +322,9 @@ vim.pack.add(specs, {
                         or (type(keymap.ft) == "table" and vim.list_contains(keymap.ft, ft))
                     then
                         load_function()
+                        if Ice.__PROFILE.plugins_trigger[name] == nil then
+                            Ice.__PROFILE.plugins_trigger[name] = { type = "keys", value = lhs }
+                        end
                         vim.api.nvim_exec_autocmds("FileType", { pattern = ft })
                         local keys = vim.api.nvim_replace_termcodes(lhs, true, true, true)
                         vim.api.nvim_feedkeys(keys, "m", false)
@@ -347,6 +366,9 @@ vim.pack.add(specs, {
                     end
 
                     load_function()
+                    if Ice.__PROFILE.plugins_trigger[name] == nil then
+                        Ice.__PROFILE.plugins_trigger[name] = { type = "cmd", value = cmd }
+                    end
 
                     local info = vim.api.nvim_get_commands({})[cmd] or vim.api.nvim_buf_get_commands(0, {})[cmd]
                     if not info then
@@ -364,6 +386,9 @@ vim.pack.add(specs, {
                     nargs = "*",
                     complete = function(_, line)
                         load_function()
+                        if Ice.__PROFILE.plugins_trigger[name] == nil then
+                            Ice.__PROFILE.plugins_trigger[name] = { type = "cmd", value = cmd }
+                        end
                         return vim.fn.getcompletion(line, "cmdline")
                     end,
                 })
@@ -382,6 +407,13 @@ vim.pack.add(specs, {
 vim.api.nvim_exec_autocmds("User", { pattern = "IcePackDone" })
 
 for event, plugins in pairs(event_load) do
+    local _original_event_name = event
+    if vim.startswith(event, "User ") then
+        local suffix = string.sub(event, 6)
+        if suffix == "VeryLazy" or vim.startswith(suffix, "Ice") then
+            _original_event_name = suffix
+        end
+    end
     local opts = {
         once = true,
         group = augroup,
@@ -389,6 +421,9 @@ for event, plugins in pairs(event_load) do
             for _, name in ipairs(plugins) do
                 if type(load_functions[name]) == "function" then
                     load_functions[name]()
+                    if Ice.__PROFILE.plugins_trigger[name] == nil then
+                        Ice.__PROFILE.plugins_trigger[name] = { type = "event", value = _original_event_name }
+                    end
                     load_functions[name] = nil
                 end
             end
@@ -418,6 +453,9 @@ for ft, plugins in pairs(ft_load) do
             for _, name in ipairs(plugins) do
                 if type(load_functions[name]) == "function" then
                     load_functions[name]()
+                    if Ice.__PROFILE.plugins_trigger[name] == nil then
+                        Ice.__PROFILE.plugins_trigger[name] = { type = "ft", value = vim.bo.filetype }
+                    end
                     load_functions[name] = nil
                 end
             end
@@ -433,7 +471,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
     callback = function()
         local second, microsecond = vim.uv.gettimeofday()
         if second ~= nil then
-            Ice.__startup_time = (second * 1e9 + microsecond * 1000 - vim.v.starttime) / 1e6
+            Ice.__PROFILE.startup_time = second * 1e9 + microsecond * 1000 - vim.v.starttime
         end
         vim.schedule(function()
             vim.api.nvim_exec_autocmds("User", { pattern = "VeryLazy" })
@@ -469,3 +507,5 @@ vim.api.nvim_create_autocmd("User", {
         })
     end,
 })
+
+require "plugins.profile"

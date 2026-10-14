@@ -52,7 +52,7 @@ config.dashboard = {
                 {
                     icon = "  ",
                     desc = "Lazy Profile",
-                    action = "Lazy profile",
+                    action = "IceProfile",
                 },
                 {
                     icon = "  ",

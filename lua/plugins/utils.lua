@@ -15,8 +15,16 @@ utils.colorscheme = function(colorscheme_name, transparent)
 
     local colorscheme = Ice.colorschemes[colorscheme_name]
     if not colorscheme then
-        vim.notify(colorscheme_name .. " is not a valid color scheme!", vim.log.levels.ERROR)
+        vim.notify(colorscheme_name .. " is not a valid colorscheme!", vim.log.levels.ERROR)
         return
+    end
+
+    -- Make sure the colorscheme plugin is loaded
+    local plugin = Ice.__COLORSCHME_PLUGINS[colorscheme.name]
+    if plugin ~= nil then
+        vim.cmd.packadd(plugin)
+        Ice.__PROFILE.plugins[plugin] = "loaded"
+        Ice.__PROFILE.plugins_trigger[plugin] = { type = "colorscheme" }
     end
 
     if type(colorscheme.setup) == "table" then
@@ -24,7 +32,7 @@ utils.colorscheme = function(colorscheme_name, transparent)
     elseif type(colorscheme.setup) == "function" then
         colorscheme.setup()
     end
-    require("lazy.core.loader").colorscheme(colorscheme.name)
+
     vim.cmd("colorscheme " .. colorscheme.name)
     vim.o.background = colorscheme.background
 
@@ -32,7 +40,11 @@ utils.colorscheme = function(colorscheme_name, transparent)
 
     vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter colorscheme" })
 
-    if transparent ~= false and Ice.plugins["nvim-transparent"] ~= nil and Ice.plugins["nvim-transparent"].enabled ~= false then
+    if
+        transparent ~= false
+        and Ice.plugins["nvim-transparent"] ~= nil
+        and Ice.plugins["nvim-transparent"].enabled ~= false
+    then
         if colorscheme.transparent then
             ---@diagnostic disable-next-line: param-type-mismatch
             pcall(vim.cmd, "TransparentEnable")

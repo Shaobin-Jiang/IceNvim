@@ -4,122 +4,10 @@ local config = {}
 local symbols = Ice.symbols
 local config_root = vim.fn.stdpath "config"
 
--- Add IceLoad event
-vim.api.nvim_create_autocmd("User", {
-    pattern = "IceAfter colorscheme",
-    callback = function()
-        local function should_trigger()
-            return vim.bo.filetype ~= "dashboard" and vim.api.nvim_buf_get_name(0) ~= ""
-        end
-
-        local function trigger()
-            vim.api.nvim_exec_autocmds("User", { pattern = "IceLoad" })
-        end
-
-        if should_trigger() then
-            trigger()
-            return
-        end
-
-        local ice_load
-        ice_load = vim.api.nvim_create_autocmd("BufEnter", {
-            callback = function()
-                if should_trigger() then
-                    trigger()
-                    vim.api.nvim_del_autocmd(ice_load)
-                end
-            end,
-        })
-    end,
-})
-
-local function avante(win)
-    return function()
-        local candidate = require("avante").current.sidebar.containers[win]
-        if win then
-            local win_id = candidate.winid
-            vim.api.nvim_set_current_win(win_id)
-        end
-    end
-end
-
-config.avante = {
-    "yetone/avante.nvim",
-    enabled = false,
-    build = function()
-        if require("core.utils").is_windows then
-            return "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
-        else
-            return "make"
-        end
-    end,
-    version = false,
-    opts = {
-        provider = "copilot",
-        providers = {
-            copilot = {
-                model = "gpt-5 mini",
-                extra_request_body = {
-                    temperature = 0.75,
-                    max_tokens = 20480,
-                },
-            },
-        },
-        mappings = {
-            confirm = {
-                focus_window = "<leader>awf",
-            },
-        },
-        windows = {
-            width = 40,
-            sidebar_header = {
-                align = "left",
-                rounded = false,
-            },
-            input = {
-                height = 16,
-            },
-            ask = {
-                start_insert = false,
-            },
-        },
-    },
-    config = function(_, opts)
-        require("avante").setup(opts)
-        local utils = require "avante.utils"
-        local old_icon = utils.icon
-        function utils.icon(string_with_icon, utf8_fallback)
-            if string_with_icon == "󱜸 " then
-                return string.format("󱜸 (%s) ", require("avante.config").get_provider_config("copilot").model)
-            else
-                return old_icon(string_with_icon, utf8_fallback)
-            end
-        end
-    end,
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        "MunifTanjim/nui.nvim",
-        "nvim-telescope/telescope.nvim",
-        "nvim-tree/nvim-web-devicons",
-        "zbirenbaum/copilot.lua",
-        { "MeanderingProgrammer/render-markdown.nvim", opts = { file_types = { "Avante" } }, ft = { "Avante" } },
-    },
-    cmd = { "AvanteHistory", "AvanteModels" },
-    keys = {
-        { "<leader>aa", ":AvanteAsk<CR>", desc = "avante: ask", silent = true },
-        { "<leader>at", ":AvanteToggle<CR>", desc = "avante: toggle", silent = true },
-        { "<leader>awc", avante "selected_code", desc = "focus selected code", silent = true },
-        { "<leader>awi", avante "input", desc = "focus input", silent = true },
-        { "<leader>awa", avante "result", desc = "focus result", silent = true },
-        { "<leader>aws", avante "selected_files", desc = "focus selected files", silent = true },
-        { "<leader>awt", avante "todos", desc = "focus todo", silent = true },
-    },
-}
-
 config.colorizer = {
     "NvChad/nvim-colorizer.lua",
     main = "colorizer",
-    event = "User IceLoad",
+    event = "IceLoad",
     opts = {
         lazy_load = true,
         options = {
@@ -135,7 +23,7 @@ config.colorizer = {
             always_update = true,
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("colorizer").setup(opts)
         vim.cmd "ColorizerToggle"
     end,
@@ -143,7 +31,7 @@ config.colorizer = {
 
 config.dashboard = {
     "nvimdev/dashboard-nvim",
-    event = "User IceAfter colorscheme",
+    event = "IceAfter colorscheme",
     opts = {
         theme = "doom",
         config = {
@@ -163,8 +51,8 @@ config.dashboard = {
             center = {
                 {
                     icon = "  ",
-                    desc = "Lazy Profile",
-                    action = "Lazy profile",
+                    desc = "IceNvim Plugin Profile",
+                    action = "IceProfile",
                 },
                 {
                     icon = "  ",
@@ -185,10 +73,11 @@ config.dashboard = {
             footer = { "🧊 Hope that you enjoy using IceNvim 😀😀😀" },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("dashboard").setup(opts)
 
         if vim.api.nvim_buf_get_name(0) == "" then
+            Ice.__temp = vim.api.nvim_buf_get_name(0)
             vim.cmd "Dashboard"
         end
 
@@ -220,7 +109,7 @@ config.fidget = {
 
 config.gitsigns = {
     "lewis6991/gitsigns.nvim",
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "gitsigns",
     opts = {},
     keys = {
@@ -263,7 +152,7 @@ config.hop = {
 
 config["indent-blankline"] = {
     "lukas-reineke/indent-blankline.nvim",
-    event = "User IceAfter nvim-treesitter",
+    event = "IceAfter nvim-treesitter",
     main = "ibl",
     opts = {
         exclude = {
@@ -287,7 +176,7 @@ config["indent-blankline"] = {
 config.lualine = {
     "nvim-lualine/lualine.nvim",
     dependencies = { "nvim-tree/nvim-web-devicons" },
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "lualine",
     opts = {
         options = {
@@ -349,7 +238,7 @@ config.neogit = {
     keys = {
         { "<leader>gt", "<Cmd>Neogit<CR>", desc = "neogit", silent = true },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("neogit").setup(opts)
         Ice.ft.NeogitCommitMessage = function()
             vim.api.nvim_win_set_cursor(0, { 1, 0 })
@@ -369,7 +258,7 @@ config["nvim-autopairs"] = {
 
 config["nvim-scrollview"] = {
     "dstein64/nvim-scrollview",
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "scrollview",
     opts = {
         excluded_filetypes = { "nvimtree" },
@@ -402,7 +291,7 @@ config["nvim-transparent"] = {
             end,
         })
     end,
-    config = function(_, opts)
+    config = function(opts)
         vim.api.nvim_del_autocmd(Ice.__FORCE_TRANSPARENT_AUTOCMD)
         vim.api.nvim_create_autocmd("ColorScheme", {
             group = Ice.__TRANSPARET_AUGROUP,
@@ -451,7 +340,6 @@ config["nvim-transparent"] = {
             end
             return old_set_hl(ns_id, name, val)
         end
-        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter transparent" })
     end,
 }
 
@@ -541,8 +429,7 @@ config["nvim-treesitter"] = {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = { "hiphish/rainbow-delimiters.nvim" },
-    event = "User IceAfter colorscheme",
-    branch = "main",
+    event = "IceAfter colorscheme",
     opts = {
         -- Preserved for compatibility concerns
         -- stylua: ignore start
@@ -553,7 +440,7 @@ config["nvim-treesitter"] = {
         },
         -- stylua: ignore end
     },
-    config = function(_, opts)
+    config = function(opts)
         local nvim_treesitter = require "nvim-treesitter"
         nvim_treesitter.setup()
 
@@ -614,21 +501,20 @@ config["nvim-treesitter"] = {
         -- Therefore, the scheme language should be linked to query
         vim.treesitter.language.register("query", "scheme")
 
-        vim.api.nvim_exec_autocmds("User", { pattern = "IceAfter nvim-treesitter" })
         vim.api.nvim_exec_autocmds("FileType", { group = "NvimTreesitterFt" })
     end,
 }
 
 config.surround = {
     "kylechui/nvim-surround",
-    version = "*",
-    event = "User IceLoad",
+    event = "IceLoad",
 }
 
 config.telescope = {
     "nvim-telescope/telescope.nvim",
     dependencies = {
         "nvim-lua/plenary.nvim",
+        "nvim-tree/nvim-web-devicons",
         {
             "nvim-telescope/telescope-fzf-native.nvim",
             build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && "
@@ -716,7 +602,7 @@ config.telescope = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         local telescope = require "telescope"
 
         Ice._telescope_split = function(prompt_bufnr, prompt_buf_type, split_cmd)
@@ -762,7 +648,7 @@ config.telescope = {
 config["todo-comments"] = {
     "folke/todo-comments.nvim",
     dependencies = { "nvim-lua/plenary.nvim" },
-    event = "User IceLoad",
+    event = "IceLoad",
     main = "todo-comments",
     opts = {},
     keys = {
@@ -785,7 +671,7 @@ config.ufo = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         vim.opt.foldenable = true
 
         require("ufo").setup(opts)
@@ -839,7 +725,6 @@ config["which-key"] = {
             },
         },
         spec = {
-            { "<leader>a", group = "+avante" },
             { "<leader>b", group = "+buffer" },
             { "<leader>c", group = "+comment" },
             { "<leader>g", group = "+git" },
@@ -862,7 +747,7 @@ config["which-key"] = {
 
 config.winsep = {
     "nvim-zh/colorful-winsep.nvim",
-    event = "User IceAfter colorscheme",
+    event = "IceAfter colorscheme",
     opts = {
         border = "single",
         highlight = function()
@@ -879,7 +764,6 @@ config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
 config["everforest"] = { "sainnhe/everforest", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
 config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
-config["miasma"] = { "xero/miasma.nvim", lazy = true }
 config["monet"] = { "fynnfluegge/monet.nvim", lazy = true }
 config["nightfox"] = { "EdenEast/nightfox.nvim", lazy = true }
 config["tokyonight"] = { "folke/tokyonight.nvim", lazy = true }

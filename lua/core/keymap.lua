@@ -211,7 +211,7 @@ Ice.keymap = {
 
     join_lines = { { "n", "v" }, "J", join_lines },
 
-    lazy_profile = { "n", "<leader>ul", "<Cmd>Lazy profile<CR>" },
+    lazy_profile = { "n", "<leader>ul", "<Cmd>IceProfile<CR>" },
 
     new_line_below_normal = { "n", "<A-o>", "o<Esc>" },
     new_line_above_normal = { "n", "<A-O>", "O<Esc>" },

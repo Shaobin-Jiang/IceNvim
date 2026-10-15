@@ -21,9 +21,9 @@ end
 
 -- Only load plugins and colorscheme when --noplugin arg is not present
 if not require("core.utils").noplugin then
-    require("lazy").setup(vim.tbl_values(Ice.plugins), Ice.lazy)
+    require("plugins.pack")
 
-    local pattern = "IceAfter transparent"
+    local pattern = "IceAfter nvim-transparent"
     if Ice.plugins["nvim-transparent"].enabled == false then
         pattern = "VeryLazy"
     end

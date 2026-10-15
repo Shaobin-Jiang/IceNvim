@@ -52,7 +52,7 @@ Ice.plugins.mason = {
         "neovim/nvim-lspconfig",
         "mason-org/mason-lspconfig.nvim",
     },
-    event = "User IceLoad",
+    event = "IceAfter blink-cmp",
     cmd = "Mason",
     opts = {
         ui = {
@@ -63,7 +63,7 @@ Ice.plugins.mason = {
             },
         },
     },
-    config = function(_, opts)
+    config = function(opts)
         require("mason").setup(opts)
 
         local registry = require "mason-registry"

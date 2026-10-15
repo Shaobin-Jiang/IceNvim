@@ -77,6 +77,7 @@ config.dashboard = {
         require("dashboard").setup(opts)
 
         if vim.api.nvim_buf_get_name(0) == "" then
+            Ice.__temp = vim.api.nvim_buf_get_name(0)
             vim.cmd "Dashboard"
         end
 
@@ -763,7 +764,6 @@ config["cyberdream"] = { "scottmckendry/cyberdream.nvim", lazy = true }
 config["everforest"] = { "sainnhe/everforest", lazy = true }
 config["gruvbox"] = { "ellisonleao/gruvbox.nvim", lazy = true }
 config["kanagawa"] = { "rebelot/kanagawa.nvim", lazy = true }
-config["miasma"] = { "xero/miasma.nvim", lazy = true }
 config["monet"] = { "fynnfluegge/monet.nvim", lazy = true }
 config["nightfox"] = { "EdenEast/nightfox.nvim", lazy = true }
 config["tokyonight"] = { "folke/tokyonight.nvim", lazy = true }

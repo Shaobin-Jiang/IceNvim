@@ -76,10 +76,6 @@ Ice.colorschemes = {
         name = "kanagawa-lotus",
         background = "light",
     },
-    miasma = {
-        name = "miasma",
-        background = "dark",
-    },
     ["monet-dark"] = {
         name = "monet",
         transparent = true,

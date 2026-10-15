@@ -21,5 +21,3 @@ For a detailed introduction on the various features of and on how to use IceNvim
 ![](./screenshots/2.jpg)
 
 ![](./screenshots/3.jpg)
-
-![](./screenshots/4.jpg)

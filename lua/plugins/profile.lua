@@ -67,11 +67,14 @@ local function profile()
         local content = {
             {
                 "Startup Time: ",
-                { tostring(math.floor(Ice.__PROFILE.startup_time / 1e4 + 0.5) / 100) .. " ms", hl = "Purple" },
+                {
+                    tostring(math.floor(Ice.__PROFILE.startup_time / 1e4 + 0.5) / 100) .. " ms",
+                    hl = "RainbowDelimiterViolet",
+                },
             },
-            { "Total plugins ", { "(" .. tostring(total_plugins) .. ")", hl = "Grey" } },
+            { "Total plugins ", { "(" .. tostring(total_plugins) .. ")", hl = "RainbowDelimiterCyan" } },
             "",
-            { "Plugins loaded ", { "(" .. tostring(#loaded_plugins) .. ")", hl = "Grey" } },
+            { "Plugins loaded ", { "(" .. tostring(#loaded_plugins) .. ")", hl = "RainbowDelimiterCyan" } },
         }
 
         for _, plugin in ipairs(loaded_plugins) do
@@ -80,33 +83,33 @@ local function profile()
             local trigger = Ice.__PROFILE.plugins_trigger[plugin]
             if trigger ~= nil then
                 if trigger.type == "init" then
-                    trigger_display = { "  init", hl = "White" }
+                    trigger_display = { "  init", hl = "RainbowDelimiterCyan" }
                 elseif trigger.type == "dependency" then
-                    trigger_display = { "  " .. trigger.value, hl = "Yellow" }
+                    trigger_display = { "  " .. trigger.value, hl = "RainbowDelimiterYellow" }
                 elseif trigger.type == "event" then
-                    trigger_display = { "  " .. trigger.value, hl = "Green" }
+                    trigger_display = { "  " .. trigger.value, hl = "RainbowDelimiterGreen" }
                 elseif trigger.type == "ft" then
-                    trigger_display = { "  " .. trigger.value, hl = "Blue" }
+                    trigger_display = { "  " .. trigger.value, hl = "RainbowDelimiterBlue" }
                 elseif trigger.type == "keys" then
-                    trigger_display = { " 󰌌 " .. trigger.value, hl = "Purple" }
+                    trigger_display = { " 󰌌 " .. trigger.value, hl = "RainbowDelimiterViolet" }
                 elseif trigger.type == "cmd" then
-                    trigger_display = { " 󰘳 " .. trigger.value, hl = "Orange" }
+                    trigger_display = { " 󰘳 " .. trigger.value, hl = "RainbowDelimiterOrange" }
                 elseif trigger.type == "colorscheme" then
-                    trigger_display = { "  colorscheme", hl = "Red" }
+                    trigger_display = { "  colorscheme", hl = "RainbowDelimiterRed" }
                 end
             end
             local plugin_state
             if Ice.__PROFILE.plugins_state[plugin] ~= nil then
                 local stale_days = Ice.__PROFILE.plugins_state[plugin]
-                local hl = "Grey"
+                local hl = "RainbowDelimiterCyan"
                 if stale_days > 30 and stale_days <= 365 then
-                    hl = "Yellow"
+                    hl = "RainbowDelimiterYellow"
                 elseif stale_days > 365 then
-                    hl = "Red"
+                    hl = "RainbowDelimiterRed"
                 end
                 plugin_state = { "    last updated " .. stale_days .. " days ago", hl = hl }
             end
-            local line = { { "   ", hl = "Blue" }, plugin, trigger_display }
+            local line = { { "   ", hl = "RainbowDelimiterBlue" }, plugin, trigger_display }
             local filler_length = 60 - vim.fn.strdisplaywidth(line[1][1]) - vim.fn.strdisplaywidth(line[2])
             if trigger_display ~= nil then
                 filler_length -= vim.fn.strdisplaywidth(trigger_display[1])
@@ -117,21 +120,22 @@ local function profile()
         end
         content[#content + 1] = ""
 
-        content[#content + 1] = { "Plugins not loaded ", { "(" .. tostring(#not_loaded_plugins) .. ")", hl = "Grey" } }
+        content[#content + 1] =
+            { "Plugins not loaded ", { "(" .. tostring(#not_loaded_plugins) .. ")", hl = "RainbowDelimiterCyan" } }
         for _, plugin in ipairs(not_loaded_plugins) do
             local plugin_state
             if Ice.__PROFILE.plugins_state[plugin] ~= nil then
                 local stale_days = Ice.__PROFILE.plugins_state[plugin]
-                local hl = "Grey"
+                local hl = "RainbowDelimiterCyan"
                 if stale_days > 30 and stale_days <= 365 then
-                    hl = "Yellow"
+                    hl = "RainbowDelimiterYellow"
                 elseif stale_days > 365 then
-                    hl = "Red"
+                    hl = "RainbowDelimiterRed"
                 end
                 plugin_state = { "    last updated " .. stale_days .. " days ago", hl = hl }
             end
 
-            local line = { { "   ", hl = "Blue" }, plugin }
+            local line = { { "   ", hl = "RainbowDelimiterBlue" }, plugin }
             local filler_length = 60 - vim.fn.strdisplaywidth(line[1][1]) - vim.fn.strdisplaywidth(line[2])
             line[#line + 1] = string.rep(" ", filler_length)
             line[#line + 1] = plugin_state
@@ -139,9 +143,10 @@ local function profile()
         end
         content[#content + 1] = ""
 
-        content[#content + 1] = { "Disabled plugins ", { "(" .. tostring(#disabled_plugins) .. ")", hl = "Grey" } }
+        content[#content + 1] =
+            { "Disabled plugins ", { "(" .. tostring(#disabled_plugins) .. ")", hl = "RainbowDelimiterCyan" } }
         for _, plugin in ipairs(disabled_plugins) do
-            content[#content + 1] = { { "   ", hl = "Red" }, plugin }
+            content[#content + 1] = { { "   ", hl = "RainbowDelimiterRed" }, plugin }
         end
 
         local _content = {}

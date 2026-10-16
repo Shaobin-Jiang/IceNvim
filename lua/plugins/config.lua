@@ -62,7 +62,7 @@ config.dashboard = {
                 {
                     icon = "  ",
                     desc = "Mason",
-                    action = "Mason",
+                    action = "execute 'doautocmd User Dashboard-Mason' | Mason",
                 },
                 {
                     icon = "  ",
@@ -77,7 +77,6 @@ config.dashboard = {
         require("dashboard").setup(opts)
 
         if vim.api.nvim_buf_get_name(0) == "" then
-            Ice.__temp = vim.api.nvim_buf_get_name(0)
             vim.cmd "Dashboard"
         end
 

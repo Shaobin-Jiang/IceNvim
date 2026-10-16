@@ -1,7 +1,7 @@
 Ice.plugins["blink-cmp"] = {
     "saghen/blink.cmp",
     dependencies = { "rafamadriz/friendly-snippets", "saghen/blink.lib" },
-    event = { "InsertEnter", "CmdlineEnter", "IceLoad" },
+    event = { "InsertEnter", "CmdlineEnter", "IceLoad", "User Dashboard-Mason" },
     build = function()
         local cmp = require "blink.cmp"
         cmp.build():pwait()

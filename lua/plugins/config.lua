@@ -464,10 +464,7 @@ config["nvim-treesitter"] = {
                 local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(ev.buf))
                 if not (ok and stats and stats.size > max_filesize) then
                     vim.treesitter.start()
-                    if vim.bo.filetype ~= "dart" then
-                        -- Conflicts with flutter-tools.nvim, causing performance issues
-                        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-                    end
+                    -- TODO: delete this
                 end
             end,
         })

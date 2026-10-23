@@ -245,6 +245,7 @@ vim.pack.add(specs, {
                 and source.event == nil
                 and source.ft == nil
                 and source.keys == nil
+                and source.workspace == nil
             )
         then
             load_function()
@@ -399,6 +400,44 @@ vim.pack.add(specs, {
                     _old_load_function()
                 end
             end
+        end
+
+        if source.workspace ~= nil then
+            ---@diagnostic disable: assign-type-mismatch, param-type-mismatch
+            local workspaces = source.workspace
+            if type(source.workspace) == "string" then
+                workspaces = { source.workspace }
+            end
+
+            vim.api.nvim_create_autocmd("User", {
+                once = true,
+                pattern = "IceLoad",
+                callback = function()
+                    local function check_workspace()
+                        local root = require("core.utils").get_root()
+                        for _, pattern in ipairs(workspaces) do
+                            if vim.uv.fs_stat(vim.fs.joinpath(root, pattern)) then
+                                load_function()
+                                if Ice.__PROFILE.plugins_trigger[name] == nil then
+                                    Ice.__PROFILE.plugins_trigger[name] = { type = "workspace", value = pattern }
+                                end
+                                return true
+                            end
+                        end
+                        return false
+                    end
+                    if not check_workspace() then
+                        local autocmd = 0
+                        autocmd = vim.api.nvim_create_autocmd("BufEnter", {
+                            callback = function()
+                                if check_workspace() then
+                                    vim.api.nvim_del_autocmd(autocmd)
+                                end
+                            end,
+                        })
+                    end
+                end,
+            })
         end
 
         load_functions[name] = load_function

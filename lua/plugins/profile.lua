@@ -83,7 +83,7 @@ local function profile()
             local trigger = Ice.__PROFILE.plugins_trigger[plugin]
             if trigger ~= nil then
                 if trigger.type == "init" then
-                    trigger_display = { "  init", hl = "RainbowDelimiterCyan" }
+                    trigger_display = { "  init", hl = "Normal" }
                 elseif trigger.type == "dependency" then
                     trigger_display = { "  " .. trigger.value, hl = "RainbowDelimiterYellow" }
                 elseif trigger.type == "event" then
@@ -94,6 +94,8 @@ local function profile()
                     trigger_display = { " 󰌌 " .. trigger.value, hl = "RainbowDelimiterViolet" }
                 elseif trigger.type == "cmd" then
                     trigger_display = { " 󰘳 " .. trigger.value, hl = "RainbowDelimiterOrange" }
+                elseif trigger.type == "workspace" then
+                    trigger_display = { "  " .. trigger.value, hl = "RainbowDelimiterCyan" }
                 elseif trigger.type == "colorscheme" then
                     trigger_display = { "  colorscheme", hl = "RainbowDelimiterRed" }
                 end

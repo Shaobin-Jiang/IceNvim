@@ -2,11 +2,8 @@ local symbols = Ice.symbols
 
 Ice.plugins["flutter-tools"] = {
     "nvim-flutter/flutter-tools.nvim",
-    ft = "dart",
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-    },
-    main = "flutter-tools",
+    workspace = "pubspec.yaml",
+    dependencies = { "nvim-lua/plenary.nvim" },
     opts = {
         ui = {
             border = "rounded",
@@ -18,6 +15,11 @@ Ice.plugins["flutter-tools"] = {
             },
         },
     },
+    config = function(opts)
+        require("flutter-tools").setup(opts)
+        -- Flutter* commands only load upon BufEnter-ing *.dart or pubspec.yaml
+        vim.api.nvim_exec_autocmds("BufEnter", { pattern = "pubspec.yaml" })
+    end,
     enabled = function()
         return Ice.lsp.flutter.enabled == true
     end,
